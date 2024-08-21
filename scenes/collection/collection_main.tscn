@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://brbql0ue77hej"]
+
+[ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_mwewq"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8xpc2"]
+
+[sub_resource type="Sky" id="Sky_ae31v"]
+sky_material = SubResource("PanoramaSkyMaterial_8xpc2")
+
+[sub_resource type="Environment" id="Environment_uwvdt"]
+background_mode = 2
+sky = SubResource("Sky_ae31v")
+ambient_light_source = 1
+reflected_light_source = 1
+fog_enabled = true
+
+[node name="ArtivactSceneBase" instance=ExtResource("1_mwewq")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_uwvdt")

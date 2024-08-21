@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cropeq6s8aaq8"]
+
+[ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1_fmfkn"]
+[ext_resource type="Texture2D" uid="uid://2cxqwewhv7qj" path="res://logo-large.png" id="2_4eode"]
+
+[node name="ArtivactStaging" instance=ExtResource("1_fmfkn")]
+main_scene = "res://scenes/artivact_main.tscn"
+prompt_for_continue = false
+
+[node name="LoadingScreen" parent="." index="2"]
+splash_screen = ExtResource("2_4eode")

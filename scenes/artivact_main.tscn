@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdtdnlnm638tq"]
+
+[ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_olef5"]
+[ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_l8njf"]
+[ext_resource type="Script" path="res://scripts/artivact_main.gd" id="3_2vjui"]
+[ext_resource type="Texture2D" uid="uid://bkkdrj4fygoj6" path="res://assets/images/dust_particle.png" id="4_4np3s"]
+[ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/fonts/Roboto-Regular.ttf" id="4_leivr"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_04of7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qyir"]
+transparency = 1
+albedo_texture = ExtResource("4_4np3s")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0aqeg"]
+material = SubResource("StandardMaterial3D_6qyir")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Environment" id="Environment_edct5"]
+ambient_light_color = Color(1, 1, 0.831373, 1)
+reflected_light_source = 1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sohj6"]
+
+[node name="ArtivactMainScene" instance=ExtResource("1_olef5")]
+
+[node name="main" parent="." index="1" instance=ExtResource("2_l8njf")]
+script = ExtResource("3_2vjui")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="main" index="16"]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 2, 0, 5.28834, -2.85811)
+amount = 1
+lifetime = 3.0
+randomness = 0.16
+process_material = SubResource("ParticleProcessMaterial_04of7")
+draw_pass_1 = SubResource("QuadMesh_0aqeg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
+environment = SubResource("Environment_edct5")
+camera_attributes = SubResource("CameraAttributesPractical_sohj6")
+
+[node name="Light" type="OmniLight3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37775, -4.15558)
+light_color = Color(1, 1, 0.968627, 1)
+light_size = 25.0
+light_specular = 15.0
+omni_range = 9.041
+omni_attenuation = 2.0
+
+[node name="LabelArtivactXR" type="Label3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27319, -6.47608)
+text = "Artivact XR"
+font = ExtResource("4_leivr")
+font_size = 128
