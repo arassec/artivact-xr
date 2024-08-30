@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdtdnlnm638tq"]
+
+[ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
+[ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_e428c"]
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="3_woaaa"]
+[ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_d5uxy"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_kb3me"]
+[ext_resource type="PackedScene" uid="uid://dxfwxs8uult8l" path="res://scenes/main/collection_selector_ui.tscn" id="7_drnnf"]
+[ext_resource type="PackedScene" uid="uid://b585jgd5c12f4" path="res://scenes/main/main_menu_ui.tscn" id="7_enre3"]
+[ext_resource type="PackedScene" uid="uid://sxn2hgsi1uru" path="res://scenes/main/collection_menu_ui.tscn" id="8_rwhk8"]
+
+[sub_resource type="Environment" id="Environment_edct5"]
+ambient_light_color = Color(1, 1, 0.831373, 1)
+reflected_light_source = 1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sohj6"]
+
+[node name="ArtivactMainScene" instance=ExtResource("1_8d5xv")]
+
+[node name="main" parent="." index="1" instance=ExtResource("2_e428c")]
+script = ExtResource("3_woaaa")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
+environment = SubResource("Environment_edct5")
+camera_attributes = SubResource("CameraAttributesPractical_sohj6")
+
+[node name="Light" type="OmniLight3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37775, -4.15558)
+light_color = Color(1, 1, 0.968627, 1)
+light_size = 25.0
+light_specular = 15.0
+omni_range = 9.041
+omni_attenuation = 2.0
+
+[node name="LabelArtivactXR" type="Label3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -6.5)
+text = "Artivact XR"
+font = ExtResource("5_d5uxy")
+font_size = 256
+outline_size = 24
+
+[node name="MainMenuViewport2Din3D" parent="." index="5" instance=ExtResource("6_kb3me")]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -2.2, 2.35, -3.25)
+screen_size = Vector2(1.125, 0.75)
+scene = ExtResource("7_enre3")
+viewport_size = Vector2(1500, 1000)
+transparent = 2
+unshaded = true
+filter = false
+scene_properties_keys = PackedStringArray("main_menu_ui.gd")
+
+[node name="CollectionSelectorViewport2Din3D" parent="." index="6" instance=ExtResource("6_kb3me")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -3.5)
+scene = ExtResource("7_drnnf")
+viewport_size = Vector2(1500, 1000)
+input_keyboard = false
+transparent = 0
+unshaded = true
+scene_properties_keys = PackedStringArray("collection_selector_ui.gd")
+
+[node name="CollectionMenuViewport2Din3D2" parent="." index="7" instance=ExtResource("6_kb3me")]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 2.2, 2.35, -3.25)
+screen_size = Vector2(1.125, 0.75)
+scene = ExtResource("8_rwhk8")
+viewport_size = Vector2(1500, 1000)
+transparent = 2
+unshaded = true
+scene_properties_keys = PackedStringArray("collection_menu_ui.gd")

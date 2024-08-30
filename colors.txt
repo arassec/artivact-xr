@@ -1,0 +1,9 @@
+Primary:   #6e7e85
+Secondary: #bbbac6
+Accent:    #F5F5F5
+Dark:      #364958
+
+Positive: #87a330
+Negative: #a4031f
+Info:     #e2e2e2
+Warning:  #e6c229

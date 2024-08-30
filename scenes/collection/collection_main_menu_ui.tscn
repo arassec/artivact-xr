@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dycxg87anbsqt"]
+
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_h8s8e"]
+[ext_resource type="Texture2D" uid="uid://8a2mg3tpaybg" path="res://assets/ui/icons/stop_circle_64dp_F5F5F5.svg" id="1_ko3sn"]
+[ext_resource type="Script" path="res://scenes/collection/collection_main_menu_ui.gd" id="1_v3t44"]
+
+[node name="CollectionMainMenuUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_h8s8e")
+script = ExtResource("1_v3t44")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 192
+text = "Quit"
+icon = ExtResource("1_ko3sn")
+expand_icon = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="quit_collection"]

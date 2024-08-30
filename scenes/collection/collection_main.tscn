@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://brbql0ue77hej"]
+[gd_scene load_steps=9 format=3 uid="uid://brbql0ue77hej"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_mwewq"]
+[ext_resource type="Texture2D" uid="uid://t0yf7n57awy5" path="res://scenes/collection/rosendal_plains_2_4k.png" id="2_vg2o6"]
+[ext_resource type="Script" path="res://scenes/collection/collection_main.gd" id="3_478kd"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_vv251"]
+[ext_resource type="PackedScene" uid="uid://dycxg87anbsqt" path="res://scenes/collection/collection_main_menu_ui.tscn" id="5_80khn"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8xpc2"]
+panorama = ExtResource("2_vg2o6")
 
 [sub_resource type="Sky" id="Sky_ae31v"]
 sky_material = SubResource("PanoramaSkyMaterial_8xpc2")
@@ -18,3 +23,15 @@ fog_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_uwvdt")
+
+[node name="main" type="Node" parent="." index="2"]
+script = ExtResource("3_478kd")
+
+[node name="CollectionMainMenuViewport2Din3D" parent="main" index="0" instance=ExtResource("4_vv251")]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -2.2, 2.35, -3.25)
+screen_size = Vector2(1.125, 0.75)
+scene = ExtResource("5_80khn")
+viewport_size = Vector2(1500, 1000)
+transparent = 2
+unshaded = true
+scene_properties_keys = PackedStringArray("collection_main_menu_ui.gd")
