@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdtdnlnm638tq"]
+[gd_scene load_steps=12 format=3 uid="uid://cdtdnlnm638tq"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_e428c"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="3_woaaa"]
+[ext_resource type="PackedScene" uid="uid://besyy3cq3hxsy" path="res://scripts/util/remote_artivact_server.tscn" id="4_ky8e4"]
 [ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_d5uxy"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_kb3me"]
 [ext_resource type="PackedScene" uid="uid://dxfwxs8uult8l" path="res://scenes/main/collection_selector_ui.tscn" id="7_drnnf"]
@@ -19,6 +20,8 @@ reflected_light_source = 1
 
 [node name="main" parent="." index="1" instance=ExtResource("2_e428c")]
 script = ExtResource("3_woaaa")
+
+[node name="RemoteArtivactServer" parent="main" index="16" instance=ExtResource("4_ky8e4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
 environment = SubResource("Environment_edct5")

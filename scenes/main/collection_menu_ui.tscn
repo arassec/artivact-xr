@@ -32,18 +32,14 @@ theme_override_constants/margin_bottom = 35
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="OpenButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer"]
+[node name="OpenButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 196
 text = "Open"
 icon = ExtResource("1_uim4d")
 expand_icon = true
 
-[node name="DownloadButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer"]
-visible = false
+[node name="DownloadButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 196
 text = "Download"
@@ -51,13 +47,12 @@ icon = ExtResource("3_m8tcs")
 expand_icon = true
 
 [node name="DeleteButton" type="Button" parent="MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 196
 text = "Delete"
 icon = ExtResource("3_2t0n0")
 expand_icon = true
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/OpenButton" to="." method="open_collection"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/DownloadButton" to="." method="open_collection"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/DeleteButton" to="." method="open_collection"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/OpenButton" to="." method="open_collection"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/DownloadButton" to="." method="download_collection"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/DeleteButton" to="." method="delete_collection"]

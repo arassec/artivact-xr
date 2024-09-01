@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://besyy3cq3hxsy"]
+
+[ext_resource type="Script" path="res://scripts/util/remote_artivact_server.gd" id="1_rlnfe"]
+
+[node name="RemoteArtivactServer" type="Node"]
+script = ExtResource("1_rlnfe")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
