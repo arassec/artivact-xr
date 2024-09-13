@@ -31,9 +31,10 @@ layout_mode = 2
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 192
-text = "Quit"
+theme_override_font_sizes/font_size = 150
+text = "COLLECTION_QUIT"
 icon = ExtResource("1_ko3sn")
+clip_text = true
 expand_icon = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="quit_collection"]

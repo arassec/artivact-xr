@@ -3,7 +3,7 @@ class_name TranslatableRestrictedString
 extends TranslatableString
 
 var id: String = ""
-var restrictions: Array[String] = []
+var restrictions = []
 
 func _init(data: Dictionary):
 	super._init(data)

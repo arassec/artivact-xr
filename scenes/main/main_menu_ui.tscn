@@ -34,29 +34,28 @@ theme_override_constants/separation = 75
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 196
-text = "Exit"
+theme_override_font_sizes/font_size = 150
+text = "MAIN_EXIT"
 icon = ExtResource("1_yvtnn")
+clip_text = true
 expand_icon = true
 
-[node name="UpdateCollectionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="SynchronizeButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 196
-text = "Synchronize
-"
+theme_override_font_sizes/font_size = 150
+text = "MAIN_SYNCHRONIZE"
 icon = ExtResource("3_ehffx")
+clip_text = true
 expand_icon = true
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_font_sizes/font_size = 196
-text = "Settings
-"
+text = "MAIN_SETTINGS"
 icon = ExtResource("2_rt074")
 expand_icon = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ExitButton" to="." method="exit_application"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/UpdateCollectionsButton" to="." method="update_collection_infos"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SynchronizeButton" to="." method="update_collection_infos"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingsButton" to="." method="open_settings"]

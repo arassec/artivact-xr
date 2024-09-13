@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdtdnlnm638tq"]
+[gd_scene load_steps=13 format=3 uid="uid://cdtdnlnm638tq"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_e428c"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dxfwxs8uult8l" path="res://scenes/main/collection_selector_ui.tscn" id="7_drnnf"]
 [ext_resource type="PackedScene" uid="uid://b585jgd5c12f4" path="res://scenes/main/main_menu_ui.tscn" id="7_enre3"]
 [ext_resource type="PackedScene" uid="uid://sxn2hgsi1uru" path="res://scenes/main/collection_menu_ui.tscn" id="8_rwhk8"]
+[ext_resource type="PackedScene" uid="uid://cbhv6ca84h5ty" path="res://scenes/main/status.tscn" id="10_ru8st"]
 
 [sub_resource type="Environment" id="Environment_edct5"]
 ambient_light_color = Color(1, 1, 0.831373, 1)
@@ -69,3 +70,6 @@ viewport_size = Vector2(1500, 1000)
 transparent = 2
 unshaded = true
 scene_properties_keys = PackedStringArray("collection_menu_ui.gd")
+
+[node name="Status" parent="." index="8" instance=ExtResource("10_ru8st")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.5)

@@ -52,4 +52,8 @@ func get_formatted_filesize():
 
 
 func update_available():
-	return lastModified < lastModifiedRemote
+	return lastModified < (lastModifiedRemote / 1000)
+
+
+func can_be_deleted():
+	return localFile != null && localFile.begins_with("user://")

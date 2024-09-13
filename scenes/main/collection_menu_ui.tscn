@@ -34,23 +34,26 @@ theme_override_constants/separation = 50
 
 [node name="OpenButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 196
-text = "Open"
+theme_override_font_sizes/font_size = 150
+text = "MAIN_OPEN"
 icon = ExtResource("1_uim4d")
+clip_text = true
 expand_icon = true
 
 [node name="DownloadButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 196
+theme_override_font_sizes/font_size = 150
 text = "Download"
 icon = ExtResource("3_m8tcs")
+clip_text = true
 expand_icon = true
 
 [node name="DeleteButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 196
-text = "Delete"
+theme_override_font_sizes/font_size = 150
+text = "MAIN_DELETE"
 icon = ExtResource("3_2t0n0")
+clip_text = true
 expand_icon = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OpenButton" to="." method="open_collection"]

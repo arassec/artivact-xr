@@ -6,21 +6,14 @@
 ####################################################################################################
 extends Node3D
 
-# Contains basic collection information for the main menu:
-var collectionInfos: Array[CollectionInfo] = []
-# The index of the currently selected collection info:
-var currentCollectionInfo: int = -1
+# Indicates whether to initialize the collection selector or not.
+var initCollectionSelector = true
 
-# Contains the collection ZIP readers, indexed by the collection's ID.
-#    Collection ID -> ZIP Reader of the collection's ZIP file on disk
-var collectionZipReaders: Dictionary = {}
+# Indicates whether a download is currently in progress or not:
+var downloadInProgress = false
 
-# Contains the parsed content export JSON file, indexed by the collection's ID.
-#    Collection ID -> ArtivactContentJson
-var artivactContentJsons: Dictionary = {}
-
-# Path to the file containing available content exports of the remote Artivact server:
-var contentExportOverviewsFile = "user://artivact.content-export-overviews.zip"
+# Delay before the status of downloads is updated in milliseconds:
+var downloadStatusDelay = 10
 
 
 ####################################################################################################
@@ -32,10 +25,9 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.UPDATE_REMOTE_COLLECTION_INFOS, update_remote_collection_infos)
 	SignalBus.register(SignalBus.SignalType.NEXT_COLLECTION_INFO, next_collection_info)
 	SignalBus.register(SignalBus.SignalType.PREVIOUS_COLLECTION_INFO, previous_collection_info)
+	SignalBus.register(SignalBus.SignalType.DOWNLOAD_COLLECTION, download_collection)
 	SignalBus.register(SignalBus.SignalType.OPEN_COLLECTION, open_collection)
-
-	# Collect collection information from disk:
-	load_collection_infos()
+	SignalBus.register(SignalBus.SignalType.DELETE_COLLECTION, delete_collection_file)
 
 
 ####################################################################################################
@@ -52,10 +44,17 @@ func _ready():
 # because the info panel is a sub-scene and has to be initialized, first.
 # The Update is only triggered the first time this method is called after start.
 ####################################################################################################
-func _process(_delta):
-	if currentCollectionInfo == -1 && collectionInfos.size() > 0:
-		currentCollectionInfo = 0
-		SignalBus.trigger_with_multiload(SignalBus.SignalType.UPDATE_SELECTED_COLLECTION, collectionInfos[currentCollectionInfo], {"currentCollectionInfo": currentCollectionInfo, "totalCollectionInfos": collectionInfos.size()})
+func _process(delta):
+	if initCollectionSelector:
+		initCollectionSelector = false
+		# Collect collection information from disk:
+		CollectionStore.load_collection_infos()
+		
+	if downloadInProgress:
+		downloadStatusDelay = downloadStatusDelay - (delta * 1000)
+		if downloadStatusDelay < 0:
+			downloadStatusDelay = 10
+			SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_PROGRESS, $RemoteArtivactServer.get_progress(CollectionStore.get_collection_info().fileSizeRemote))
 
 
 ####################################################################################################
@@ -72,8 +71,12 @@ func _input(event):
 		SignalBus.trigger(SignalBus.SignalType.PREVIOUS_COLLECTION_INFO)
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_N:
 		SignalBus.trigger(SignalBus.SignalType.NEXT_COLLECTION_INFO)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_D:
+		SignalBus.trigger(SignalBus.SignalType.DOWNLOAD_COLLECTION)
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_Q:
 		SignalBus.trigger(SignalBus.SignalType.NEXT_COLLECTION_INFO)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_X:
+		SignalBus.trigger(SignalBus.SignalType.DELETE_COLLECTION)
 
 
 ####################################################################################################
@@ -84,7 +87,9 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.UPDATE_REMOTE_COLLECTION_INFOS, update_remote_collection_infos)
 	SignalBus.deregister(SignalBus.SignalType.NEXT_COLLECTION_INFO, next_collection_info)
 	SignalBus.deregister(SignalBus.SignalType.PREVIOUS_COLLECTION_INFO, previous_collection_info)
+	SignalBus.deregister(SignalBus.SignalType.DOWNLOAD_COLLECTION, download_collection)
 	SignalBus.deregister(SignalBus.SignalType.OPEN_COLLECTION, open_collection)
+	SignalBus.deregister(SignalBus.SignalType.DELETE_COLLECTION, delete_collection_file)
 
 
 ####################################################################################################
@@ -100,15 +105,14 @@ func _notification(what):
 ####################################################################################################
 func exit_application():
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	
+
 
 ####################################################################################################
 # Starts the download of the remote file containing information about available collections.
 ####################################################################################################
 func update_remote_collection_infos():
-	DirAccess.remove_absolute(contentExportOverviewsFile)
-	load_collection_infos()
-	$RemoteArtivactServer.get_collection_infos(_remote_collection_infos_updated, contentExportOverviewsFile)
+	CollectionStore.remove_content_export_overviews_file()
+	$RemoteArtivactServer.get_collection_infos(_remote_collection_infos_updated, CollectionStore.contentExportOverviewsFile)
 
 
 ####################################################################################################
@@ -116,135 +120,46 @@ func update_remote_collection_infos():
 ####################################################################################################
 func _remote_collection_infos_updated(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		print("Could not synchronize with Artivact server!")
-
-	merge_remote_collection_infos()
-
-
-####################################################################################################
-# Merges downloaded collection information into the already created from the local filesystem:
-####################################################################################################
-func merge_remote_collection_infos():
-	var zipReader = ZIPReader.new()
-	var openResult := zipReader.open(contentExportOverviewsFile)
-	if openResult != OK:
-		# File might not have been downloaded by the user...
-		return
-
-	var contentExportOverviewsJson := JSON.new()
-	var contentExportOverviewsJsonFile = zipReader.read_file("artivact.content-export-overviews.json").get_string_from_utf8()
-	var parseResult := contentExportOverviewsJson.parse(contentExportOverviewsJsonFile)
-	if parseResult != OK:
-		# TODO: Error handling!
-		return
-
-	var contentExportOverviews = contentExportOverviewsJson.data
-	
-	for rawContentExport in contentExportOverviews:
-		if !rawContentExport.has("exportType") || !rawContentExport["exportType"] == "JSON":
-			continue
-			
-		if !rawContentExport.has("zipped") || !rawContentExport["zipped"]:
-			continue
-		
-		var contentExport = ContentExport.new(rawContentExport)
-		var existingCollectionInfoUpdated = false
-		for collectionInfo in collectionInfos:
-			if collectionInfo.id == contentExport.id:
-				collectionInfo.update_online_data(contentExport)
-				existingCollectionInfoUpdated = true
-				
-		if !existingCollectionInfoUpdated:
-			var newCollectionInfo = CollectionInfo.new(contentExport.id)
-			newCollectionInfo.update_online_data(contentExport)
-			
-			for fileInZip in zipReader.get_files():
-				if fileInZip.begins_with(newCollectionInfo.id):
-					var img = zipReader.read_file(fileInZip)
-					var coverPicture = Image.new()
-					var loadResult = ERR_UNAVAILABLE
-					if fileInZip.ends_with("jpg") || fileInZip.ends_with("JPG") || fileInZip.ends_with("jpeg") || fileInZip.ends_with("JPEG"):
-						loadResult = coverPicture.load_jpg_from_buffer(img)
-					elif fileInZip.ends_with("png") || fileInZip.ends_with("PNG"):
-						loadResult = coverPicture.load_png_from_buffer(img)
-					if loadResult == OK:
-						newCollectionInfo.set_cover_picture(ImageTexture.create_from_image(coverPicture))
-				
-			collectionInfos.append(newCollectionInfo)
-
-	SignalBus.trigger_with_multiload(SignalBus.SignalType.UPDATE_SELECTED_COLLECTION, collectionInfos[currentCollectionInfo], {"currentCollectionInfo": currentCollectionInfo, "totalCollectionInfos": collectionInfos.size()})
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, false)
+	else:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, true)		
+	CollectionStore.load_collection_infos()
 
 
 ####################################################################################################
-# Loads collection information. First from local content export files found in the filesystem, and 
-# afterwards from the downloaded remote file with information about available collections, if it 
-# exists.
+# Starts the download of the remote file containing information about available collections.
 ####################################################################################################
-func load_collection_infos():
-	collectionInfos.clear()
-	var resourceFiles = DirAccess.get_files_at("res://")
-	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.content.json.zip"):
-			load_collection_info("res://", resourceFile)
-	resourceFiles = DirAccess.get_files_at("user://")
-	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.content.json.zip"):
-			load_collection_info("user://", resourceFile)
-	merge_remote_collection_infos()
+func download_collection():
+	var collectionInfo = CollectionStore.get_collection_info()
+	if collectionInfo != null && collectionInfo.fileSizeRemote > 0:
+		$RemoteArtivactServer.download_collection(_download_collection_finished, collectionInfo.id)
+		downloadInProgress = true
 
 
 ####################################################################################################
-# Loads collection info from a local Artivact content export file
+# Callback, called after remote collection information has been downloaded.
 ####################################################################################################
-func load_collection_info(locationPrefix: String, collectionFile: String):
-	var collectionId = collectionFile.replace(".artivact.content.json.zip", "")
-	var collectionZipFile = str("res://", collectionFile)
-	var collectionJsonFile = "artivact.content.json"
-	
-	var zipReader = ZIPReader.new()
-	var openResult := zipReader.open(collectionZipFile)
-	if openResult != OK:
-		# TODO: Error handling!
-		return
-	
-	var collectionJson := JSON.new()
-	var collectionJsonString = zipReader.read_file(collectionJsonFile).get_string_from_utf8()
-	var parseResult := collectionJson.parse(collectionJsonString)
-	if parseResult != OK:
-		# TODO: Error handling!
-		return
-
-	var collectionData = collectionJson.data
-
-	# Save the parsed content JSON containing properties and tags:	
-	artivactContentJsons[collectionId] = ArtivactContentJson.new(collectionData)
-	
-	# Save the ZIP reader for the collection file:
-	collectionZipReaders[collectionId] = zipReader
-	
-	# Create collection info for the main menu:
-	var lastModified = FileAccess.get_modified_time(collectionZipFile)
-	var file := FileAccess.open(collectionZipFile, FileAccess.READ)
-	var fileSize = file.get_length()
-	collectionInfos.append(CollectionInfo.new(collectionId, artivactContentJsons[collectionId], lastModified, fileSize, str(locationPrefix, collectionFile)))
+func _download_collection_finished(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_FINISHED, false)
+	else:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_FINISHED, true)	
+	downloadInProgress = false
+	CollectionStore.load_collection_infos()
 
 
 ####################################################################################################
 # Switches to the next collection information.
 ####################################################################################################
 func next_collection_info():
-	if currentCollectionInfo < (collectionInfos.size() -1):
-		currentCollectionInfo = currentCollectionInfo + 1
-		SignalBus.trigger_with_multiload(SignalBus.SignalType.UPDATE_SELECTED_COLLECTION, collectionInfos[currentCollectionInfo], {"currentCollectionInfo": currentCollectionInfo, "totalCollectionInfos": collectionInfos.size()})
+	CollectionStore.next_collection_info()
 
 
 ####################################################################################################
 # Switches to the previous collection information.
 ####################################################################################################
 func previous_collection_info():
-	if currentCollectionInfo > 0:
-		currentCollectionInfo = currentCollectionInfo -1
-		SignalBus.trigger_with_multiload(SignalBus.SignalType.UPDATE_SELECTED_COLLECTION, collectionInfos[currentCollectionInfo], {"currentCollectionInfo": currentCollectionInfo, "totalCollectionInfos": collectionInfos.size()})
+	CollectionStore.previous_collection_info()
 
 
 ####################################################################################################
@@ -257,3 +172,17 @@ func open_collection():
 		return
 	# Request loading the next scene
 	scene_base.load_scene("res://scenes/collection/collection_main.tscn")
+
+
+####################################################################################################
+# Deletes the file of the currently selected collection.
+####################################################################################################
+func delete_collection_file():
+	var collectionInfo = CollectionStore.get_collection_info()
+	if collectionInfo == null:
+		return
+	var fileToDelete = collectionInfo.localFile
+	if fileToDelete.begins_with("user://"):
+		CollectionStore.remove_collection_zip_reader(collectionInfo.id)
+		DirAccess.remove_absolute(fileToDelete)
+		CollectionStore.load_collection_infos()

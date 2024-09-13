@@ -1,33 +1,24 @@
 [gd_scene load_steps=9 format=3 uid="uid://brbql0ue77hej"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_mwewq"]
-[ext_resource type="Texture2D" uid="uid://t0yf7n57awy5" path="res://scenes/collection/rosendal_plains_2_4k.png" id="2_vg2o6"]
 [ext_resource type="Script" path="res://scenes/collection/collection_main.gd" id="3_478kd"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_vv251"]
+[ext_resource type="PackedScene" uid="uid://bphg16wbbvfa8" path="res://scenes/collection/page_navigation_ui.tscn" id="5_4r3ql"]
 [ext_resource type="PackedScene" uid="uid://dycxg87anbsqt" path="res://scenes/collection/collection_main_menu_ui.tscn" id="5_80khn"]
+[ext_resource type="PackedScene" uid="uid://hvjqru84n8vv" path="res://scenes/collection/widget_navigation.tscn" id="6_x138b"]
+[ext_resource type="PackedScene" uid="uid://cfqxi2cddn05j" path="res://scenes/collection/widget_manager.tscn" id="7_lm2t4"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8xpc2"]
-panorama = ExtResource("2_vg2o6")
-
-[sub_resource type="Sky" id="Sky_ae31v"]
-sky_material = SubResource("PanoramaSkyMaterial_8xpc2")
-
-[sub_resource type="Environment" id="Environment_uwvdt"]
-background_mode = 2
-sky = SubResource("Sky_ae31v")
-ambient_light_source = 1
-reflected_light_source = 1
-fog_enabled = true
+[sub_resource type="Environment" id="Environment_hlf3y"]
 
 [node name="ArtivactSceneBase" instance=ExtResource("1_mwewq")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
-environment = SubResource("Environment_uwvdt")
+environment = SubResource("Environment_hlf3y")
 
-[node name="main" type="Node" parent="." index="2"]
+[node name="CollectionMain" type="Node" parent="." index="2"]
 script = ExtResource("3_478kd")
 
-[node name="CollectionMainMenuViewport2Din3D" parent="main" index="0" instance=ExtResource("4_vv251")]
+[node name="CollectionMainMenuViewport2Din3D" parent="CollectionMain" index="0" instance=ExtResource("4_vv251")]
 transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -2.2, 2.35, -3.25)
 screen_size = Vector2(1.125, 0.75)
 scene = ExtResource("5_80khn")
@@ -35,3 +26,23 @@ viewport_size = Vector2(1500, 1000)
 transparent = 2
 unshaded = true
 scene_properties_keys = PackedStringArray("collection_main_menu_ui.gd")
+
+[node name="PageNavigationViewport2Din3D2" parent="CollectionMain" index="1" instance=ExtResource("4_vv251")]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -2.2, 2, -3.25)
+screen_size = Vector2(1.125, 0.75)
+scene = ExtResource("5_4r3ql")
+viewport_size = Vector2(1500, 1000)
+transparent = 2
+unshaded = true
+scene_properties_keys = PackedStringArray("page_navigation_ui.gd")
+
+[node name="WidgetNavigationViewport2Din3D3" parent="CollectionMain" index="2" instance=ExtResource("4_vv251")]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 2.2, 2.35, -3.25)
+screen_size = Vector2(1.125, 0.75)
+scene = ExtResource("6_x138b")
+viewport_size = Vector2(1500, 1000)
+transparent = 2
+unshaded = true
+scene_properties_keys = PackedStringArray("widget_navigation.gd")
+
+[node name="WidgetManager" parent="CollectionMain" index="3" instance=ExtResource("7_lm2t4")]

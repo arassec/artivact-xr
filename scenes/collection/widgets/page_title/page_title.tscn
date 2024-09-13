@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dssoa077llcil"]
+
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_7je4o"]
+[ext_resource type="Script" path="res://scenes/collection/widgets/page_title/page_title.gd" id="1_lwkdg"]
+[ext_resource type="PackedScene" uid="uid://b6f0xit1hrtcx" path="res://scenes/collection/widgets/page_title/page_title_ui.tscn" id="2_y1xv4"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_lwkdg")
+
+[node name="PageTitleUiViewport2Din3D" parent="." instance=ExtResource("1_7je4o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -3.5)
+scene = ExtResource("2_y1xv4")
+viewport_size = Vector2(1500, 1000)
+input_keyboard = false
+transparent = 0
+unshaded = true
+scene_properties_keys = PackedStringArray("page_title_ui.gd")

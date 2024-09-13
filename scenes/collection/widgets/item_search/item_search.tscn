@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt0y1cf82707e"]
+
+[ext_resource type="Script" path="res://scenes/collection/widgets/item_search/item_search.gd" id="1_xnqgg"]
+
+[node name="ItemSearch" type="Node3D"]
+script = ExtResource("1_xnqgg")
+
+[node name="Test" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)

@@ -13,26 +13,28 @@ func _exit_tree():
 
 
 func _enter_tree():
+	find_child("OpenButton").disabled = true
 	find_child("DownloadButton").disabled = true
 	find_child("DeleteButton").disabled = true
 
 
 func update_collection_info(collectionInfo: CollectionInfo, data: Dictionary):
-	if collectionInfo.localFile:
-		find_child("DeleteButton").disabled = false
+	if collectionInfo.localFile != "":
+		find_child("OpenButton").disabled = false
+		find_child("DeleteButton").disabled = !collectionInfo.can_be_deleted()
 	else:
+		find_child("OpenButton").disabled = true
 		find_child("DeleteButton").disabled = true
 
-	# TODO: I18N
 	var downloadButton = find_child("DownloadButton")
 	if collectionInfo.localFile != "" && collectionInfo.update_available():
-		downloadButton.text = "Update"
+		downloadButton.text = tr("MAIN_UPDATE")
 		downloadButton.disabled = false
 	elif collectionInfo.localFile == "" && collectionInfo.update_available():
-		downloadButton.text = "Download"
+		downloadButton.text = tr("MAIN_DOWNLOAD")
 		downloadButton.disabled = false
 	else:
-		downloadButton.text = "Download"
+		downloadButton.text = tr("MAIN_UPTODATE")
 		downloadButton.disabled = true
 
 
@@ -45,4 +47,4 @@ func download_collection():
 	
 
 func delete_collection():
-	SignalBus.trigger(SignalBus.SignalType.OPEN_COLLECTION)
+	SignalBus.trigger(SignalBus.SignalType.DELETE_COLLECTION)

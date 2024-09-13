@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6f0xit1hrtcx"]
+
+[ext_resource type="Script" path="res://scenes/collection/widgets/page_title/page_title_ui.gd" id="1_g32tw"]
+
+[node name="PageTitleUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g32tw")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoverPictureTextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="ContentCover" type="ColorRect" parent="Panel/CoverPictureTextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25)
+
+[node name="TitleLabel" type="Label" parent="Panel/CoverPictureTextureRect/ContentCover"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+offset_left = 25.0
+offset_top = 412.0
+offset_right = 1475.0
+offset_bottom = 587.0
+theme_override_font_sizes/font_size = 128
+text = "Page Title Widget"
+horizontal_alignment = 1
+autowrap_mode = 2

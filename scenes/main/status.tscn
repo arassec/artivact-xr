@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbhv6ca84h5ty"]
+
+[ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="1_sks54"]
+[ext_resource type="Script" path="res://scenes/main/status.gd" id="2_p1h4e"]
+
+[node name="Status" type="Node3D"]
+script = ExtResource("2_p1h4e")
+
+[node name="StatusLabel" type="Label3D" parent="."]
+modulate = Color(1, 0, 0, 1)
+text = "Status"
+font = ExtResource("1_sks54")
+outline_size = 2

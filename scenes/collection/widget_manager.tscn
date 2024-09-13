@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfqxi2cddn05j"]
+
+[ext_resource type="Script" path="res://scenes/collection/widget_manager.gd" id="1_tw3hj"]
+
+[node name="WidgetManager" type="Node3D"]
+script = ExtResource("1_tw3hj")
