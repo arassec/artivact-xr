@@ -20,4 +20,3 @@ static func create_menu_button_container(button: Button) -> MarginContainer:
 	marginContainer.add_child(button)
 	return marginContainer
 	
-	

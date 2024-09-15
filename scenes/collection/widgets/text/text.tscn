@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://oy88881ev81w"]
+
+[ext_resource type="Script" path="res://scenes/collection/widgets/text/text.gd" id="1_ch5bk"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_vd48i"]
+[ext_resource type="PackedScene" uid="uid://28gvkovxs7vo" path="res://scenes/collection/widgets/text/text_ui.tscn" id="3_icq4n"]
+
+[node name="Text" type="Node3D"]
+script = ExtResource("1_ch5bk")
+
+[node name="TextUiViewport2Din3D" parent="." instance=ExtResource("2_vd48i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -3.5)
+scene = ExtResource("3_icq4n")
+viewport_size = Vector2(1500, 1000)
+input_keyboard = false
+transparent = 0
+unshaded = true
+scene_properties_keys = PackedStringArray("text_ui.gd")

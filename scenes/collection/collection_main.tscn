@@ -9,13 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://cfqxi2cddn05j" path="res://scenes/collection/widget_manager.tscn" id="7_lm2t4"]
 
 [sub_resource type="Environment" id="Environment_hlf3y"]
+reflected_light_source = 1
 
 [node name="ArtivactSceneBase" instance=ExtResource("1_mwewq")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_hlf3y")
 
-[node name="CollectionMain" type="Node" parent="." index="2"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.937513, 0.34795, 0, -0.34795, 0.937513, 0, 2.21349, 0)
+
+[node name="CollectionMain" type="Node" parent="." index="3"]
 script = ExtResource("3_478kd")
 
 [node name="CollectionMainMenuViewport2Din3D" parent="CollectionMain" index="0" instance=ExtResource("4_vv251")]

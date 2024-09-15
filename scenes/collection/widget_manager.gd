@@ -14,6 +14,8 @@ func replace_widget(widget: Widget):
 		scene = load("res://scenes/collection/widgets/page_title/page_title.tscn")
 	elif widget is ItemSearchWidget:
 		scene = load("res://scenes/collection/widgets/item_search/item_search.tscn")
+	elif widget is TextWidget:
+		scene = load("res://scenes/collection/widgets/text/text.tscn")
 
 	if scene != null:
 		currentWidgetInstance = scene.instantiate()

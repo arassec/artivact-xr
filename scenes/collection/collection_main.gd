@@ -47,7 +47,6 @@ func _load_pages():
 		_load_page(mainArtivactMenuJson.targetPageId)
 	elif mainArtivactMenuJson.menuEntries.size() > 0:
 		# Multi-Page export:
-		
 		for menuEntry in mainArtivactMenuJson.menuEntries:
 			if menuEntry.targetPageId != "":
 				menus.append(menuEntry)
@@ -76,9 +75,9 @@ func _ready():
 # TODO
 ####################################################################################################
 func _process(delta):
-	if openPage == true && menus.size() > 0:
+	if openPage == true:
 		openPage = false
-		_open_page(menus[0].targetPageId)
+		_open_page(pages[0].id)
 
 
 ####################################################################################################

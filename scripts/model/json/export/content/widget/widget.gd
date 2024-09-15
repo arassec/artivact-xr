@@ -24,4 +24,4 @@ func _init(data: Dictionary):
 
 
 func label() -> String:
-	return id
+	return WidgetType.keys()[type]

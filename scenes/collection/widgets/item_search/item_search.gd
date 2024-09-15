@@ -13,6 +13,12 @@ var currentItemIndex
 
 var initialized = false
 
+
+var uiScene
+
+var loadedModel
+
+
 func initialize(widgetInput: ItemSearchWidget):
 	widget = widgetInput
 	var json = CollectionStore.read_json_file(str(widget.id, ".artivact.search-result.json"))
@@ -26,15 +32,67 @@ func initialize(widgetInput: ItemSearchWidget):
 		currentItemId = itemIds[currentItemIndex]
 
 
+func _ready():
+	var uiVieport = $ItemSearchUiViewport2Din3D
+	uiScene = uiVieport.get_scene_instance()
+	if uiScene != null:
+		var previousButton = uiScene.find_child("PreviousButton")
+		if previousButton != null:
+			previousButton.pressed.connect(self._change_model.bind(false))
+		var nextButton = uiScene.find_child("NextButton")
+		if nextButton != null:
+			nextButton.pressed.connect(self._change_model.bind(true))
+		var paginatorLabel = uiScene.find_child("PaginatorLabel")
+		if paginatorLabel != null:
+			paginatorLabel.text = str(currentItemIndex + 1, " / ", items.size())
+	var itemTitleLabel = find_child("ItemTitleLabel")
+	itemTitleLabel.text = items[currentItemId].title.translate()
+	
 
-func _process(_delta):
+func _input(event):
+	if event is InputEventKey && !event.pressed && event.keycode == Key.KEY_LEFT:
+		_change_model(false)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_RIGHT:
+		_change_model(true)
+
+
+
+func _process(delta):
 	if !initialized && currentItemId != null:
-		load_model(currentItemId)
+		_load_model(currentItemId)
 		initialized = true
+		
+	loadedModel.rotate(Vector3(0, 1, 0), 0.4 * delta)
 
 
+func _change_model(forward: bool):
+	if forward:
+		currentItemIndex = currentItemIndex + 1
+	else:
+		currentItemIndex = currentItemIndex -1
+		
+	if currentItemIndex >= items.size():
+		currentItemIndex = 0
+	elif currentItemIndex < 0:
+		currentItemIndex = items.size() - 1
+		
+	currentItemId = itemIds[currentItemIndex]
+	
+	if loadedModel != null:
+		$ModelAnchor.remove_child(loadedModel)
+		loadedModel.queue_free()
+	
+	var paginatorLabel = uiScene.find_child("PaginatorLabel")
+	if paginatorLabel != null:
+		paginatorLabel.text = str(currentItemIndex + 1, " / ", items.size())
+	
+	var itemTitleLabel = find_child("ItemTitleLabel")
+	itemTitleLabel.text = items[currentItemId].title.translate()
+	
+	_load_model(currentItemId)
 
-func load_model(itemId: String):
+
+func _load_model(itemId: String):
 	var gltfDocument = GLTFDocument.new()
 	var gltfState = GLTFState.new()
 
@@ -50,7 +108,7 @@ func load_model(itemId: String):
 		printerr(errMsg)
 		return
 
-	var loadedModel = gltfDocument.generate_scene(gltfState)
+	loadedModel = gltfDocument.generate_scene(gltfState)
 	
 	var size:Vector3
 	for n in loadedModel.get_children().size():
@@ -58,9 +116,9 @@ func load_model(itemId: String):
 			var mesh:MeshInstance3D = loadedModel.get_child(n)
 			size = mesh.get_aabb().size
 			break;
-	var targetSizeInM = 50 / 100.0 # Size should initially be 50cm.
+	var targetSizeInM = 150 / 100.0 # Size should initially be 150cm.
 	var currentSizeInM = size.x
 	var scaleFactor = targetSizeInM / currentSizeInM
 	loadedModel.scale = Vector3(scaleFactor, scaleFactor, scaleFactor)
 
-	$Test.add_child(loadedModel)
+	$ModelAnchor.add_child(loadedModel)

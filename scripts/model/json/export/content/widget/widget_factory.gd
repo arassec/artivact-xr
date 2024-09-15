@@ -10,5 +10,7 @@ static func create_from_json(data: Dictionary) -> Widget:
 			return PageTitleWidget.new(data)
 		elif type == Widget.WidgetType.ITEM_SEARCH:
 			return ItemSearchWidget.new(data)
+		elif type == Widget.WidgetType.TEXT:
+			return TextWidget.new(data)
 
 	return Widget.new(data)
