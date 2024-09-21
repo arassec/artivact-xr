@@ -73,8 +73,6 @@ func _input(event):
 		SignalBus.trigger(SignalBus.SignalType.NEXT_COLLECTION_INFO)
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_D:
 		SignalBus.trigger(SignalBus.SignalType.DOWNLOAD_COLLECTION)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_Q:
-		SignalBus.trigger(SignalBus.SignalType.NEXT_COLLECTION_INFO)
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_X:
 		SignalBus.trigger(SignalBus.SignalType.DELETE_COLLECTION)
 

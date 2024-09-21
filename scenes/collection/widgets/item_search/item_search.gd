@@ -12,11 +12,12 @@ var currentItemId = null
 var currentItemIndex
 
 var initialized = false
+var modelLoaded = false
 
+var modelLoaderThread: Thread
+var loadedModel: Node
 
-var uiScene
-
-var loadedModel
+var rotateModel = true
 
 
 func initialize(widgetInput: ItemSearchWidget):
@@ -25,28 +26,20 @@ func initialize(widgetInput: ItemSearchWidget):
 
 	for itemId in json.values:
 		itemIds.append(itemId)
-		items[itemId] = ArtivactItem.new(CollectionStore.read_json_file(str(itemId, "/", itemId, ".artivact.item.json")))
 
 	if itemIds.size() > 0:
 		currentItemIndex = 0
 		currentItemId = itemIds[currentItemIndex]
+		items[currentItemId] = ArtivactItem.new(CollectionStore.read_json_file(str(currentItemId, "/", currentItemId, ".artivact.item.json")))
 
 
 func _ready():
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	uiScene = uiVieport.get_scene_instance()
-	if uiScene != null:
-		var previousButton = uiScene.find_child("PreviousButton")
-		if previousButton != null:
-			previousButton.pressed.connect(self._change_model.bind(false))
-		var nextButton = uiScene.find_child("NextButton")
-		if nextButton != null:
-			nextButton.pressed.connect(self._change_model.bind(true))
-		var paginatorLabel = uiScene.find_child("PaginatorLabel")
-		if paginatorLabel != null:
-			paginatorLabel.text = str(currentItemIndex + 1, " / ", items.size())
-	var itemTitleLabel = find_child("ItemTitleLabel")
-	itemTitleLabel.text = items[currentItemId].title.translate()
+	_get_previous_button().pressed.connect(self._change_model.bind(false))
+	_get_next_button().pressed.connect(self._change_model.bind(true))
+	_get_rotate_button().pressed.connect(self._toggle_rotate)
+	_get_info_button().pressed.connect(self._toggle_info)
+	_update_paginator_label()
+	_toggle_info()
 	
 
 func _input(event):
@@ -54,27 +47,46 @@ func _input(event):
 		_change_model(false)
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_RIGHT:
 		_change_model(true)
-
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_R:
+		_toggle_rotate()
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_I:
+		_toggle_info()
 
 
 func _process(delta):
 	if !initialized && currentItemId != null:
-		_load_model(currentItemId)
 		initialized = true
-		
-	loadedModel.rotate(Vector3(0, 1, 0), 0.4 * delta)
+		currentItemIndex = -1
+		_change_model(true)
+	
+	if modelLoaded:
+		modelLoaded = false
+		_update_info()
+		$ModelAnchor.add_child(loadedModel)
+		var itemTitleLabel = find_child("ItemTitleLabel")
+		itemTitleLabel.text = items[currentItemId].title.translate()
+		_enable_buttons()
+	
+	if loadedModel != null && rotateModel:
+		loadedModel.rotate(Vector3(0, 1, 0), 0.4 * delta)
 
 
 func _change_model(forward: bool):
+	_disable_buttons()
+	
+	var infoScene = _get_info_scene()
+	if infoScene.visible:
+		_toggle_info()	
+	
 	if forward:
 		currentItemIndex = currentItemIndex + 1
 	else:
 		currentItemIndex = currentItemIndex -1
 		
-	if currentItemIndex >= items.size():
+	if currentItemIndex >= itemIds.size():
 		currentItemIndex = 0
 	elif currentItemIndex < 0:
-		currentItemIndex = items.size() - 1
+		currentItemIndex = itemIds.size() - 1
 		
 	currentItemId = itemIds[currentItemIndex]
 	
@@ -82,17 +94,41 @@ func _change_model(forward: bool):
 		$ModelAnchor.remove_child(loadedModel)
 		loadedModel.queue_free()
 	
-	var paginatorLabel = uiScene.find_child("PaginatorLabel")
-	if paginatorLabel != null:
-		paginatorLabel.text = str(currentItemIndex + 1, " / ", items.size())
+	_update_paginator_label()
 	
-	var itemTitleLabel = find_child("ItemTitleLabel")
-	itemTitleLabel.text = items[currentItemId].title.translate()
-	
-	_load_model(currentItemId)
+	if modelLoaderThread != null && modelLoaderThread.is_started():
+		modelLoaderThread.wait_to_finish()
+
+	modelLoaderThread = Thread.new()
+	modelLoaderThread.start(_load_model.bind(currentItemId), Thread.PRIORITY_LOW)
+
+
+func _toggle_rotate():
+	rotateModel = !rotateModel
+
+
+func _toggle_info():
+	var uiScene = _get_info_scene()
+	uiScene.visible = !uiScene.visible
+	if loadedModel != null:
+		loadedModel.visible = !uiScene.visible
+
+
+func _update_info():
+	var uiScene = _get_info_scene()
+	uiScene.update(items[currentItemId])
+
+
+func _get_info_scene():
+	var uiVieport = $ItemInfoUiViewport2Din3D
+	var uiScene = uiVieport.get_scene_instance()
+	return uiScene
 
 
 func _load_model(itemId: String):
+	if !items.has(itemId):
+		items[itemId] = ArtivactItem.new(CollectionStore.read_json_file(str(itemId, "/", itemId, ".artivact.item.json")))
+
 	var gltfDocument = GLTFDocument.new()
 	var gltfState = GLTFState.new()
 
@@ -110,15 +146,51 @@ func _load_model(itemId: String):
 
 	loadedModel = gltfDocument.generate_scene(gltfState)
 	
-	var size:Vector3
-	for n in loadedModel.get_children().size():
-		if "MeshInstance3D"	== loadedModel.get_child(n).get_class():
-			var mesh:MeshInstance3D = loadedModel.get_child(n)
-			size = mesh.get_aabb().size
-			break;
-	var targetSizeInM = 150 / 100.0 # Size should initially be 150cm.
-	var currentSizeInM = size.x
-	var scaleFactor = targetSizeInM / currentSizeInM
-	loadedModel.scale = Vector3(scaleFactor, scaleFactor, scaleFactor)
+	ModelHelper.scale_model(loadedModel, 2, 100)
 
-	$ModelAnchor.add_child(loadedModel)
+	modelLoaded = true
+
+
+func _get_previous_button() -> Button:
+	var uiVieport = $ItemSearchUiViewport2Din3D
+	var uiScene = uiVieport.get_scene_instance()
+	return uiScene.find_child("PreviousButton")
+
+
+func _get_next_button() -> Button:
+	var uiVieport = $ItemSearchUiViewport2Din3D
+	var uiScene = uiVieport.get_scene_instance()
+	return uiScene.find_child("NextButton")
+
+
+func _get_info_button() -> Button:
+	var uiVieport = $ItemSearchUiViewport2Din3D
+	var uiScene = uiVieport.get_scene_instance()
+	return uiScene.find_child("InfoButton")
+
+
+func _get_rotate_button() -> Button:
+	var uiVieport = $ItemSearchUiViewport2Din3D
+	var uiScene = uiVieport.get_scene_instance()
+	return uiScene.find_child("RotateButton")
+
+
+func _disable_buttons():
+	_get_previous_button().disabled = true
+	_get_next_button().disabled = true
+	_get_info_button().disabled = true
+	_get_rotate_button().disabled = true
+
+
+func _enable_buttons():
+	_get_previous_button().disabled = false
+	_get_next_button().disabled = false
+	_get_info_button().disabled = false
+	_get_rotate_button().disabled = false
+
+
+func _update_paginator_label():
+	var uiVieport = $ItemSearchUiViewport2Din3D
+	var uiScene = uiVieport.get_scene_instance()
+	var paginatorLabel = uiScene.find_child("PaginatorLabel")
+	paginatorLabel.text = str(currentItemIndex + 1, " / ", itemIds.size())

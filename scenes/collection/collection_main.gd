@@ -18,6 +18,8 @@ var initialize = true
 var openPage = true
 var selectedPage: ArtivactPageContentJson
 
+var backgroundSceneInstance
+
 
 ####################################################################################################
 # Registers for signals.
@@ -29,6 +31,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.OPEN_WIDGET, _open_widget)
 
 	_load_pages()
+	_load_background()
 
 
 ####################################################################################################
@@ -53,6 +56,16 @@ func _load_pages():
 				_load_page(menuEntry.targetPageId)
 		
 	
+####################################################################################################
+# TODO
+####################################################################################################
+func _load_background():
+	var backgroundScene = load("res://scenes/collection/backgrounds/default/default_background.tscn")
+	if backgroundScene != null:
+		backgroundSceneInstance = backgroundScene.instantiate()
+		add_child(backgroundSceneInstance)
+
+
 	
 ####################################################################################################
 # TODO

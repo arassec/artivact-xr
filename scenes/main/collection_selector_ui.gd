@@ -58,23 +58,23 @@ func update_collection_info(collectionInfo: CollectionInfo, data: Dictionary):
 
 
 func _update_remote_collection_infos():
-	find_child("StatusLabel").text = 'Synchronizing...'
+	find_child("StatusLabel").text = tr("MAIN_SYNCHRONIZING")
 	find_child("OperationInProgressCover").visible = true
 
 
 func _download_collection():
-	find_child("StatusLabel").text = 'Downloading...'
+	find_child("StatusLabel").text = tr("MAIN_DOWNLOADING")
 	find_child("OperationInProgressCover").visible = true
 
 
 func _download_collection_progress(progress: int):
-	find_child("StatusLabel").text = str('Downloading... ', progress, '%')
+	find_child("StatusLabel").text = str(tr("MAIN_DOWNLOADING"), ' ', progress, '%')
 
 
 func _reload_collection_infos():
 	var statusLabel = find_child("StatusLabel")
 	if statusLabel != null:
-		statusLabel.text = 'Refreshing...'
+		statusLabel.text = tr("MAIN_LOADING")
 	var operationInProgressCover = find_child("OperationInProgressCover")
 	if operationInProgressCover != null:
 		operationInProgressCover.visible = true

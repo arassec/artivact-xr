@@ -13,6 +13,9 @@ albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
 
 [node name="ArtivactSceneBase" instance=ExtResource("1_tbcxv")]
 
+[node name="RightHand" parent="XROrigin3D" index="2"]
+show_when_tracked = true
+
 [node name="RightHand" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("3_821sg")]
 hand_material_override = SubResource("StandardMaterial3D_pm2t0")
 

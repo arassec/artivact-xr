@@ -1,13 +1,27 @@
 extends Node
 
-var currentWidgetInstance
 
+var currentWidgetInstance = null
+var widgetLoaderThread: Thread
+var widgetLoaded = false
+
+
+func _process(delta):
+	if widgetLoaded:
+		widgetLoaded = false
+		add_child(currentWidgetInstance)
+	
 
 func replace_widget(widget: Widget):
 	if currentWidgetInstance != null:
 		remove_child(currentWidgetInstance)
 		currentWidgetInstance.queue_free()
 	
+	widgetLoaderThread = Thread.new()
+	widgetLoaderThread.start(_load_scene.bind(widget), Thread.PRIORITY_LOW)
+	
+
+func _load_scene(widget: Widget):
 	var scene = null
 	
 	if widget is PageTitleWidget:
@@ -20,4 +34,4 @@ func replace_widget(widget: Widget):
 	if scene != null:
 		currentWidgetInstance = scene.instantiate()
 		currentWidgetInstance.initialize(widget)
-		add_child(currentWidgetInstance)
+		widgetLoaded = true

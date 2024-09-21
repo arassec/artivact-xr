@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://egmgcumgamgw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsyls"]
+albedo_color = Color(0.211765, 0.286275, 0.345098, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ldulw"]
+material = SubResource("StandardMaterial3D_xsyls")
+size = Vector2(1000, 1000)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6c2fu"]
+sky_top_color = Color(0.211765, 0.286275, 0.345098, 1)
+sky_horizon_color = Color(0.733333, 0.729412, 0.776471, 1)
+ground_bottom_color = Color(0.733333, 0.729412, 0.776471, 1)
+ground_horizon_color = Color(0.733333, 0.729412, 0.776471, 1)
+
+[sub_resource type="Sky" id="Sky_hl6kp"]
+sky_material = SubResource("ProceduralSkyMaterial_6c2fu")
+
+[sub_resource type="Environment" id="Environment_m1uvf"]
+background_mode = 2
+sky = SubResource("Sky_hl6kp")
+
+[node name="DefaultBackground" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ldulw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m1uvf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.937513, 0.34795, 0, -0.34795, 0.937513, 0, 2.21349, 0)

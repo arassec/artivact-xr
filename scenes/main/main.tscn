@@ -48,9 +48,7 @@ transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 
 screen_size = Vector2(1.125, 0.75)
 scene = ExtResource("7_enre3")
 viewport_size = Vector2(1500, 1000)
-transparent = 2
 unshaded = true
-filter = false
 scene_properties_keys = PackedStringArray("main_menu_ui.gd")
 
 [node name="CollectionSelectorViewport2Din3D" parent="." index="6" instance=ExtResource("6_kb3me")]

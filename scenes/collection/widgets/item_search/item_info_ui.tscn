@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://56i05fmn64s6"]
+
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_csnac"]
+[ext_resource type="Script" path="res://scenes/collection/widgets/item_search/item_info_ui.gd" id="2_0si8x"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_l8foc"]
+color = Color(0.733333, 0.729412, 0.776471, 1)
+
+[node name="ItemInfoUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_csnac")
+script = ExtResource("2_0si8x")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DescriptionMarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/DescriptionMarginContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Panel/VBoxContainer/DescriptionMarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Description"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxLine_l8foc")
+
+[node name="CategoryPropertiesMarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.24
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="CategoryPropertiesTabContainer" type="TabContainer" parent="Panel/VBoxContainer/CategoryPropertiesMarginContainer"]
+layout_mode = 2

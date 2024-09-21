@@ -91,7 +91,7 @@ custom_minimum_size = Vector2(1450, 400)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 64
-text = "No collections found. Please synchronize with the remote Artivact server to load available collections. (TODO: I18N)"
+text = "MAIN_COLL_PLACEHOLDER"
 autowrap_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer"]

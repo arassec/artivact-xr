@@ -1,6 +1,11 @@
 extends Node
 
 
+var coverPicture: ImageTexture
+
+var coverPictureLoaderThread: Thread
+var coverPictureLoaded = false
+
 
 func initialize(widget: PageTitleWidget):
 	if widget == null:
@@ -10,17 +15,21 @@ func initialize(widget: PageTitleWidget):
 	if titleLabel != null:
 		titleLabel.text = widget.title.translate()
 
-	var coverPictureTextureRect = find_child("CoverPictureTextureRect")
-	if coverPictureTextureRect != null && widget.backgroundImage != null:
-		coverPictureTextureRect.texture = _create_title_image(widget)
-			
-			
+	if widget.backgroundImage != null && widget.backgroundImage != "":
+		coverPictureLoaderThread = Thread.new()
+		coverPictureLoaderThread.start(_load_cover_picture.bind(widget), Thread.PRIORITY_LOW)
 
-func _create_title_image(widget: PageTitleWidget) -> ImageTexture:
-	var result = null
-	
+
+func _process(delta):
+	if coverPictureLoaded:
+		coverPictureLoaded = false
+		coverPictureLoaderThread.wait_to_finish()
+		_create_title_image()
+
+
+func _load_cover_picture(widget: PageTitleWidget):
 	if widget == null || widget.backgroundImage == null:
-		return result
+		return
 	
 	var imageFile = widget.backgroundImage
 	var img = CollectionStore.get_collection_zip_reader().read_file(str(widget.id, "/", imageFile))
@@ -33,6 +42,14 @@ func _create_title_image(widget: PageTitleWidget) -> ImageTexture:
 		loadResult = image.load_png_from_buffer(img)
 
 	if loadResult == OK:
-		result = ImageTexture.create_from_image(image)
+		coverPicture = ImageTexture.create_from_image(image)
+		
+	coverPictureLoaded = true
 
-	return result
+
+
+func _create_title_image():
+	var coverPictureTextureRect = find_child("CoverPictureTextureRect")
+	if coverPictureTextureRect != null && coverPicture != null:
+		coverPictureTextureRect.texture = coverPicture
+		
