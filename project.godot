@@ -43,6 +43,8 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://scenes/collection/": "yellow",
+"res://scenes/main/": "red",
 "res://scripts/model/": "red",
 "res://scripts/store/": "green",
 "res://scripts/util/": "yellow"

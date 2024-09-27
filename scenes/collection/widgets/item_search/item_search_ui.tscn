@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb7gvclyi34k7"]
+[gd_scene load_steps=8 format=3 uid="uid://cb7gvclyi34k7"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_bhit6"]
 [ext_resource type="Texture2D" uid="uid://5rm45lov2e7o" path="res://assets/ui/icons/navigate_before_64dp_F5F5F5.svg" id="3_qtd4f"]
 [ext_resource type="Texture2D" uid="uid://sj0qijnoqdmk" path="res://assets/ui/icons/info_64dp_F5F5F5.svg" id="3_snm88"]
 [ext_resource type="Texture2D" uid="uid://b4vybb0yhlwft" path="res://assets/ui/icons/360_64dp_F5F5F5.svg" id="4_1ks7q"]
+[ext_resource type="Texture2D" uid="uid://beyu1bre3ernf" path="res://assets/ui/icons/view_list_64dp_F5F5F5.svg" id="4_f5opm"]
 [ext_resource type="Texture2D" uid="uid://wapg2jl0dxga" path="res://assets/ui/icons/navigate_next_64dp_F5F5F5.svg" id="4_x5bn3"]
+[ext_resource type="Texture2D" uid="uid://ctwj1gnooq8lg" path="res://assets/ui/icons/360_2_64dp_F5F5F5.svg" id="5_u1xmi"]
 
 [node name="ItemSearchUi" type="Control"]
 layout_mode = 3
@@ -46,6 +48,14 @@ icon = ExtResource("3_snm88")
 icon_alignment = 1
 expand_icon = true
 
+[node name="DataButton" type="Button" parent="HBoxContainer/LeftContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("4_f5opm")
+icon_alignment = 1
+expand_icon = true
+
 [node name="CenterContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -66,7 +76,15 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="RotateButton" type="Button" parent="HBoxContainer/RightContainer/HBoxContainer"]
+[node name="RotateVButton" type="Button" parent="HBoxContainer/RightContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("5_u1xmi")
+icon_alignment = 1
+expand_icon = true
+
+[node name="RotateHButton" type="Button" parent="HBoxContainer/RightContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0

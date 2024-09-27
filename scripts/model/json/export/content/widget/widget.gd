@@ -14,6 +14,8 @@ enum WidgetType {
 
 var id: String = ""
 var type: WidgetType
+var navigationTitle: TranslatableString
+
 
 func _init(data: Dictionary):
 	if data:
@@ -21,7 +23,12 @@ func _init(data: Dictionary):
 			id = data["id"]
 		if data.has("type"):
 			type = WidgetType.get(data["type"])
+		if data.has("navigationTitle"):
+			navigationTitle = TranslatableString.new(data["navigationTitle"])
 
 
 func label() -> String:
-	return WidgetType.keys()[type]
+	if navigationTitle != null && navigationTitle.translate() != null && navigationTitle.translate() != "":
+		return navigationTitle.translate()
+	else:
+		return tr(WidgetType.keys()[type])

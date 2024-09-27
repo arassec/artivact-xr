@@ -39,9 +39,9 @@ func get_formatted_filesize():
 	if fileSize == -1 && fileSizeRemote == -1:
 		return ""
 		
-	var sizeInput = fileSize
-	if fileSize == -1:
-		sizeInput = fileSizeRemote
+	var sizeInput = fileSizeRemote
+	if sizeInput == -1:
+		sizeInput = fileSize
 	
 	var unit = "GB"
 	var size = (sizeInput * 1.0)/1024/1024/1024

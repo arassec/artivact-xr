@@ -14,3 +14,10 @@ MAIN_COLL_PLACEHOLDER,No collections found. Please synchronize and download a co
 MAIN_DOWNLOADING,Downloading…,Downloading…
 MAIN_SYNCHRONIZING,Synchronizing…,Synchronisiere…
 COLLECTION_QUIT,Quit,Verlassen
+PAGE_TITLE,Title,Titel
+TEXT,Text,Text
+ITEM_SEARCH,Items,Ausstellungsstücke
+INFO_BOX,Info,Info
+AVATAR,Avatar,Avatar
+SPACE,Space,Leerraum
+IMAGE_TEXT,Text,Text
