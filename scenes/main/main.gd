@@ -39,7 +39,7 @@ func _ready():
 	# OpenXR Reference Space is set to "Local" in the project settings. So we have to set the
 	# camera's position manually here:
 	get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
-	
+
 
 ####################################################################################################
 # Triggers an update of the selected collection info in the main UI panel. This is done here,

@@ -8,12 +8,13 @@ main_scene = "res://scenes/main/main.tscn"
 prompt_for_continue = false
 
 [node name="LoadingScreen" parent="." index="2"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -10)
-follow_camera = false
 splash_screen = ExtResource("2_216f8")
-progress = 1.0
+enable_progress_bar = false
 
 [node name="SplashScreen" parent="LoadingScreen" index="0"]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 10, -30)
+transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, 0, 0, -2)
+
+[node name="ProgressBar" parent="LoadingScreen" index="1"]
+visible = false
 
 [editable path="LoadingScreen"]

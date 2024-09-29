@@ -80,6 +80,10 @@ func _load_page(id: String):
 # TODO
 ####################################################################################################
 func _ready():
+	# OpenXR Reference Space is set to "Local" in the project settings. So we have to set the
+	# camera's position manually here:
+	get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
+
 	if menus.size() > 0:
 		SignalBus.trigger_with_payload(SignalBus.SignalType.UPDATE_PAGE_NAVIGATION, menus)
 
