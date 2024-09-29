@@ -23,3 +23,7 @@ func _collection_infos_updated(success: bool):
 func _download_collection_finished(success: bool):
 	if !success:
 		$StatusLabel.text = 'Downloading... failed!'
+
+
+func set_text(text):
+	$StatusLabel.text = text

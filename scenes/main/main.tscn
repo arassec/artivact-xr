@@ -19,6 +19,9 @@ reflected_light_source = 1
 
 [node name="ArtivactMainScene" instance=ExtResource("1_8d5xv")]
 
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="main" parent="." index="1" instance=ExtResource("2_e428c")]
 script = ExtResource("3_woaaa")
 

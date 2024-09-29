@@ -28,7 +28,7 @@ func _process(delta):
 			SignalBus.trigger_with_payload(SignalBus.SignalType.RELOAD_COLLECTION_INFOS_FINISHED, true)
 
 
-func get_collection_info():
+func get_collection_info() -> CollectionInfo:
 	if currentCollectionInfoIndex >= 0 && currentCollectionInfoIndex < collectionInfos.size():
 		return collectionInfos[currentCollectionInfoIndex]
 	return null
@@ -95,14 +95,13 @@ func remove_content_export_overviews_file():
 	DirAccess.remove_absolute(contentExportOverviewsFile)
 
 
-func load_collection_infos():
+func load_collection_infos(selectedCollectionId: String):
 	if loadCollectionInfosThread != null:
 		return
 	SignalBus.trigger(SignalBus.SignalType.RELOAD_COLLECTION_INFOS)
 	collectionInfos.clear()
 	loadCollectionInfosThread = Thread.new()
-	loadCollectionInfosThread.start(_load_collection_infos)
-
+	loadCollectionInfosThread.start(_load_collection_infos.bind(selectedCollectionId))
 
 
 
@@ -130,7 +129,7 @@ func read_json_file(jsonFile: String) -> Dictionary:
 # afterwards from the downloaded remote file with information about available collections, if it 
 # exists.
 ####################################################################################################
-func _load_collection_infos():
+func _load_collection_infos(selectedCollectionId: String):
 	var resourceFiles = DirAccess.get_files_at("res://")
 	for resourceFile in resourceFiles:
 		if resourceFile.ends_with(".artivact.content.json.zip"):
@@ -142,6 +141,13 @@ func _load_collection_infos():
 			_load_collection_info("user://", resourceFile)
 	
 	_merge_remote_collection_infos()
+
+	var index = 0
+	for collectionInfo in collectionInfos:
+		if collectionInfo.id == selectedCollectionId:
+			currentCollectionInfoIndex = index
+			break
+		index = index + 1
 
 	if currentCollectionInfoIndex >= collectionInfos.size():
 		currentCollectionInfoIndex = 0

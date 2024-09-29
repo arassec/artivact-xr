@@ -31,11 +31,6 @@ CollectionStore="*res://scripts/store/collection_store.gd"
 window/size/viewport_width=1500
 window/size/viewport_height=1000
 
-[editor]
-
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
@@ -68,6 +63,7 @@ anti_aliasing/quality/msaa_3d=2
 [xr]
 
 openxr/enabled=true
+openxr/reference_space=0
 openxr/foveation_level=3
 openxr/foveation_dynamic=true
 openxr/startup_alert=false
