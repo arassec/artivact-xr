@@ -22,6 +22,12 @@ reflected_light_source = 1
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
+[node name="OpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05413, -2.16107)
+layer_viewport = NodePath("../../TestSubViewport")
+sort_order = -1
+enable_hole_punch = true
+
 [node name="main" parent="." index="1" instance=ExtResource("2_e428c")]
 script = ExtResource("3_woaaa")
 
@@ -74,3 +80,8 @@ scene_properties_keys = PackedStringArray("collection_menu_ui.gd")
 
 [node name="Status" parent="." index="8" instance=ExtResource("10_ru8st")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.5)
+
+[node name="TestSubViewport" type="SubViewport" parent="." index="9"]
+render_target_update_mode = 4
+
+[node name="MainMenuUi" parent="TestSubViewport" index="0" instance=ExtResource("7_enre3")]
