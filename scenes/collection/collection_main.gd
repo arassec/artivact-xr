@@ -41,7 +41,7 @@ func _load_pages():
 	collectionZipReader = CollectionStore.get_collection_zip_reader()
 
 	var artivactContentJson: ArtivactContentJson = CollectionStore.get_artivact_content_json()
-	var data = CollectionStore.read_json_file(str(artivactContentJson.menuId, ".artivact.menu.json"))
+	var data = CollectionStore.read_json_file(str(artivactContentJson.sourceId, ".artivact.menu.json"))
 
 	mainArtivactMenuJson = ArtivactMenuJson.new(data)
 	

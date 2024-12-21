@@ -16,6 +16,10 @@ var collectionZipReaders: Dictionary = {}
 #    Collection ID -> ArtivactContentJson
 var artivactContentJsons: Dictionary = {}
 
+# Contains the collection's properties configuration, indexed by the collection's ID.
+#    Collection ID -> ArtivactPropertiesConfigurationJson
+var artivactPropertiesConfigurationJsons: Dictionary = {}
+
 var loadCollectionInfosThread: Thread
 
 
@@ -51,6 +55,13 @@ func get_artivact_content_json() -> ArtivactContentJson:
 	var collectionId = get_collection_id()
 	if artivactContentJsons.has(collectionId):
 		return artivactContentJsons[collectionId]
+	return null
+	
+
+func get_artivact_properties_configuration_json() -> ArtivactPropertiesConfigurationJson:
+	var collectionId = get_collection_id()
+	if artivactPropertiesConfigurationJsons.has(collectionId):
+		return artivactPropertiesConfigurationJsons[collectionId]
 	return null
 	
 
@@ -132,12 +143,12 @@ func read_json_file(jsonFile: String) -> Dictionary:
 func _load_collection_infos(selectedCollectionId: String):
 	var resourceFiles = DirAccess.get_files_at("res://")
 	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.content.json.zip"):
+		if resourceFile.ends_with(".artivact.content.zip"):
 			_load_collection_info("res://", resourceFile)
 	
 	resourceFiles = DirAccess.get_files_at("user://")
 	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.content.json.zip"):
+		if resourceFile.ends_with(".artivact.content.zip"):
 			_load_collection_info("user://", resourceFile)
 	
 	_merge_remote_collection_infos()
@@ -157,29 +168,38 @@ func _load_collection_infos(selectedCollectionId: String):
 # Loads collection info from a local Artivact content export file
 ####################################################################################################
 func _load_collection_info(locationPrefix: String, collectionFile: String):
-	var collectionId = collectionFile.replace(".artivact.content.json.zip", "")
+	var collectionId = collectionFile.replace(".artivact.content.zip", "")
 	var collectionZipFile = str(locationPrefix, collectionFile)
 	var collectionJsonFile = "artivact.content.json"
+	var propertiesConfigurationJsonFile = "artivact.properties-configuration.json"
 	
 	var zipReader = ZIPReader.new()
 	var openResult := zipReader.open(collectionZipFile)
 	if openResult != OK:
 		# TODO: Error handling!
 		return
-	
+
+	# Store general collection information:
 	var collectionJson := JSON.new()
 	var collectionJsonString = zipReader.read_file(collectionJsonFile).get_string_from_utf8()
 	var parseResult := collectionJson.parse(collectionJsonString)
 	if parseResult != OK:
 		# TODO: Error handling!
 		return
-
 	var collectionData = collectionJson.data
-
-	# Save the parsed content JSON containing properties and tags:	
 	artivactContentJsons[collectionId] = ArtivactContentJson.new(collectionData)
 	
-	# Save the ZIP reader for the collection file:
+	# Store the properties configuration of the collection:
+	var propertiesJson := JSON.new()
+	var propertiesJsonString = zipReader.read_file(propertiesConfigurationJsonFile).get_string_from_utf8()
+	parseResult = propertiesJson.parse(propertiesJsonString)
+	if parseResult != OK:
+		# TODO: Error handling!
+		return
+	var propertiesConfigurationData = propertiesJson.data
+	artivactPropertiesConfigurationJsons[collectionId] = ArtivactPropertiesConfigurationJson.new(propertiesConfigurationData)
+	
+	# Store the ZIP reader for the collection file:
 	collectionZipReaders[collectionId] = zipReader
 	
 	# Create collection info for the main menu:
@@ -191,7 +211,7 @@ func _load_collection_info(locationPrefix: String, collectionFile: String):
 
 	# Create the cover picture if available:
 	for fileInZip in zipReader.get_files():
-		if fileInZip.begins_with(collectionId) && !fileInZip.ends_with(".artivact.menu.json"):
+		if fileInZip.begins_with("cover-picture"):
 			var img = zipReader.read_file(fileInZip)
 			var coverPicture = Image.new()
 			var loadResult = ERR_UNAVAILABLE
@@ -226,12 +246,7 @@ func _merge_remote_collection_infos():
 	var contentExportOverviews = contentExportOverviewsJson.data
 	
 	for rawContentExport in contentExportOverviews:
-		if !rawContentExport.has("exportType") || !rawContentExport["exportType"] == "JSON":
-			continue
-			
-		if !rawContentExport.has("zipped") || !rawContentExport["zipped"]:
-			continue
-		
+	
 		var contentExport = ContentExport.new(rawContentExport)
 		var existingCollectionInfoUpdated = false
 		for collectionInfo in collectionInfos:
@@ -244,7 +259,7 @@ func _merge_remote_collection_infos():
 			newCollectionInfo.update_online_data(contentExport)
 			
 			for fileInZip in zipReader.get_files():
-				if fileInZip.begins_with(newCollectionInfo.id):
+				if fileInZip.begins_with("cover-picture"):
 					var img = zipReader.read_file(fileInZip)
 					var coverPicture = Image.new()
 					var loadResult = ERR_UNAVAILABLE

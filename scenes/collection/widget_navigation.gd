@@ -29,6 +29,9 @@ func _input(event):
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_8:
 		if buttons.size() > 2:
 			SignalBus.trigger_with_payload(SignalBus.SignalType.OPEN_WIDGET, buttons.keys()[2])
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_7:
+		if buttons.size() > 3:
+			SignalBus.trigger_with_payload(SignalBus.SignalType.OPEN_WIDGET, buttons.keys()[3])
 
 
 # Called when the node enters the scene tree for the first time.

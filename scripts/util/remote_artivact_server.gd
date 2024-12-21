@@ -15,9 +15,9 @@ func get_collection_infos(callback: Callable, targetFile: String):
 
 func download_collection(callback: Callable, collectionId: String):
 	$HTTPRequest.request_completed.connect(callback)
-	$HTTPRequest.set_download_file(str("user://", collectionId, ".artivact.content.json.zip"))
+	$HTTPRequest.set_download_file(str("user://", collectionId, ".artivact.content.zip"))
 	$HTTPRequest.use_threads = true
-	$HTTPRequest.request(str(apiUrl, "/export/content/", collectionId, "/JSON"))
+	$HTTPRequest.request(str(apiUrl, "/export/content/", collectionId))
 
 
 func get_progress(totalSize):

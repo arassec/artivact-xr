@@ -32,7 +32,7 @@ func initialize(widgetInput: ItemSearchWidget):
 	if itemIds.size() > 0:
 		currentItemIndex = 0
 		currentItemId = itemIds[currentItemIndex]
-		items[currentItemId] = ArtivactItem.new(CollectionStore.read_json_file(str(currentItemId, "/", currentItemId, ".artivact.item.json")))
+		items[currentItemId] = ArtivactItem.new(CollectionStore.read_json_file(str(currentItemId, "/", "artivact.item.json")))
 
 
 func _ready():

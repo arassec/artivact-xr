@@ -5,9 +5,8 @@ extends Object
 var schemaVersion: int = -1
 var title: TranslatableString
 var description: TranslatableString
-var menuId: String = ""
-var propertyCategories: Array[PropertyCategory] = []
-var tags: Array[Tag] = []
+var exchangeType: String = ""
+var sourceId: String = ""
 
 
 func _init(data: Dictionary):
@@ -18,11 +17,7 @@ func _init(data: Dictionary):
 			title = TranslatableString.new(data["title"])
 		if data.has("description"):
 			description =  TranslatableString.new(data["description"])
-		if data.has("menuId"):
-			menuId = data.menuId
-		if data.has("propertyCategories"):
-			for propertyCategory in data["propertyCategories"]:
-				propertyCategories.append(PropertyCategory.new(propertyCategory))
-		if data.has("tags"):
-			for tag in data["tags"]:
-				tags.append(Tag.new(tag))
+		if data.has("exchangeType"):
+			exchangeType = data.exchangeType
+		if data.has("sourceId"):
+			sourceId = data.sourceId

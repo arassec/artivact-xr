@@ -3,7 +3,7 @@ extends Node
 
 func update(item: ArtivactItem):
 	var descriptionLabel = find_child("DescriptionLabel")
-	if descriptionLabel != null:
+	if descriptionLabel != null && item.description != null:
 		descriptionLabel.text = item.description.translate()
 
 	var categoryTabs = find_child("CategoryPropertiesTabContainer")
@@ -11,7 +11,7 @@ func update(item: ArtivactItem):
 		categoryTabs.remove_child(tab)
 		tab.queue_free()
 		
-	var propertyCategories = CollectionStore.get_artivact_content_json().propertyCategories
+	var propertyCategories = CollectionStore.get_artivact_properties_configuration_json().propertyCategories
 	for propertyCategory in propertyCategories:
 		var propertyContainer = _create_property_category_tab_content(propertyCategory, item)
 		categoryTabs.add_child(propertyContainer)

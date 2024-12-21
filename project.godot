@@ -15,7 +15,6 @@ config/version="1.0"
 run/main_scene="res://scenes/artivact_staging.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/image="res://artivactxr-logo-white-text.png"
-boot_splash/fullsize=false
 config/icon="res://artivactxr-logo-white-zoom.png"
 
 [autoload]
