@@ -1,0 +1,171 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxfwxs8uult8l"]
+
+[ext_resource type="Script" uid="uid://2pu5ypq4yn7g" path="res://scenes/main/ui/center_menu.gd" id="1_lgubk"]
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_usoo5"]
+[ext_resource type="Texture2D" uid="uid://5rm45lov2e7o" path="res://assets/ui/icons/navigate_before_64dp_F5F5F5.svg" id="2_rowe7"]
+[ext_resource type="Texture2D" uid="uid://wapg2jl0dxga" path="res://assets/ui/icons/navigate_next_64dp_F5F5F5.svg" id="3_e5e34"]
+[ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_h0yqe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_10r04"]
+font = ExtResource("5_h0yqe")
+font_size = 48
+
+[node name="CenterMenu" type="Control"]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_usoo5")
+script = ExtResource("1_lgubk")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CoverPictureTextureRect" type="TextureRect" parent="Panel/MarginContainer"]
+layout_mode = 2
+expand_mode = 1
+
+[node name="ContentCover" type="ColorRect" parent="Panel/MarginContainer/CoverPictureTextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleContainer" type="PanelContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="TitleLabel" type="Label" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/TitleContainer"]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Artivact XR"
+autowrap_mode = 2
+
+[node name="DescriptionContainer" type="PanelContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="DescriptionLabel" type="Label" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/DescriptionContainer"]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "MAIN_COLL_PLACEHOLDER"
+autowrap_mode = 2
+
+[node name="FileSizeContainer" type="HBoxContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="FileSizeLabel" type="Label" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FileSizeContainer"]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+
+[node name="FooterHBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Left" type="PanelContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="PreviousCollectionButton" type="Button" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer/Left"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
+text = "MAIN_PREVIOUS"
+icon = ExtResource("2_rowe7")
+alignment = 0
+clip_text = true
+expand_icon = true
+
+[node name="Center" type="PanelContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer"]
+layout_mode = 2
+
+[node name="PaginatorLabel" type="Label" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer/Center"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "0 / 0"
+horizontal_alignment = 1
+
+[node name="Right" type="PanelContainer" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="NextCollectionButton" type="Button" parent="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer/Right"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
+text = "MAIN_NEXT"
+icon = ExtResource("3_e5e34")
+clip_text = true
+icon_alignment = 2
+expand_icon = true
+
+[node name="OperationInProgressCover" type="ColorRect" parent="Panel/MarginContainer/CoverPictureTextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="StatusLabel" type="Label" parent="Panel/MarginContainer/CoverPictureTextureRect/OperationInProgressCover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Status Label"
+label_settings = SubResource("LabelSettings_10r04")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer/Left/PreviousCollectionButton" to="." method="previous_collection_info"]
+[connection signal="pressed" from="Panel/MarginContainer/CoverPictureTextureRect/ContentCover/MarginContainer/VBoxContainer/FooterHBoxContainer/Right/NextCollectionButton" to="." method="next_collection_info"]

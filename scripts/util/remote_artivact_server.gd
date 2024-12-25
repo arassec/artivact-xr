@@ -2,7 +2,7 @@ class_name RemoteArtivactServer
 
 extends Node
 
-var apiUrl: String = "https://www.arassec.com/api"
+var apiUrl: String = "https://arassec.com/api"
 
 var thread: Thread
 
@@ -10,14 +10,14 @@ var thread: Thread
 func get_collection_infos(callback: Callable, targetFile: String):
 	$HTTPRequest.request_completed.connect(callback)
 	$HTTPRequest.set_download_file(targetFile)
-	$HTTPRequest.request(str(apiUrl, "/export/content/overview"))
+	$HTTPRequest.request(str(apiUrl, "/collection/export/info"))
 
 
 func download_collection(callback: Callable, collectionId: String):
 	$HTTPRequest.request_completed.connect(callback)
-	$HTTPRequest.set_download_file(str("user://", collectionId, ".artivact.content.zip"))
+	$HTTPRequest.set_download_file(str("user://", collectionId, ".artivact.collection.zip"))
 	$HTTPRequest.use_threads = true
-	$HTTPRequest.request(str(apiUrl, "/export/content/", collectionId))
+	$HTTPRequest.request(str(apiUrl, "/collection/export/", collectionId, "/file"))
 
 
 func get_progress(totalSize):

@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://coi7u13rlcw30"]
+
+[ext_resource type="Script" uid="uid://1oaw3yu8rw5p" path="res://scenes/main/ui/main_menu.gd" id="1_23s8j"]
+[ext_resource type="PackedScene" uid="uid://b585jgd5c12f4" path="res://scenes/main/ui/left_menu.tscn" id="1_iqq74"]
+[ext_resource type="PackedScene" uid="uid://dxfwxs8uult8l" path="res://scenes/main/ui/center_menu.tscn" id="2_iq7id"]
+[ext_resource type="PackedScene" uid="uid://sxn2hgsi1uru" path="res://scenes/main/ui/right_menu.tscn" id="3_23s8j"]
+[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="5_rrinc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gvd23"]
+shader = ExtResource("5_rrinc")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="MainMenu" type="Control"]
+custom_minimum_size = Vector2(1500, 500)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1500.0
+offset_bottom = 500.0
+script = ExtResource("1_23s8j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftMenu" parent="HBoxContainer" instance=ExtResource("1_iqq74")]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterMenu" parent="HBoxContainer" instance=ExtResource("2_iq7id")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="RightMenu" parent="HBoxContainer" instance=ExtResource("3_23s8j")]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Cursor" type="ColorRect" parent="."]
+process_mode = 4
+material = SubResource("ShaderMaterial_gvd23")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2

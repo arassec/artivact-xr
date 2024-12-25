@@ -17,7 +17,7 @@ func _init(data: Dictionary):
 			title = TranslatableString.new(data["title"])
 		if data.has("description"):
 			description =  TranslatableString.new(data["description"])
-		if data.has("exchangeType"):
-			exchangeType = data.exchangeType
+		if data.has("contentSource"):
+			exchangeType = data.contentSource
 		if data.has("sourceId"):
 			sourceId = data.sourceId

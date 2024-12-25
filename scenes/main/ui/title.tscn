@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2viaukoihrbu"]
 
-[node name="TitleUi" type="Control"]
+[node name="Title" type="Control"]
 custom_minimum_size = Vector2(600, 100)
 layout_mode = 3
 anchors_preset = 0

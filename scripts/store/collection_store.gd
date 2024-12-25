@@ -1,7 +1,7 @@
 extends Node
 
-# Path to the file containing available content exports of the remote Artivact server:
-var contentExportOverviewsFile = "user://artivact.content-export-overviews.zip"
+# Path to the file containing available collection exports of the remote Artivact instance:
+var contentExportOverviewsFile = "user://artivact.collection-export-overviews.zip"
 
 # Contains basic collection information:
 var collectionInfos: Array[CollectionInfo] = []
@@ -143,12 +143,12 @@ func read_json_file(jsonFile: String) -> Dictionary:
 func _load_collection_infos(selectedCollectionId: String):
 	var resourceFiles = DirAccess.get_files_at("res://")
 	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.content.zip"):
+		if resourceFile.ends_with(".artivact.collection.zip"):
 			_load_collection_info("res://", resourceFile)
 	
 	resourceFiles = DirAccess.get_files_at("user://")
 	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.content.zip"):
+		if resourceFile.ends_with(".artivact.collection.zip"):
 			_load_collection_info("user://", resourceFile)
 	
 	_merge_remote_collection_infos()
@@ -168,7 +168,7 @@ func _load_collection_infos(selectedCollectionId: String):
 # Loads collection info from a local Artivact content export file
 ####################################################################################################
 func _load_collection_info(locationPrefix: String, collectionFile: String):
-	var collectionId = collectionFile.replace(".artivact.content.zip", "")
+	var collectionId = collectionFile.replace(".artivact.collection.zip", "")
 	var collectionZipFile = str(locationPrefix, collectionFile)
 	var collectionJsonFile = "artivact.content.json"
 	var propertiesConfigurationJsonFile = "artivact.properties-configuration.json"
@@ -237,7 +237,7 @@ func _merge_remote_collection_infos():
 		return
 
 	var contentExportOverviewsJson := JSON.new()
-	var contentExportOverviewsJsonFile = zipReader.read_file("artivact.content-export-overviews.json").get_string_from_utf8()
+	var contentExportOverviewsJsonFile = zipReader.read_file("artivact.collection-export-overviews.json").get_string_from_utf8()
 	var parseResult := contentExportOverviewsJson.parse(contentExportOverviewsJsonFile)
 	if parseResult != OK:
 		# TODO: Error handling!
@@ -259,7 +259,7 @@ func _merge_remote_collection_infos():
 			newCollectionInfo.update_online_data(contentExport)
 			
 			for fileInZip in zipReader.get_files():
-				if fileInZip.begins_with("cover-picture"):
+				if fileInZip.begins_with(contentExport.id):
 					var img = zipReader.read_file(fileInZip)
 					var coverPicture = Image.new()
 					var loadResult = ERR_UNAVAILABLE
