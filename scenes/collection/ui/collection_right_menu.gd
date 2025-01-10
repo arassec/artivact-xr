@@ -4,7 +4,7 @@ extends Node
 var selectedWidgetId: String
 
 # Contains buttons indexed by the widget ID:
-#   pageId -> button instance
+#   widgetId -> button instance
 var buttons: Dictionary = {}
 
 
@@ -34,25 +34,14 @@ func _input(event):
 			SignalBus.trigger_with_payload(SignalBus.SignalType.OPEN_WIDGET, buttons.keys()[3])
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _update_widget_navigation(widgetsInput: Array[Widget]):
-	var buttonContainer = find_child("ButtonContainer")
-	if buttonContainer != null:
-		find_child("MarginContainer").remove_child(buttonContainer)
-		buttonContainer.queue_free()
+	
 	buttons.clear()
 
-	buttonContainer = VBoxContainer.new()
-	buttonContainer.name = "ButtonContainer"
+	var buttonContainer = find_child("ButtonContainer")
+	for button in buttonContainer.get_children():
+		buttonContainer.remove_child(button)
+		button.queue_free()
 	
 	if widgetsInput != null && widgetsInput.size() > 0:
 		var firstButton = true
@@ -63,16 +52,15 @@ func _update_widget_navigation(widgetsInput: Array[Widget]):
 			if firstButton:
 				selectedWidgetId = widget.id
 				firstButton = false
-			
-	find_child("MarginContainer").add_child(buttonContainer)
-
+	
 
 func _create_button(buttonContainer: VBoxContainer, widget: Widget):
 	var button = UiHelper.create_menu_button(widget.label(), _open_widget.bind(widget.id))
-	buttonContainer.add_child(UiHelper.create_menu_button_container(button))
+	buttonContainer.add_child(button)
 	buttons[widget.id] = button
 
 
 func _open_widget(widgetId: String):
-	selectedWidgetId = widgetId
-	SignalBus.trigger_with_payload(SignalBus.SignalType.OPEN_WIDGET, widgetId)
+	if widgetId != selectedWidgetId:
+		selectedWidgetId = widgetId
+		SignalBus.trigger_with_payload(SignalBus.SignalType.OPEN_WIDGET, widgetId)

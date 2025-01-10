@@ -47,7 +47,7 @@ func _open_page(pageId: String):
 
 func _create_button(menu: ArtivactMenuJson):
 	var button = UiHelper.create_menu_button(menu.translate(), _open_page.bind(menu.targetPageId))
-	find_child("ButtonContainer").add_child(UiHelper.create_menu_button_container(button))
+	find_child("ButtonContainer").add_child(button)
 	buttons[menu.targetPageId] = button
 
 
@@ -58,3 +58,7 @@ func _highlight_button(pageId: String):
 	buttons[pageId].toggle_mode = true
 	buttons[pageId].set_pressed_no_signal(true)
 	buttons[pageId].toggle_mode = false
+
+
+func quit_collection():
+	SignalBus.trigger(SignalBus.SignalType.QUIT_COLLECTION)

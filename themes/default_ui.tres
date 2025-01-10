@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dnh285uknn4tk"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dnh285uknn4tk"]
 
 [ext_resource type="StyleBox" uid="uid://b4vijlfjrd6fs" path="res://themes/style_button_hover.tres" id="1_6nrgg"]
 [ext_resource type="StyleBox" uid="uid://0lwarcamudwy" path="res://themes/style_button_normal.tres" id="1_7egs0"]
@@ -7,6 +7,10 @@
 [ext_resource type="StyleBox" uid="uid://bwogieorpfwgg" path="res://themes/style_button_disabled.tres" id="1_lrp11"]
 [ext_resource type="StyleBox" uid="uid://cx5t6m3bd1v7w" path="res://themes/style_button_focus.tres" id="2_yhlr4"]
 [ext_resource type="StyleBox" uid="uid://dhkas2usorseo" path="res://themes/style_button_pressed.tres" id="3_sohqb"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_e1x2a"]
+color = Color(0.960784, 0.960784, 0.960784, 1)
+thickness = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_km8tm"]
 bg_color = Color(0.431, 0.494, 0.522, 0)
@@ -19,5 +23,6 @@ Button/styles/focus = ExtResource("2_yhlr4")
 Button/styles/hover = ExtResource("1_6nrgg")
 Button/styles/normal = ExtResource("1_7egs0")
 Button/styles/pressed = ExtResource("3_sohqb")
+HSeparator/styles/separator = SubResource("StyleBoxLine_e1x2a")
 Panel/styles/panel = ExtResource("1_h3lub")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_km8tm")

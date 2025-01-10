@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_e428c"]
-[ext_resource type="Script" uid="uid://b8rqyru3i32tj" path="res://scenes/main/ui/menu_open_xr_composition_layer_cylinder.gd" id="2_yyfjg"]
+[ext_resource type="Script" uid="uid://b8rqyru3i32tj" path="res://scripts/ui/open_xr_composition_layer_interaction_equirect.gd" id="2_yyfjg"]
 [ext_resource type="Script" uid="uid://dljqelx3xjvgs" path="res://scenes/main/main.gd" id="3_woaaa"]
 [ext_resource type="PackedScene" uid="uid://besyy3cq3hxsy" path="res://scripts/util/remote_artivact_server.tscn" id="4_ky8e4"]
 [ext_resource type="PackedScene" uid="uid://cbhv6ca84h5ty" path="res://scenes/main/status.tscn" id="10_ru8st"]
@@ -18,19 +18,19 @@ reflected_light_source = 1
 [node name="ArtivactMainScene" instance=ExtResource("1_8d5xv")]
 
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1"]
 collide_with_areas = true
 
 [node name="TitleOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -6.5)
 layer_viewport = NodePath("../../TitleSubViewport")
 alpha_blend = true
 quad_size = Vector2(6, 1)
 
 [node name="MainMenuOpenXRCompositionLayerEquirect" type="OpenXRCompositionLayerEquirect" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport", "controller")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 1)
 layer_viewport = NodePath("../../MainMenuSubViewport")
 alpha_blend = true
 radius = 5.0

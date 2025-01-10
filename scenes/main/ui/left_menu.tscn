@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cv28drgumtrj" path="res://assets/ui/icons/sync_64dp_F5F5F5.svg" id="3_ehffx"]
 
 [node name="LeftMenu" type="Control"]
-custom_minimum_size = Vector2(300, 500)
+custom_minimum_size = Vector2(400, 500)
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_h4ux8")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxjp5g12vokex"]
+
+[ext_resource type="Script" uid="uid://bv0own5cbs2aq" path="res://scenes/collection/ui/collection_menu_legacy.gd" id="1_xp5fk"]
+[ext_resource type="PackedScene" uid="uid://dycxg87anbsqt" path="res://scenes/collection/ui/collection_left_menu.tscn" id="2_p5jry"]
+[ext_resource type="PackedScene" uid="uid://hvjqru84n8vv" path="res://scenes/collection/ui/collection_right_menu.tscn" id="3_otoud"]
+[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="4_jt1d4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pn5fc"]
+shader = ExtResource("4_jt1d4")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="CollectionMenu" type="Control"]
+custom_minimum_size = Vector2(1500, 500)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -500.0
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xp5fk")
+
+[node name="MenuContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollectionLeftMenu" parent="MenuContainer" instance=ExtResource("2_p5jry")]
+layout_mode = 2
+
+[node name="WidgetContent" type="Control" parent="MenuContainer"]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 2
+
+[node name="CollectionRightMenu" parent="MenuContainer" instance=ExtResource("3_otoud")]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 2
+
+[node name="Cursor" type="ColorRect" parent="."]
+process_mode = 4
+material = SubResource("ShaderMaterial_pn5fc")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2

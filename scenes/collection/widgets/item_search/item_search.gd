@@ -23,6 +23,9 @@ var rotateModelVertically = false
 
 
 func initialize(widgetInput: ItemSearchWidget):
+	SignalBus.register(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_NEXT, _change_item.bind(true))
+	SignalBus.register(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_PREVIOUS, _change_item.bind(false))
+	
 	widget = widgetInput
 	var json = CollectionStore.read_json_file(str(widget.id, ".artivact.search-result.json"))
 
@@ -36,15 +39,7 @@ func initialize(widgetInput: ItemSearchWidget):
 
 
 func _ready():
-	_get_previous_button().pressed.connect(self._change_item.bind(false))
-	_get_next_button().pressed.connect(self._change_item.bind(true))
-	_get_rotate_horizontally_button().pressed.connect(self._toggle_rotate_horizontally)
-	_get_rotate_vertically_button().pressed.connect(self._toggle_rotate_vertically)
-	_get_info_button().pressed.connect(self._toggle_info)
-	_get_data_button().pressed.connect(self._toggle_data)
-	_update_paginator_label()
-	_update_info()
-	_toggle_info()
+	SignalBus.trigger_with_multiload(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_UPDATE_PAGINATOR, currentItemIndex, itemIds.size())
 	$ImageAnchor.visible = false
 	
 
@@ -55,14 +50,6 @@ func _input(event):
 		_change_item(false)
 	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_RIGHT:
 		_change_item(true)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_H:
-		_toggle_rotate_horizontally()
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_V:
-		_toggle_rotate_vertically()
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_I:
-		_toggle_info()
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_D:
-		_toggle_data()
 
 
 func _process(delta):
@@ -75,10 +62,6 @@ func _process(delta):
 		loadingDone = false
 		loaderThread.wait_to_finish()
 		loaderThread = null
-		_update_data()
-		var itemTitleLabel = find_child("ItemTitleLabel")
-		itemTitleLabel.text = items[currentItemId].title.translate()
-		_enable_buttons()
 		if loadedModel != null:
 			$ModelAnchor.add_child(loadedModel)
 		elif loadedTexture != null:
@@ -92,12 +75,6 @@ func _process(delta):
 
 
 func _change_item(forward: bool):
-	_disable_buttons()
-	
-	var infoScene = _get_info_scene()
-	if infoScene.visible:
-		_toggle_info()	
-	
 	if forward:
 		currentItemIndex = currentItemIndex + 1
 	else:
@@ -118,63 +95,13 @@ func _change_item(forward: bool):
 		$ImageAnchor.mesh.material.albedo_texture = null
 		$ImageAnchor.visible = false
 	
-	_update_paginator_label()
+	SignalBus.trigger_with_multiload(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_UPDATE_PAGINATOR, currentItemIndex, itemIds.size())
 	
 	if loaderThread != null && loaderThread.is_started():
 		loaderThread.wait_to_finish()
 
 	loaderThread = Thread.new()
 	loaderThread.start(_load_item.bind(currentItemId), Thread.PRIORITY_LOW)
-
-
-func _toggle_rotate_horizontally():
-	rotateModelVertically = false
-	rotateModelHorizontally = !rotateModelHorizontally
-
-
-func _toggle_rotate_vertically():
-	rotateModelHorizontally = false
-	rotateModelVertically = !rotateModelVertically
-
-
-func _toggle_info():
-	var infoScene = _get_info_scene()
-	infoScene.visible = !infoScene.visible
-	var dataScene = _get_data_scene()
-	dataScene.visible = false
-	if loadedModel != null:
-		loadedModel.visible = !infoScene.visible
-
-
-func _toggle_data():
-	var dataScene = _get_data_scene()
-	dataScene.visible = !dataScene.visible
-	var infoScene = _get_info_scene()
-	infoScene.visible = false
-	if loadedModel != null:
-		loadedModel.visible = !dataScene.visible
-
-
-func _update_info():
-	var uiScene = _get_info_scene()
-	uiScene.update(widget)
-
-
-func _update_data():
-	var uiScene = _get_data_scene()
-	uiScene.update(items[currentItemId])
-
-
-func _get_info_scene():
-	var uiVieport = $ItemInfoUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene
-
-
-func _get_data_scene():
-	var uiVieport = $ItemDataUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene
 
 
 func _load_item(itemId: String):
@@ -187,7 +114,6 @@ func _load_item(itemId: String):
 		_load_image(currentItemId)
 	else:
 		loadingDone = true
-
 
 
 func _load_model(itemId: String):
@@ -228,62 +154,3 @@ func _load_image(itemId: String):
 		loadedTexture = ImageTexture.create_from_image(image)
 
 	loadingDone = true
-
-
-func _get_previous_button() -> Button:
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene.find_child("PreviousButton")
-
-
-func _get_next_button() -> Button:
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene.find_child("NextButton")
-
-
-func _get_info_button() -> Button:
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene.find_child("InfoButton")
-
-
-func _get_data_button() -> Button:
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene.find_child("DataButton")
-
-
-func _get_rotate_horizontally_button() -> Button:
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene.find_child("RotateHButton")
-
-
-func _get_rotate_vertically_button() -> Button:
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	return uiScene.find_child("RotateVButton")
-
-
-func _disable_buttons():
-	_get_previous_button().disabled = true
-	_get_next_button().disabled = true
-	_get_info_button().disabled = true
-	_get_data_button().disabled = true
-	_get_rotate_horizontally_button().disabled = true
-
-
-func _enable_buttons():
-	_get_previous_button().disabled = false
-	_get_next_button().disabled = false
-	_get_info_button().disabled = false
-	_get_data_button().disabled = false
-	_get_rotate_horizontally_button().disabled = false
-
-
-func _update_paginator_label():
-	var uiVieport = $ItemSearchUiViewport2Din3D
-	var uiScene = uiVieport.get_scene_instance()
-	var paginatorLabel = uiScene.find_child("PaginatorLabel")
-	paginatorLabel.text = str(currentItemIndex + 1, " / ", itemIds.size())
