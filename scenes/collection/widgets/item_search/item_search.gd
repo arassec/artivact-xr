@@ -4,8 +4,9 @@ extends Node
 var widget
 
 var itemIds: Array[String] = []
+var itemLabels: Array[String] = []
 
-#   itemId -> ArtivactItem
+# itemId -> ArtivactItem
 var items: Dictionary = {}
 
 var currentItemId = null
@@ -22,26 +23,37 @@ var rotateModelHorizontally = true
 var rotateModelVertically = false
 
 
+
 func initialize(widgetInput: ItemSearchWidget):
-	SignalBus.register(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_NEXT, _change_item.bind(true))
-	SignalBus.register(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_PREVIOUS, _change_item.bind(false))
-	
 	widget = widgetInput
 	var json = CollectionStore.read_json_file(str(widget.id, ".artivact.search-result.json"))
 
 	for itemId in json.values:
 		itemIds.append(itemId)
+		items[itemId] = ArtivactItem.new(CollectionStore.read_json_file(str(itemId, "/", "artivact.item.json")))
+		itemLabels.push_back(items[itemId].title.translate())
 
 	if itemIds.size() > 0:
 		currentItemIndex = 0
 		currentItemId = itemIds[currentItemIndex]
-		items[currentItemId] = ArtivactItem.new(CollectionStore.read_json_file(str(currentItemId, "/", "artivact.item.json")))
+
+
+func _init():
+	# Register for relevant signals:
+	SignalBus.register(SignalBus.SignalType.COLL_ITEM_NEXT, _change_item.bind(true))
+	SignalBus.register(SignalBus.SignalType.COLL_ITEM_PREVIOUS, _change_item.bind(false))
+
+
+func _exit_tree():
+	# Deregister signals:
+	SignalBus.deregister(SignalBus.SignalType.COLL_ITEM_NEXT, _change_item.bind(true))
+	SignalBus.deregister(SignalBus.SignalType.COLL_ITEM_PREVIOUS, _change_item.bind(false))
 
 
 func _ready():
-	SignalBus.trigger_with_multiload(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_UPDATE_PAGINATOR, currentItemIndex, itemIds.size())
+	SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_ITEM_UPDATE_PAGINATOR, itemLabels)
 	$ImageAnchor.visible = false
-	
+
 
 func _input(event):
 	if loaderThread != null && loaderThread.is_alive():
@@ -59,6 +71,7 @@ func _process(delta):
 		_change_item(true)
 	
 	if loadingDone:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_ITEM_UPDATE_DATA, items[currentItemId])
 		loadingDone = false
 		loaderThread.wait_to_finish()
 		loaderThread = null
@@ -94,9 +107,7 @@ func _change_item(forward: bool):
 	if loadedTexture != null:
 		$ImageAnchor.mesh.material.albedo_texture = null
 		$ImageAnchor.visible = false
-	
-	SignalBus.trigger_with_multiload(SignalBus.SignalType.WIDGET_NAVIGATION_MENU_UPDATE_PAGINATOR, currentItemIndex, itemIds.size())
-	
+
 	if loaderThread != null && loaderThread.is_started():
 		loaderThread.wait_to_finish()
 
@@ -105,9 +116,6 @@ func _change_item(forward: bool):
 
 
 func _load_item(itemId: String):
-	if !items.has(itemId):
-		items[itemId] = ArtivactItem.new(CollectionStore.read_json_file(str(itemId, "/", itemId, ".artivact.item.json")))
-
 	if items[currentItemId].models.size() > 0:
 		_load_model(currentItemId)
 	elif items[currentItemId].images.size() > 0:
@@ -134,7 +142,7 @@ func _load_model(itemId: String):
 
 	loadedModel = gltfDocument.generate_scene(gltfState)
 	
-	ModelHelper.scale_model(loadedModel, 2, 100)
+	ModelHelper.scale_model(loadedModel, 1.5)
 
 	loadingDone = true
 

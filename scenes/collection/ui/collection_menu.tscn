@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cl4ujl1ujfrd3"]
+[gd_scene load_steps=10 format=3 uid="uid://cl4ujl1ujfrd3"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_p5jry"]
 [ext_resource type="Script" uid="uid://bsaurtcn8xik7" path="res://scenes/collection/ui/collection_menu.gd" id="1_xp5fk"]
@@ -6,18 +6,21 @@
 [ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="4_jt1d4"]
 [ext_resource type="Texture2D" uid="uid://5rm45lov2e7o" path="res://assets/ui/icons/navigate_before_64dp_F5F5F5.svg" id="4_p5jry"]
 [ext_resource type="Texture2D" uid="uid://wapg2jl0dxga" path="res://assets/ui/icons/navigate_next_64dp_F5F5F5.svg" id="5_otoud"]
+[ext_resource type="Texture2D" uid="uid://sj0qijnoqdmk" path="res://assets/ui/icons/info_64dp_F5F5F5.svg" id="6_pn5fc"]
+[ext_resource type="Texture2D" uid="uid://beyu1bre3ernf" path="res://assets/ui/icons/view_list_64dp_F5F5F5.svg" id="7_xiwou"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dspb5"]
 shader = ExtResource("4_jt1d4")
 shader_parameter/color = Color(1, 1, 1, 1)
 
 [node name="CollectionMenu" type="Control"]
-custom_minimum_size = Vector2(500, 1000)
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -1500.0
+offset_bottom = -500.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_p5jry")
@@ -55,31 +58,34 @@ icon = ExtResource("3_otoud")
 clip_text = true
 expand_icon = true
 
-[node name="PageSeparator" type="HSeparator" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+[node name="PageNavVBoxContainer" type="VBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PageLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+[node name="PageSeparator" type="HSeparator" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer"]
+layout_mode = 2
+
+[node name="PageLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer"]
 layout_mode = 2
 text = "Page Label"
 horizontal_alignment = 1
 
-[node name="PageNavHBoxContainer" type="HBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+[node name="PageNavHBoxContainer" type="HBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer"]
 layout_mode = 2
 
-[node name="PreviousPageButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavHBoxContainer"]
+[node name="PreviousPageButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer/PageNavHBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 icon = ExtResource("4_p5jry")
 expand_icon = true
 
-[node name="PagePaginatorLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavHBoxContainer"]
+[node name="PagePaginatorLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer/PageNavHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0 / 0"
 horizontal_alignment = 1
 
-[node name="NextPageButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavHBoxContainer"]
+[node name="NextPageButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer/PageNavHBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -87,35 +93,94 @@ icon = ExtResource("5_otoud")
 icon_alignment = 1
 expand_icon = true
 
-[node name="WidgetSeparator" type="HSeparator" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+[node name="WidgetNavVBoxContainer" type="VBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="WidgetLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+[node name="WidgetSeparator" type="HSeparator" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer"]
+layout_mode = 2
+
+[node name="WidgetLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer"]
 layout_mode = 2
 text = "Widget Label"
 horizontal_alignment = 1
 
-[node name="WidgetNavHBoxContainer" type="HBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+[node name="WidgetNavHBoxContainer" type="HBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer"]
 layout_mode = 2
 
-[node name="PreviousWidgetButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavHBoxContainer"]
+[node name="PreviousWidgetButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer/WidgetNavHBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 icon = ExtResource("4_p5jry")
 expand_icon = true
 
-[node name="WidgetPaginatorLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavHBoxContainer"]
+[node name="WidgetPaginatorLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer/WidgetNavHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0 / 0"
 horizontal_alignment = 1
 
-[node name="NextWidgetButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavHBoxContainer"]
+[node name="NextWidgetButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer/WidgetNavHBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 icon = ExtResource("5_otoud")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ItemNavVBoxContainer" type="VBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ItemSeparator" type="HSeparator" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer"]
+layout_mode = 2
+
+[node name="ItemLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer"]
+layout_mode = 2
+text = "Item Label"
+horizontal_alignment = 1
+
+[node name="ItemNavHBoxContainer" type="HBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer"]
+layout_mode = 2
+
+[node name="PreviousItemButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemNavHBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+icon = ExtResource("4_p5jry")
+expand_icon = true
+
+[node name="ItemPaginatorLabel" type="Label" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemNavHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0 / 0"
+horizontal_alignment = 1
+
+[node name="NextItemButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemNavHBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("5_otoud")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ItemControlHBoxContainer" type="HBoxContainer" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="InfoButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemControlHBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("6_pn5fc")
+icon_alignment = 1
+expand_icon = true
+
+[node name="DataButton" type="Button" parent="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemControlHBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+icon = ExtResource("7_xiwou")
 icon_alignment = 1
 expand_icon = true
 
@@ -128,7 +193,11 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavHBoxContainer/PreviousPageButton" to="." method="_on_previous_page_button_pressed"]
-[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavHBoxContainer/NextPageButton" to="." method="_on_next_page_button_pressed"]
-[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavHBoxContainer/PreviousWidgetButton" to="." method="_on_previous_widget_button_pressed"]
-[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavHBoxContainer/NextWidgetButton" to="." method="_on_next_widget_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer/PageNavHBoxContainer/PreviousPageButton" to="." method="_on_previous_page_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/PageNavVBoxContainer/PageNavHBoxContainer/NextPageButton" to="." method="_on_next_page_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer/WidgetNavHBoxContainer/PreviousWidgetButton" to="." method="_on_previous_widget_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/WidgetNavVBoxContainer/WidgetNavHBoxContainer/NextWidgetButton" to="." method="_on_next_widget_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemNavHBoxContainer/PreviousItemButton" to="." method="_on_previous_item_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemNavHBoxContainer/NextItemButton" to="." method="_on_next_item_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemControlHBoxContainer/InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="CollectionMenuPanel/MarginContainer/VBoxContainer/ItemNavVBoxContainer/ItemControlHBoxContainer/DataButton" to="." method="_on_data_button_pressed"]

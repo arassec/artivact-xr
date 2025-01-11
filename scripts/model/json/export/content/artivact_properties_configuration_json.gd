@@ -8,6 +8,6 @@ var propertyCategories: Array[PropertyCategory] = []
 
 func _init(data: Dictionary):
 	if data:
-		if data.has("propertyCategories"):
-			for propertyCategory in data["propertyCategories"]:
+		if data.has("categories"):
+			for propertyCategory in data["categories"]:
 				propertyCategories.append(PropertyCategory.new(propertyCategory))

@@ -24,13 +24,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 collide_with_areas = true
 
 [node name="TitleOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25, -6.5)
 layer_viewport = NodePath("../../TitleSubViewport")
 alpha_blend = true
 quad_size = Vector2(6, 1)
 
 [node name="MainMenuOpenXRCompositionLayerEquirect" type="OpenXRCompositionLayerEquirect" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport", "controller")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 1)
 layer_viewport = NodePath("../../MainMenuSubViewport")
 alpha_blend = true
 radius = 5.0

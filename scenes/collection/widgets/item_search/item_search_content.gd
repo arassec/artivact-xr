@@ -1,8 +1,7 @@
-extends Node
+extends Control
 
 
-
-func update(widget: ItemSearchWidget):
+func initialize(widget: ItemSearchWidget):
 	if widget == null:
 		return
 		

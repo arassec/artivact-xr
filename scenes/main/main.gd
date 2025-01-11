@@ -38,7 +38,7 @@ func _ready():
 	get_viewport().msaa_3d = Viewport.MSAA_4X
 	# OpenXR Reference Space is set to "Local" in the project settings. So we have to set the
 	# camera's position manually here:
-	get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
+	#get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
 
 
 ####################################################################################################
@@ -47,6 +47,9 @@ func _ready():
 # The Update is only triggered the first time this method is called after start.
 ####################################################################################################
 func _process(delta):
+	if CollectionStore.is_sync_required():
+		update_remote_collection_infos()
+		
 	if initCollectionSelector:
 		initCollectionSelector = false
 		# Collect collection information from disk:
@@ -122,8 +125,12 @@ func _remote_collection_infos_updated(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, false)
 	else:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, true)		
-	CollectionStore.load_collection_infos(CollectionStore.get_collection_id())
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, true)
+	
+	var collectionId = CollectionStore.get_collection_id()
+	if !collectionId:
+		collectionId = ""
+	CollectionStore.load_collection_infos(collectionId)
 
 
 ####################################################################################################
@@ -145,7 +152,11 @@ func _download_collection_finished(result, response_code, headers, body):
 	else:
 		SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_FINISHED, true)	
 	downloadInProgress = false
-	CollectionStore.load_collection_infos(CollectionStore.get_collection_id())
+	
+	var collectionId = CollectionStore.get_collection_id()
+	if !collectionId:
+		collectionId = ""
+	CollectionStore.load_collection_infos(collectionId)
 
 
 ####################################################################################################

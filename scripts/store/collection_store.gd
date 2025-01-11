@@ -1,5 +1,8 @@
 extends Node
 
+# Indicates that the collection information should be synchronized.
+var synchronizeCollectionInfosOnFirstStart = true
+
 # Path to the file containing available collection exports of the remote Artivact instance:
 var contentExportOverviewsFile = "user://artivact.collection-export-overviews.zip"
 
@@ -31,6 +34,14 @@ func _process(delta):
 			trigger_collection_info_update()
 			SignalBus.trigger_with_payload(SignalBus.SignalType.RELOAD_COLLECTION_INFOS_FINISHED, true)
 
+
+func is_sync_required():
+	if synchronizeCollectionInfosOnFirstStart:
+		synchronizeCollectionInfosOnFirstStart = false
+		return true
+	else:
+		return false
+		
 
 func get_collection_info() -> CollectionInfo:
 	if currentCollectionInfoIndex >= 0 && currentCollectionInfoIndex < collectionInfos.size():
@@ -165,7 +176,7 @@ func _load_collection_infos(selectedCollectionId: String):
 	
 
 ####################################################################################################
-# Loads collection info from a local Artivact content export file
+# Loads collection info from a local Artivact collection export file
 ####################################################################################################
 func _load_collection_info(locationPrefix: String, collectionFile: String):
 	var collectionId = collectionFile.replace(".artivact.collection.zip", "")

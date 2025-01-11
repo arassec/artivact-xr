@@ -3,7 +3,7 @@ class_name ModelHelper
 extends Object
 
 
-static func scale_model(model: Node, targetSize: float, zoomFactor: float):
+static func scale_model(model: Node, targetSize: float):
 	var size = _get_size(model)
 		
 	var scaleX = true
@@ -21,13 +21,13 @@ static func scale_model(model: Node, targetSize: float, zoomFactor: float):
 		scaleY = false
 		scaleZ = true
 		
-	var scaleFactor = _calculate_scale_factor(targetSize, originalSize, zoomFactor)
+	var scaleFactor = _calculate_scale_factor(targetSize, originalSize)
 
 	model.scale *= scaleFactor
 
 
 
-static func _calculate_scale_factor(targetSizeInM, currentSizeInM, zoomFactor) -> float:
+static func _calculate_scale_factor(targetSizeInM, currentSizeInM) -> float:
 	return (targetSizeInM) / currentSizeInM
 	
 
