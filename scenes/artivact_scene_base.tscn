@@ -20,7 +20,8 @@ show_when_tracked = true
 hand_material_override = SubResource("StandardMaterial3D_pm2t0")
 
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("5_k2kmd")]
-distance = 1.0
+y_offset = 0.0
+distance = 0.25
 laser_length = 1
 laser_material = SubResource("StandardMaterial3D_vr2bc")
 target_radius = 0.01

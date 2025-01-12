@@ -17,12 +17,6 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, _load_widget_content)
 
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		var mouse_motion : InputEventMouseMotion = event
-		$Cursor.position = mouse_motion.position - Vector2(20, 20)
-
-
 func _process(delta):
 	if contentLoaded:
 		contentLoaded = false

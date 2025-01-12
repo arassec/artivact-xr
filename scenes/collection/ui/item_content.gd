@@ -21,7 +21,7 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		# Move our cursor
 		var mouse_motion : InputEventMouseMotion = event
-		$Cursor.position = mouse_motion.position - Vector2(20, 5)
+		$Cursor.position = mouse_motion.position - Vector2(20, 20)
 
 
 func _update_item_data(item: ArtivactItem):

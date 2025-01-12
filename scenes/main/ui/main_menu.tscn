@@ -1,43 +1,161 @@
-[gd_scene load_steps=7 format=3 uid="uid://coi7u13rlcw30"]
+[gd_scene load_steps=12 format=3 uid="uid://b585jgd5c12f4"]
 
-[ext_resource type="Script" uid="uid://1oaw3yu8rw5p" path="res://scenes/main/ui/main_menu.gd" id="1_23s8j"]
-[ext_resource type="PackedScene" uid="uid://b585jgd5c12f4" path="res://scenes/main/ui/left_menu.tscn" id="1_iqq74"]
-[ext_resource type="PackedScene" uid="uid://dxfwxs8uult8l" path="res://scenes/main/ui/center_menu.tscn" id="2_iq7id"]
-[ext_resource type="PackedScene" uid="uid://sxn2hgsi1uru" path="res://scenes/main/ui/right_menu.tscn" id="3_23s8j"]
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_h4ux8"]
+[ext_resource type="Script" uid="uid://dtky66u0oclin" path="res://scenes/main/ui/main_menu.gd" id="1_wms3u"]
+[ext_resource type="Texture2D" uid="uid://ckk5u377vhy1s" path="res://assets/ui/icons/cancel_64dp_F5F5F5.svg" id="1_yvtnn"]
+[ext_resource type="Texture2D" uid="uid://d2k2r4p6qbmoq" path="res://assets/ui/icons/settings_64dp_F5F5F5.svg" id="2_rt074"]
+[ext_resource type="Texture2D" uid="uid://c4nbm7sg8ugu4" path="res://assets/ui/icons/cloud_download_64dp_F5F5F5.svg" id="5_3sfyk"]
 [ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="5_rrinc"]
+[ext_resource type="Texture2D" uid="uid://bp31ltdk55e77" path="res://assets/ui/icons/delete_64dp_F5F5F5.svg" id="6_c0mya"]
+[ext_resource type="Texture2D" uid="uid://5rm45lov2e7o" path="res://assets/ui/icons/navigate_before_64dp_F5F5F5.svg" id="7_slee1"]
+[ext_resource type="Texture2D" uid="uid://wapg2jl0dxga" path="res://assets/ui/icons/navigate_next_64dp_F5F5F5.svg" id="8_5xkxw"]
+[ext_resource type="Texture2D" uid="uid://5ff2fix61gy0" path="res://assets/ui/icons/play_circle_64dp_F5F5F5.svg" id="9_v7yx4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gvd23"]
 shader = ExtResource("5_rrinc")
 shader_parameter/color = Color(1, 1, 1, 1)
 
 [node name="MainMenu" type="Control"]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1500.0
-offset_bottom = 500.0
-script = ExtResource("1_23s8j")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1500.0
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_h4ux8")
+script = ExtResource("1_wms3u")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LeftMenu" parent="HBoxContainer" instance=ExtResource("1_iqq74")]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ExitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAIN_EXIT"
+icon = ExtResource("1_yvtnn")
+clip_text = true
+expand_icon = true
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAIN_SETTINGS"
+icon = ExtResource("2_rt074")
+clip_text = true
+expand_icon = true
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CollectionsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAIN_COLLECTIONS"
+horizontal_alignment = 1
+
+[node name="CollectionsMenuHBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Left" type="PanelContainer" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CenterMenu" parent="HBoxContainer" instance=ExtResource("2_iq7id")]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Left"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
 
-[node name="RightMenu" parent="HBoxContainer" instance=ExtResource("3_23s8j")]
+[node name="DownloadButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Left/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+icon = ExtResource("5_3sfyk")
+icon_alignment = 1
+expand_icon = true
+
+[node name="DownloadButtonUpdateIndicator" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Left/HBoxContainer/DownloadButton"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+color = Color(1, 0, 0, 1)
+
+[node name="DeleteButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Left/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+icon = ExtResource("6_c0mya")
+clip_text = true
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer"]
+layout_mode = 2
+
+[node name="PreviousCollectionButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+icon = ExtResource("7_slee1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="PaginatorLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0 / 0"
+horizontal_alignment = 1
+
+[node name="NextCollectionButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+icon = ExtResource("8_5xkxw")
+clip_text = true
+icon_alignment = 2
+expand_icon = true
+
+[node name="Right" type="PanelContainer" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="OpenButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Right"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 24
+icon = ExtResource("9_v7yx4")
+clip_text = true
+icon_alignment = 2
+expand_icon = true
 
 [node name="Cursor" type="ColorRect" parent="."]
 process_mode = 4
@@ -46,3 +164,11 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Left/HBoxContainer/DownloadButton" to="." method="_on_download_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Left/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/HBoxContainer/PreviousCollectionButton" to="." method="_on_previous_collection_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/HBoxContainer/NextCollectionButton" to="." method="_on_next_collection_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CollectionsMenuHBoxContainer/Right/OpenButton" to="." method="_on_open_button_pressed"]
