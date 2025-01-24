@@ -1,14 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdtdnlnm638tq"]
+[gd_scene load_steps=10 format=3 uid="uid://cdtdnlnm638tq"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_e428c"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_b1x3f"]
 [ext_resource type="Script" uid="uid://dljqelx3xjvgs" path="res://scenes/main/main.gd" id="3_woaaa"]
 [ext_resource type="PackedScene" uid="uid://besyy3cq3hxsy" path="res://scripts/util/remote_artivact_server.tscn" id="4_ky8e4"]
-[ext_resource type="PackedScene" uid="uid://dxfwxs8uult8l" path="res://scenes/main/ui/collection_overview.tscn" id="9_a8run"]
-[ext_resource type="PackedScene" uid="uid://cbhv6ca84h5ty" path="res://scenes/main/status.tscn" id="10_ru8st"]
-[ext_resource type="PackedScene" uid="uid://d2viaukoihrbu" path="res://scenes/main/ui/title.tscn" id="11_xl76g"]
-[ext_resource type="PackedScene" uid="uid://b585jgd5c12f4" path="res://scenes/main/ui/main_menu.tscn" id="12_blune"]
+[ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="7_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://f14p1c74oohd" path="res://scenes/main/ui/collection_menu.tscn" id="10_a8run"]
 
 [sub_resource type="Environment" id="Environment_edct5"]
 ambient_light_color = Color(1, 1, 0.831373, 1)
@@ -24,25 +22,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1"]
 collide_with_areas = true
 
-[node name="TitleOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -6.5)
-layer_viewport = NodePath("../../TitleSubViewport")
+[node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1, -0.5)
+visible = false
+layer_viewport = NodePath("../../DebugPanelSubViewport")
 alpha_blend = true
-quad_size = Vector2(6, 1)
+quad_size = Vector2(0.25, 0.25)
 
-[node name="CollectionOverviewOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport")]
+[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
-layer_viewport = NodePath("../../CollectionOverviewSubViewport")
-sort_order = -2
-enable_hole_punch = true
-quad_size = Vector2(2.8, 2)
-
-[node name="MainMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" node_paths=PackedStringArray("layer_viewport", "controller")]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.25, -0.5)
-layer_viewport = NodePath("../../MainMenuSubViewport")
+layer_viewport = NodePath("../../CollectionMenuSubViewport")
 sort_order = -1
 enable_hole_punch = true
-quad_size = Vector2(0.25, 0.25)
+quad_size = Vector2(3.2, 1.8)
 script = ExtResource("3_b1x3f")
 controller = NodePath("../RightHand")
 
@@ -63,26 +55,18 @@ light_specular = 15.0
 omni_range = 9.041
 omni_attenuation = 2.0
 
-[node name="Status" parent="." index="4" instance=ExtResource("10_ru8st")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.5)
-
-[node name="TitleSubViewport" type="SubViewport" parent="." index="5"]
-transparent_bg = true
-size = Vector2i(600, 100)
-render_target_update_mode = 4
-
-[node name="Title" parent="TitleSubViewport" index="0" instance=ExtResource("11_xl76g")]
-
-[node name="CollectionOverviewSubViewport" type="SubViewport" parent="." index="6"]
-size = Vector2i(700, 500)
-render_target_update_mode = 4
-
-[node name="CollectionMenu" parent="CollectionOverviewSubViewport" index="0" instance=ExtResource("9_a8run")]
-
-[node name="MainMenuSubViewport" type="SubViewport" parent="." index="7"]
+[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="4"]
 size = Vector2i(500, 500)
 render_target_update_mode = 4
 
-[node name="MainMenu" parent="MainMenuSubViewport" index="0" instance=ExtResource("12_blune")]
+[node name="DebugPanel" parent="DebugPanelSubViewport" index="0" instance=ExtResource("7_yyfjg")]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="5"]
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="CollectionMenu" parent="CollectionMenuSubViewport" index="0" instance=ExtResource("10_a8run")]
 offset_right = 0.0
 offset_bottom = 0.0

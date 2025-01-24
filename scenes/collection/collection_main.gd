@@ -22,9 +22,10 @@ var backgroundSceneInstance
 
 var widgetContentDefaultPos: Vector3 = Vector3(0.0, 1.5, -3.5)
 var widgetContentDefaultRot: Vector3 = Vector3(0.0, 0.0, 0.0)
-var widgetContentLeftPos: Vector3 = Vector3(-2.75, 1.5, -2.5)
+var widgetContentLeftPos: Vector3 = Vector3(-2.5, 1.5, -3)
 var widgetContentLeftRot: Vector3 = Vector3(0.0, 45.0, 0.0)
 
+var curWidgetIndex = 0
 
 ####################################################################################################
 # Registers for signals.
@@ -64,9 +65,9 @@ func _exit_tree():
 # TODO
 ####################################################################################################
 func _load_pages():
-	collectionZipReader = CollectionStore.get_collection_zip_reader()
+	collectionZipReader = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection())
 
-	var artivactContentJson: ArtivactContentJson = CollectionStore.get_artivact_content_json()
+	var artivactContentJson: ArtivactContentJson = CollectionStore.get_artivact_content_json(CollectionStore.get_selected_collection())
 	var data = CollectionStore.read_json_file(str(artivactContentJson.sourceId, ".artivact.menu.json"))
 
 	mainArtivactMenuJson = ArtivactMenuJson.new(data)
@@ -136,6 +137,23 @@ func _process(_delta):
 func _input(event):
 	if event is InputEventKey && !event.pressed && event.keycode == Key.KEY_Q:
 		SignalBus.trigger(SignalBus.SignalType.COLL_QUIT_COLLECTION)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_1:
+		_open_page(menus[0].menuId)
+		print(selectedPage)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_2:
+		_open_page(menus[1].menuId)
+		print(selectedPage)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_3:
+		_open_page(menus[2].menuId)
+		print(selectedPage)
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_N:
+		curWidgetIndex = curWidgetIndex + 1
+		_open_widget(selectedPage.widgets[curWidgetIndex].id)
+		print(selectedPage.widgets[curWidgetIndex].navigationTitle.translate())
+	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_P:
+		curWidgetIndex = curWidgetIndex - 1
+		_open_widget(selectedPage.widgets[curWidgetIndex].id)
+		print(selectedPage.widgets[curWidgetIndex].navigationTitle.translate())
 
 
 ####################################################################################################
@@ -160,6 +178,7 @@ func _open_widget(widgetId):
 		for widget in selectedPage.widgets:
 			if widget.id == widgetId:
 				$WidgetManager.replace_widget(widget)
+				break
 
 
 ####################################################################################################
@@ -184,7 +203,7 @@ func _show_or_hide_item_content(visible: bool):
 func _place_widget_content(pos: Vector3, rot: Vector3):
 	var widgetContentCompositionLayer: Node3D = get_parent().find_child("WidgetContentOpenXRCompositionLayerQuad")
 	if widgetContentCompositionLayer:
-		widgetContentCompositionLayer.transform.origin = pos
+		widgetContentCompositionLayer.position = pos
 		widgetContentCompositionLayer.rotation = rot
 		
 

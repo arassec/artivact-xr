@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://f14p1c74oohd"]
+
+[ext_resource type="Script" uid="uid://17p1j28hhhme" path="res://scenes/main/ui/collection_menu.gd" id="1_4a80r"]
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_lbtn3"]
+[ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="2_7v2gc"]
+[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="3_7v2gc"]
+[ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="4_jgyxj"]
+[ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_hah2j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iug8l"]
+font = ExtResource("5_hah2j")
+font_size = 48
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbtn3"]
+shader = ExtResource("3_7v2gc")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="CollectionMenu" type="Control"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lbtn3")
+script = ExtResource("1_4a80r")
+
+[node name="PaginationContainer" parent="." instance=ExtResource("2_7v2gc")]
+layout_mode = 1
+
+[node name="QuitButton" type="Button" parent="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
+layout_mode = 2
+text = "MAIN_EXIT"
+icon = ExtResource("4_jgyxj")
+
+[node name="OperationInProgressCover" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="StatusLabel" type="Label" parent="OperationInProgressCover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Status Label"
+label_settings = SubResource("LabelSettings_iug8l")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cursor" type="ColorRect" parent="."]
+process_mode = 4
+material = SubResource("ShaderMaterial_lbtn3")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[connection signal="pressed" from="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
+
+[editable path="PaginationContainer"]

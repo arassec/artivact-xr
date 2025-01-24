@@ -58,6 +58,18 @@ func _load_widget(widget: Widget):
 		widgetContentSceneData["scene"] = "res://scenes/collection/widgets/text/text_content.tscn"
 		updateWidgetContent = true
 		placeWidgetContentCenter = true
+	elif widget is InfoBoxWidget:
+		widgetContentSceneData["scene"] = "res://scenes/collection/widgets/info_box/info_box_content.tscn"
+		updateWidgetContent = true
+		placeWidgetContentCenter = true
+	elif widget is AvatarWidget:
+		widgetContentSceneData["scene"] = "res://scenes/collection/widgets/avatar/avatar_content.tscn"
+		updateWidgetContent = true
+		placeWidgetContentCenter = true
+	elif widget is ImageTextWidget:
+		widgetContentSceneData["scene"] = "res://scenes/collection/widgets/image_text/image_text_content.tscn"
+		updateWidgetContent = true
+		placeWidgetContentCenter = true
 	elif widget is ItemSearchWidget:
 		widgetContentSceneData["scene"] = "res://scenes/collection/widgets/item_search/item_search_content.tscn"
 		updateWidgetContent = true

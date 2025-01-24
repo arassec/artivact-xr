@@ -8,8 +8,6 @@ var contentExportOverviewsFile = "user://artivact.collection-export-overviews.zi
 
 # Contains basic collection information:
 var collectionInfos: Array[CollectionInfo] = []
-# The index of the currently selected collection info:
-var currentCollectionInfoIndex: int = 0
 
 # Contains the collection ZIP readers, indexed by the collection's ID.
 #    Collection ID -> ZIP Reader of the collection's ZIP file on disk
@@ -23,19 +21,22 @@ var artivactContentJsons: Dictionary = {}
 #    Collection ID -> ArtivactPropertiesConfigurationJson
 var artivactPropertiesConfigurationJsons: Dictionary = {}
 
+# Thread for loading collection infos in the background.
 var loadCollectionInfosThread: Thread
 
+# Contains the ID of the currently selected collection.
+var selectedCollectionId: String
 
-func _process(delta):
+
+func _process(_delta) -> void:
 	if loadCollectionInfosThread != null:
 		if loadCollectionInfosThread.is_started() && !loadCollectionInfosThread.is_alive():
 			loadCollectionInfosThread.wait_to_finish()
 			loadCollectionInfosThread = null
-			trigger_collection_info_update()
-			SignalBus.trigger_with_payload(SignalBus.SignalType.RELOAD_COLLECTION_INFOS_FINISHED, true)
+			SignalBus.trigger(SignalBus.SignalType.MAIN_COLLECTION_INFOS_UPDATED)
 
 
-func is_sync_required():
+func is_sync_required() -> bool:
 	if synchronizeCollectionInfosOnFirstStart:
 		synchronizeCollectionInfosOnFirstStart = false
 		return true
@@ -43,63 +44,38 @@ func is_sync_required():
 		return false
 		
 
-func get_collection_info() -> CollectionInfo:
-	if currentCollectionInfoIndex >= 0 && currentCollectionInfoIndex < collectionInfos.size():
-		return collectionInfos[currentCollectionInfoIndex]
+func get_collection_info(collectionId: String) -> CollectionInfo:
+	for collectionInfo in collectionInfos:
+		if collectionInfo.id == collectionId:
+			return collectionInfo
 	return null
 
 
-func get_collection_id():
-	var collectionInfo = get_collection_info()
-	if collectionInfo != null:
-		return collectionInfo.id
-		
-
-func get_collection_zip_reader() -> ZIPReader:
-	var collectionId = get_collection_id()
+func get_collection_zip_reader(collectionId: String) -> ZIPReader:
 	if collectionZipReaders.has(collectionId):
 		return collectionZipReaders[collectionId]
 	return null
 	
 
-func get_artivact_content_json() -> ArtivactContentJson:
-	var collectionId = get_collection_id()
+func get_artivact_content_json(collectionId: String) -> ArtivactContentJson:
 	if artivactContentJsons.has(collectionId):
 		return artivactContentJsons[collectionId]
 	return null
 	
 
-func get_artivact_properties_configuration_json() -> ArtivactPropertiesConfigurationJson:
-	var collectionId = get_collection_id()
+func get_artivact_properties_configuration_json(collectionId: String) -> ArtivactPropertiesConfigurationJson:
 	if artivactPropertiesConfigurationJsons.has(collectionId):
 		return artivactPropertiesConfigurationJsons[collectionId]
 	return null
+
+
+func set_selected_collection(collectionId: String) -> void:
+	selectedCollectionId = collectionId
+
+
+func get_selected_collection() -> String:
+	return selectedCollectionId
 	
-
-####################################################################################################
-# Switches to the next collection information.
-####################################################################################################
-func next_collection_info():
-	if currentCollectionInfoIndex < (collectionInfos.size() -1):
-		currentCollectionInfoIndex = currentCollectionInfoIndex + 1
-		trigger_collection_info_update()
-
-
-####################################################################################################
-# Switches to the previous collection information.
-####################################################################################################
-func previous_collection_info():
-	if currentCollectionInfoIndex > 0:
-		currentCollectionInfoIndex = currentCollectionInfoIndex -1
-		trigger_collection_info_update()
-
-
-func trigger_collection_info_update():
-	var collectionInfo = get_collection_info()
-	if collectionInfo != null:
-		SignalBus.trigger_with_multiload(SignalBus.SignalType.UPDATE_SELECTED_COLLECTION, collectionInfo, {"currentCollectionInfoIndex": currentCollectionInfoIndex, "totalCollectionInfos": collectionInfos.size()})
-
-
 
 func set_collection_zip_reader(collectionId: String, zipReader: ZIPReader):
 	if collectionZipReaders[collectionId] != null:
@@ -117,13 +93,12 @@ func remove_content_export_overviews_file():
 	DirAccess.remove_absolute(contentExportOverviewsFile)
 
 
-func load_collection_infos(selectedCollectionId: String):
+func load_collection_infos():
 	if loadCollectionInfosThread != null:
 		return
-	SignalBus.trigger(SignalBus.SignalType.RELOAD_COLLECTION_INFOS)
 	collectionInfos.clear()
 	loadCollectionInfosThread = Thread.new()
-	loadCollectionInfosThread.start(_load_collection_infos.bind(selectedCollectionId))
+	loadCollectionInfosThread.start(_load_collection_infos)
 
 
 
@@ -132,7 +107,7 @@ func load_collection_infos(selectedCollectionId: String):
 ####################################################################################################
 func read_json_file(jsonFile: String) -> Dictionary:
 	var json := JSON.new()
-	var jsonString = get_collection_zip_reader().read_file(jsonFile).get_string_from_utf8()
+	var jsonString = get_collection_zip_reader(selectedCollectionId).read_file(jsonFile).get_string_from_utf8()
 	var parseResult := json.parse(jsonString)
 	
 	if parseResult != OK:
@@ -147,38 +122,70 @@ func read_json_file(jsonFile: String) -> Dictionary:
 	
 
 ####################################################################################################
-# Loads collection information. First from local content export files found in the filesystem, and 
-# afterwards from the downloaded remote file with information about available collections, if it 
-# exists.
+# Loads collection information. First from a remote collections export file, then from local
+# files if available.
 ####################################################################################################
-func _load_collection_infos(selectedCollectionId: String):
+func _load_collection_infos():
+	_read_remote_collection_infos()
+
 	var resourceFiles = DirAccess.get_files_at("res://")
 	for resourceFile in resourceFiles:
 		if resourceFile.ends_with(".artivact.collection.zip"):
-			_load_collection_info("res://", resourceFile)
+			_merge_collection_info("res://", resourceFile)
 	
 	resourceFiles = DirAccess.get_files_at("user://")
 	for resourceFile in resourceFiles:
 		if resourceFile.ends_with(".artivact.collection.zip"):
-			_load_collection_info("user://", resourceFile)
+			_merge_collection_info("user://", resourceFile)
+
 	
-	_merge_remote_collection_infos()
+####################################################################################################
+# Reads downloaded collection information into the collection infos array:
+####################################################################################################
+func _read_remote_collection_infos():
+	var zipReader = ZIPReader.new()
+	var openResult := zipReader.open(contentExportOverviewsFile)
+	if openResult != OK:
+		# File might not have been downloaded by the user...
+		return
 
-	var index = 0
-	for collectionInfo in collectionInfos:
-		if collectionInfo.id == selectedCollectionId:
-			currentCollectionInfoIndex = index
-			break
-		index = index + 1
+	var contentExportOverviewsJson := JSON.new()
+	var contentExportOverviewsJsonFile = zipReader.read_file("artivact.collection-export-overviews.json").get_string_from_utf8()
+	var parseResult := contentExportOverviewsJson.parse(contentExportOverviewsJsonFile)
+	if parseResult != OK:
+		SignalBus.debug({"status": "ERROR", "file": "artivact.collection-export-overviews.json", "parseResult": parseResult})
+		return
 
-	if currentCollectionInfoIndex >= collectionInfos.size():
-		currentCollectionInfoIndex = 0
+	var contentExportOverviews = contentExportOverviewsJson.data
+	
+	var resultCollectionInfos: Array[CollectionInfo] = []
+	
+	for rawContentExport in contentExportOverviews:
+	
+		var contentExport = ContentExport.new(rawContentExport)
+		
+		var collectionInfo = CollectionInfo.new(contentExport.id)
+		collectionInfo.set_online_data(contentExport)
+		
+		for fileInZip in zipReader.get_files():
+			if fileInZip.begins_with(contentExport.id):
+				var img = zipReader.read_file(fileInZip)
+				var coverPicture = Image.new()
+				var loadResult = ERR_UNAVAILABLE
+				if fileInZip.ends_with("jpg") || fileInZip.ends_with("JPG") || fileInZip.ends_with("jpeg") || fileInZip.ends_with("JPEG"):
+					loadResult = coverPicture.load_jpg_from_buffer(img)
+				elif fileInZip.ends_with("png") || fileInZip.ends_with("PNG"):
+					loadResult = coverPicture.load_png_from_buffer(img)
+				if loadResult == OK:
+					collectionInfo.set_cover_picture(ImageTexture.create_from_image(coverPicture))
+			
+		collectionInfos.append(collectionInfo)
 	
 
 ####################################################################################################
 # Loads collection info from a local Artivact collection export file
 ####################################################################################################
-func _load_collection_info(locationPrefix: String, collectionFile: String):
+func _merge_collection_info(locationPrefix: String, collectionFile: String):
 	var collectionId = collectionFile.replace(".artivact.collection.zip", "")
 	var collectionZipFile = str(locationPrefix, collectionFile)
 	var collectionJsonFile = "artivact.content.json"
@@ -187,7 +194,7 @@ func _load_collection_info(locationPrefix: String, collectionFile: String):
 	var zipReader = ZIPReader.new()
 	var openResult := zipReader.open(collectionZipFile)
 	if openResult != OK:
-		# TODO: Error handling!
+		SignalBus.debug({"status": "ERROR", "file": collectionZipFile, "openResult": openResult})
 		return
 
 	# Store general collection information:
@@ -195,7 +202,7 @@ func _load_collection_info(locationPrefix: String, collectionFile: String):
 	var collectionJsonString = zipReader.read_file(collectionJsonFile).get_string_from_utf8()
 	var parseResult := collectionJson.parse(collectionJsonString)
 	if parseResult != OK:
-		# TODO: Error handling!
+		SignalBus.debug({"status": "ERROR", "file": collectionJsonFile, "parseResult": parseResult})
 		return
 	var collectionData = collectionJson.data
 	artivactContentJsons[collectionId] = ArtivactContentJson.new(collectionData)
@@ -205,7 +212,7 @@ func _load_collection_info(locationPrefix: String, collectionFile: String):
 	var propertiesJsonString = zipReader.read_file(propertiesConfigurationJsonFile).get_string_from_utf8()
 	parseResult = propertiesJson.parse(propertiesJsonString)
 	if parseResult != OK:
-		# TODO: Error handling!
+		SignalBus.debug({"status": "ERROR", "file": propertiesJsonString, "parseResult": parseResult})
 		return
 	var propertiesConfigurationData = propertiesJson.data
 	artivactPropertiesConfigurationJsons[collectionId] = ArtivactPropertiesConfigurationJson.new(propertiesConfigurationData)
@@ -218,8 +225,9 @@ func _load_collection_info(locationPrefix: String, collectionFile: String):
 	var file := FileAccess.open(collectionZipFile, FileAccess.READ)
 	var fileSize = file.get_length()
 	
-	var collectionInfo = CollectionInfo.new(collectionId, artivactContentJsons[collectionId], lastModified, fileSize, collectionZipFile)
-
+	var collectionInfo = CollectionInfo.new(collectionId)
+	collectionInfo.set_local_data(artivactContentJsons[collectionId], lastModified, fileSize, collectionZipFile)
+	
 	# Create the cover picture if available:
 	for fileInZip in zipReader.get_files():
 		if fileInZip.begins_with("cover-picture"):
@@ -233,52 +241,11 @@ func _load_collection_info(locationPrefix: String, collectionFile: String):
 			if loadResult == OK:
 				collectionInfo.set_cover_picture(ImageTexture.create_from_image(coverPicture))
 	
-	collectionInfos.append(collectionInfo)
-
+	var remoteInfoFound = false
+	for existingCollectionInfo in collectionInfos:
+		if existingCollectionInfo.id == collectionInfo.id:
+			existingCollectionInfo.set_local_data(artivactContentJsons[collectionId], lastModified, fileSize, collectionZipFile)
+			remoteInfoFound = true
 	
-####################################################################################################
-# Merges downloaded collection information into the already created collection infos from the local
-# filesystem:
-####################################################################################################
-func _merge_remote_collection_infos():
-	var zipReader = ZIPReader.new()
-	var openResult := zipReader.open(contentExportOverviewsFile)
-	if openResult != OK:
-		# File might not have been downloaded by the user...
-		return
-
-	var contentExportOverviewsJson := JSON.new()
-	var contentExportOverviewsJsonFile = zipReader.read_file("artivact.collection-export-overviews.json").get_string_from_utf8()
-	var parseResult := contentExportOverviewsJson.parse(contentExportOverviewsJsonFile)
-	if parseResult != OK:
-		# TODO: Error handling!
-		return
-
-	var contentExportOverviews = contentExportOverviewsJson.data
-	
-	for rawContentExport in contentExportOverviews:
-	
-		var contentExport = ContentExport.new(rawContentExport)
-		var existingCollectionInfoUpdated = false
-		for collectionInfo in collectionInfos:
-			if collectionInfo.id == contentExport.id:
-				collectionInfo.update_online_data(contentExport)
-				existingCollectionInfoUpdated = true
-				
-		if !existingCollectionInfoUpdated:
-			var newCollectionInfo = CollectionInfo.new(contentExport.id)
-			newCollectionInfo.update_online_data(contentExport)
-			
-			for fileInZip in zipReader.get_files():
-				if fileInZip.begins_with(contentExport.id):
-					var img = zipReader.read_file(fileInZip)
-					var coverPicture = Image.new()
-					var loadResult = ERR_UNAVAILABLE
-					if fileInZip.ends_with("jpg") || fileInZip.ends_with("JPG") || fileInZip.ends_with("jpeg") || fileInZip.ends_with("JPEG"):
-						loadResult = coverPicture.load_jpg_from_buffer(img)
-					elif fileInZip.ends_with("png") || fileInZip.ends_with("PNG"):
-						loadResult = coverPicture.load_png_from_buffer(img)
-					if loadResult == OK:
-						newCollectionInfo.set_cover_picture(ImageTexture.create_from_image(coverPicture))
-				
-			collectionInfos.append(newCollectionInfo)
+	if !remoteInfoFound:
+		collectionInfos.append(collectionInfo)

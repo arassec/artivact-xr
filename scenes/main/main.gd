@@ -14,19 +14,32 @@ var downloadInProgress = false
 # Delay before the status of downloads is updated in milliseconds:
 var downloadStatusDelay = 10
 
+# Indicates that the component must be initialized. Used to e.g. place the main menu panel when
+# the user is sitting.
+var initialize = true
+
+# Filesize of a remote collection. Will be set before Downoad and used to calculate the progress.
+var remoteCollectionFileSize: int = 0
 
 ####################################################################################################
 # Initializes the script:
 ####################################################################################################
 func _init():
 	# Register for relevant signals:
-	SignalBus.register(SignalBus.SignalType.EXIT_APPLICATION, exit_application)
-	SignalBus.register(SignalBus.SignalType.UPDATE_REMOTE_COLLECTION_INFOS, update_remote_collection_infos)
-	SignalBus.register(SignalBus.SignalType.NEXT_COLLECTION_INFO, next_collection_info)
-	SignalBus.register(SignalBus.SignalType.PREVIOUS_COLLECTION_INFO, previous_collection_info)
-	SignalBus.register(SignalBus.SignalType.DOWNLOAD_COLLECTION, download_collection)
-	SignalBus.register(SignalBus.SignalType.OPEN_COLLECTION, open_collection)
-	SignalBus.register(SignalBus.SignalType.DELETE_COLLECTION, delete_collection_file)
+	SignalBus.register(SignalBus.SignalType.MAIN_EXIT_APPLICATION, _exit_application)
+	SignalBus.register(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, _download_collection)
+	SignalBus.register(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
+	SignalBus.register(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
+
+
+####################################################################################################
+# Cleans up signal registrations after the scene closed.
+####################################################################################################
+func _exit_tree():
+	SignalBus.deregister(SignalBus.SignalType.MAIN_EXIT_APPLICATION, _exit_application)
+	SignalBus.deregister(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, _download_collection)
+	SignalBus.deregister(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
+	SignalBus.deregister(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
 
 
 ####################################################################################################
@@ -48,52 +61,26 @@ func _ready():
 ####################################################################################################
 func _process(delta):
 	if CollectionStore.is_sync_required():
-		update_remote_collection_infos()
+		_update_remote_collection_infos()
 		
 	if initCollectionSelector:
 		initCollectionSelector = false
 		# Collect collection information from disk:
-		CollectionStore.load_collection_infos("")
+		CollectionStore.load_collection_infos()
 		
 	if downloadInProgress:
 		downloadStatusDelay = downloadStatusDelay - (delta * 1000)
 		if downloadStatusDelay < 0:
 			downloadStatusDelay = 10
-			SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_PROGRESS, $RemoteArtivactServer.get_progress(CollectionStore.get_collection_info().fileSizeRemote))
+			SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION_PROGRESS, $RemoteArtivactServer.get_progress(remoteCollectionFileSize))
 
-
-####################################################################################################
-# Configures fallback keyboard shortcuts to test the application without XR device.
-####################################################################################################
-func _input(event):
-	if event is InputEventKey && !event.pressed && event.keycode == Key.KEY_O:
-		SignalBus.trigger(SignalBus.SignalType.OPEN_COLLECTION)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_E:
-		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_S:
-		SignalBus.trigger(SignalBus.SignalType.UPDATE_REMOTE_COLLECTION_INFOS)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_P:
-		SignalBus.trigger(SignalBus.SignalType.PREVIOUS_COLLECTION_INFO)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_N:
-		SignalBus.trigger(SignalBus.SignalType.NEXT_COLLECTION_INFO)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_D:
-		SignalBus.trigger(SignalBus.SignalType.DOWNLOAD_COLLECTION)
-	elif event is InputEventKey && !event.pressed && event.keycode == Key.KEY_X:
-		SignalBus.trigger(SignalBus.SignalType.DELETE_COLLECTION)
-
-
-####################################################################################################
-# Cleans up signal registrations after the scene closed.
-####################################################################################################
-func _exit_tree():
-	SignalBus.deregister(SignalBus.SignalType.EXIT_APPLICATION, exit_application)
-	SignalBus.deregister(SignalBus.SignalType.UPDATE_REMOTE_COLLECTION_INFOS, update_remote_collection_infos)
-	SignalBus.deregister(SignalBus.SignalType.NEXT_COLLECTION_INFO, next_collection_info)
-	SignalBus.deregister(SignalBus.SignalType.PREVIOUS_COLLECTION_INFO, previous_collection_info)
-	SignalBus.deregister(SignalBus.SignalType.DOWNLOAD_COLLECTION, download_collection)
-	SignalBus.deregister(SignalBus.SignalType.OPEN_COLLECTION, open_collection)
-	SignalBus.deregister(SignalBus.SignalType.DELETE_COLLECTION, delete_collection_file)
-
+	if initialize:
+		initialize = false
+		var cam = get_parent().find_child("XRCamera3D")
+		var collectionMenu = get_parent().find_child("DebugPanelOpenXRCompositionLayerQuad")
+		if cam && collectionMenu:
+			collectionMenu.transform.origin.y = (cam.transform.origin.y - 0.35)
+		
 
 ####################################################################################################
 # Closes the app on notification.
@@ -106,14 +93,14 @@ func _notification(what):
 ####################################################################################################
 # Exits the application.
 ####################################################################################################
-func exit_application():
+func _exit_application():
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 
 ####################################################################################################
 # Starts the download of the remote file containing information about available collections.
 ####################################################################################################
-func update_remote_collection_infos():
+func _update_remote_collection_infos():
 	CollectionStore.remove_content_export_overviews_file()
 	$RemoteArtivactServer.get_collection_infos(_remote_collection_infos_updated, CollectionStore.contentExportOverviewsFile)
 
@@ -122,23 +109,18 @@ func update_remote_collection_infos():
 # Callback, called after remote collection information has been downloaded.
 ####################################################################################################
 func _remote_collection_infos_updated(result, response_code, headers, body):
+	CollectionStore.load_collection_infos()
 	if result != HTTPRequest.RESULT_SUCCESS:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, false)
-	else:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.COLLECTION_INFOS_UPDATED, true)
-	
-	var collectionId = CollectionStore.get_collection_id()
-	if !collectionId:
-		collectionId = ""
-	CollectionStore.load_collection_infos(collectionId)
+		SignalBus.debug({"HTTP Error": result})
 
 
 ####################################################################################################
 # Starts the download of the remote file containing information about available collections.
 ####################################################################################################
-func download_collection():
-	var collectionInfo = CollectionStore.get_collection_info()
+func _download_collection(collectionId: String):
+	var collectionInfo = CollectionStore.get_collection_info(collectionId)
 	if collectionInfo != null && collectionInfo.fileSizeRemote > 0:
+		remoteCollectionFileSize = collectionInfo.fileSizeRemote
 		$RemoteArtivactServer.download_collection(_download_collection_finished, collectionInfo.id)
 		downloadInProgress = true
 
@@ -148,39 +130,25 @@ func download_collection():
 ####################################################################################################
 func _download_collection_finished(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_FINISHED, false)
-	else:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.DOWNLOAD_COLLECTION_FINISHED, true)	
+		SignalBus.debug({"HTTP-ERROR": result})
+
+	SignalBus.trigger(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION_FINISHED)
 	downloadInProgress = false
 	
-	var collectionId = CollectionStore.get_collection_id()
-	if !collectionId:
-		collectionId = ""
-	CollectionStore.load_collection_infos(collectionId)
-
-
-####################################################################################################
-# Switches to the next collection information.
-####################################################################################################
-func next_collection_info():
-	CollectionStore.next_collection_info()
-
-
-####################################################################################################
-# Switches to the previous collection information.
-####################################################################################################
-func previous_collection_info():
-	CollectionStore.previous_collection_info()
+	CollectionStore.load_collection_infos()
 
 
 ####################################################################################################
 # Opens the currently selected collection by switching to the next scene.
 ####################################################################################################
-func open_collection():
+func _open_collection(collectionId: String):
+	CollectionStore.set_selected_collection(collectionId)
+	
 	# Find the XRToolsSceneBase ancestor of the current node
 	var scene_base : XRToolsSceneBase = XRTools.find_xr_ancestor(self, "*", "XRToolsSceneBase")
 	if not scene_base:
 		return
+		
 	# Request loading the next scene
 	scene_base.load_scene("res://scenes/collection/collection_main.tscn")
 
@@ -188,12 +156,16 @@ func open_collection():
 ####################################################################################################
 # Deletes the file of the currently selected collection.
 ####################################################################################################
-func delete_collection_file():
-	var collectionInfo = CollectionStore.get_collection_info()
+func _delete_collection(collectionId: String):
+	var debug = {}
+	debug["input"] = collectionId
+	var collectionInfo = CollectionStore.get_collection_info(collectionId)
+	debug["collectionInfo"] = collectionInfo
+	SignalBus.debug(debug)
 	if collectionInfo == null:
 		return
 	var fileToDelete = collectionInfo.localFile
 	if fileToDelete.begins_with("user://"):
 		CollectionStore.remove_collection_zip_reader(collectionInfo.id)
 		DirAccess.remove_absolute(fileToDelete)
-		CollectionStore.load_collection_infos(CollectionStore.get_collection_id())
+		CollectionStore.load_collection_infos()

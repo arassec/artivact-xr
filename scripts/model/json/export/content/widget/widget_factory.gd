@@ -12,5 +12,13 @@ static func create_from_json(data: Dictionary) -> Widget:
 			return ItemSearchWidget.new(data)
 		elif type == Widget.WidgetType.TEXT:
 			return TextWidget.new(data)
+		elif type == Widget.WidgetType.SPACE:
+			return SpaceWidget.new(data)
+		elif type == Widget.WidgetType.INFO_BOX:
+			return InfoBoxWidget.new(data)
+		elif type == Widget.WidgetType.AVATAR:
+			return AvatarWidget.new(data)
+		elif type == Widget.WidgetType.IMAGE_TEXT:
+			return ImageTextWidget.new(data)
 
 	return Widget.new(data)

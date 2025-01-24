@@ -27,8 +27,8 @@ CollectionStore="*res://scripts/store/collection_store.gd"
 
 [display]
 
-window/size/viewport_width=2000
-window/size/viewport_height=1000
+window/size/viewport_width=960
+window/size/viewport_height=540
 
 [editor_plugins]
 
@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 folder_colors={
 "res://scenes/collection/": "yellow",
+"res://scenes/common/": "teal",
 "res://scenes/main/": "red",
 "res://scripts/model/": "red",
 "res://scripts/store/": "green",

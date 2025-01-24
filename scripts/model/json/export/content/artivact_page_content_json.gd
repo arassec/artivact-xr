@@ -12,4 +12,6 @@ func _init(data: Dictionary):
 			id = data["id"]
 		if data.has("widgets"):
 			for widgetJson in data["widgets"]:
-				widgets.append(WidgetFactory.create_from_json(widgetJson))
+				var widget = WidgetFactory.create_from_json(widgetJson)
+				if not widget is SpaceWidget:
+					widgets.append(widget)

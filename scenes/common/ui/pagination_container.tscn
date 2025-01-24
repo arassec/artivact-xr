@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxi51ykm3xxbq"]
+
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_c1fvu"]
+[ext_resource type="Texture2D" uid="uid://5rm45lov2e7o" path="res://assets/ui/icons/navigate_before_64dp_F5F5F5.svg" id="2_d3fho"]
+[ext_resource type="Script" uid="uid://dr7pkrxbe6na8" path="res://scenes/common/ui/pagination_container.gd" id="2_n7vgj"]
+[ext_resource type="Texture2D" uid="uid://wapg2jl0dxga" path="res://assets/ui/icons/navigate_next_64dp_F5F5F5.svg" id="3_n7vgj"]
+
+[node name="PaginationContainer" type="Control"]
+custom_minimum_size = Vector2(960, 540)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_c1fvu")
+script = ExtResource("2_n7vgj")
+
+[node name="ContentMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="ContentContainer" type="VBoxContainer" parent="ContentMargin"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ContentAnchor" type="GridContainer" parent="ContentMargin/ContentContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+columns = 2
+
+[node name="ActionBarContainer" type="HBoxContainer" parent="ContentMargin/ContentContainer"]
+layout_mode = 2
+
+[node name="LeftActionsAnchor" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="Pager" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="BeforeButton" type="Button" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager"]
+layout_mode = 2
+icon = ExtResource("2_d3fho")
+
+[node name="PageLabel" type="Label" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager"]
+layout_mode = 2
+text = "0 / 0"
+
+[node name="NextButton" type="Button" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager"]
+layout_mode = 2
+icon = ExtResource("3_n7vgj")
+
+[node name="RightActionsAnchor" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+alignment = 2
+
+[connection signal="pressed" from="ContentMargin/ContentContainer/ActionBarContainer/Pager/BeforeButton" to="." method="_on_before_button_pressed"]
+[connection signal="pressed" from="ContentMargin/ContentContainer/ActionBarContainer/Pager/NextButton" to="." method="_on_next_button_pressed"]

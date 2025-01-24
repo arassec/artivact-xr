@@ -12,23 +12,25 @@ var lastModifiedRemote: int = -1
 var fileSizeRemote: int = -1
 var coverPicture: ImageTexture
 
-func _init(collectionId: String, artivactContentJson: ArtivactContentJson = null, lastModiefiedInput = -1, fileSizeInput = -1, localFileInput = ""):
+func _init(collectionId: String):
 	id = collectionId
-	lastModified = lastModiefiedInput
-	fileSize = fileSizeInput
-	localFile = localFileInput
-	
-	if artivactContentJson != null:
-		title = artivactContentJson.title.translate()
-		description = artivactContentJson.description.translate()
 	
 
-func update_online_data(onlineData: ContentExport):
+func set_online_data(onlineData: ContentExport):
 	if onlineData != null:
 		title = onlineData.title.translate()
 		description = onlineData.description.translate()
 		fileSizeRemote = onlineData.size
 		lastModifiedRemote = onlineData.lastModified
+
+
+func set_local_data(artivactContentJson: ArtivactContentJson = null, lastModiefiedInput = -1, fileSizeInput = -1, localFileInput = ""):
+	if artivactContentJson != null:
+		title = artivactContentJson.title.translate()
+		description = artivactContentJson.description.translate()
+	lastModified = lastModiefiedInput
+	fileSize = fileSizeInput
+	localFile = localFileInput
 
 
 func set_cover_picture(coverPictureInput: ImageTexture):
