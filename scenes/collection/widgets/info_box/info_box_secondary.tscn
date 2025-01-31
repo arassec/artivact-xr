@@ -1,11 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://1kxrpw8wdics"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_y6wt5"]
-[ext_resource type="Script" uid="uid://bo75yopjgtidp" path="res://scenes/collection/widgets/info_box/info_box_content.gd" id="2_07yfu"]
+[ext_resource type="Script" uid="uid://bo75yopjgtidp" path="res://scenes/collection/widgets/info_box/info_box_secondary.gd" id="2_07yfu"]
 
 [node name="InfoBoxContent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 theme = ExtResource("1_y6wt5")
 script = ExtResource("2_07yfu")
 
@@ -14,8 +16,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 700.0
-offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.529412, 0.639216, 0.188235, 0.368627)

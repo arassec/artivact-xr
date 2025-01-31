@@ -40,6 +40,7 @@ folder_colors={
 "res://scenes/collection/": "yellow",
 "res://scenes/common/": "teal",
 "res://scenes/main/": "red",
+"res://scripts/": "purple",
 "res://scripts/model/": "red",
 "res://scripts/store/": "green",
 "res://scripts/ui/": "orange",

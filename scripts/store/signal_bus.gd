@@ -20,10 +20,6 @@ enum SignalType {
 	COLL_ITEM_NEXT,
 	COLL_ITEM_PREVIOUS,
 	COLL_ITEM_UPDATE_PAGINATOR,
-	COLL_ITEM_SHOW_INFO,
-	COLL_ITEM_HIDE_INFO,
-	COLL_ITEM_SHOW_DATA,
-	COLL_ITEM_HIDE_DATA,
 	COLL_ITEM_UPDATE_DATA,
 	COLL_WIDGET_CONTENT_LEFT,
 	COLL_WIDGET_CONTENT_CENTER,
@@ -59,15 +55,11 @@ var callbacks = {
 	SignalType.COLL_OPEN_PAGE: [],
 	SignalType.COLL_UPDATE_PAGE_NAV: [],
 	SignalType.COLL_UPDATE_WIDGET_NAV: [],
-	SignalType.COLL_OPEN_WIDGET: [],
+	SignalType.COLL_OPEN_WIDGET: [],	
 	SignalType.COLL_UPDATE_WIDGET_CONTENT: [],
 	SignalType.COLL_ITEM_NEXT: [],
 	SignalType.COLL_ITEM_PREVIOUS: [],
 	SignalType.COLL_ITEM_UPDATE_PAGINATOR: [],
-	SignalType.COLL_ITEM_SHOW_INFO: [],
-	SignalType.COLL_ITEM_HIDE_INFO: [],
-	SignalType.COLL_ITEM_SHOW_DATA: [],
-	SignalType.COLL_ITEM_HIDE_DATA: [],
 	SignalType.COLL_ITEM_UPDATE_DATA: [],
 	SignalType.COLL_WIDGET_CONTENT_LEFT: [],
 	SignalType.COLL_WIDGET_CONTENT_CENTER: [],
@@ -97,30 +89,35 @@ func deregister(type: SignalType, callback: Callable):
 
 
 func trigger(type: SignalType):
+	debug({"type": type})
 	for callback in callbacks[type]:
 		callback.call()
 
 
 func trigger_with_payload(type: SignalType, payload: Variant):
+	debug({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
 func trigger_with_multiload(type: SignalType, payloadOne: Variant, payloadTwo: Variant):
+	debug({"type": type, "payloadOne": payloadOne, "payloadTwo": payloadTwo})
 	for callback in callbacks[type]:
 		callback.call(payloadOne, payloadTwo)
 
 
 func trigger_with_node(type: SignalType, payload: Node):
+	debug({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
 func trigger_with_widget(type: SignalType, payload: Widget):
+	debug({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
-func debug(payload: Variant):
+func debug(payload: Dictionary):
 	for callback in callbacks[SignalType.DEBUG]:
 		callback.call(payload)

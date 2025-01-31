@@ -128,7 +128,7 @@ func _load_model(itemId: String):
 	var gltfDocument = GLTFDocument.new()
 	var gltfState = GLTFState.new()
 
-	var zipReader = CollectionStore.get_collection_zip_reader()
+	var zipReader = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection())
 	# TODO: Model selection / Model array handling
 	var model = items[currentItemId].models[0]
 	var modelFile = str(itemId, "/", model)
@@ -149,7 +149,7 @@ func _load_model(itemId: String):
 
 func _load_image(itemId: String):
 	var imageFile = items[currentItemId].images[0]
-	var img = CollectionStore.get_collection_zip_reader().read_file(str(itemId, "/", imageFile))
+	var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(str(itemId, "/", imageFile))
 	
 	var image = Image.new()
 	var loadResult = ERR_UNAVAILABLE

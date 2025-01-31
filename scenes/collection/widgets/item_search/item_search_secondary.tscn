@@ -1,15 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4kqmp3ysj60r"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_1q5nw"]
-[ext_resource type="Script" uid="uid://dpmi2yknftruu" path="res://scenes/collection/widgets/item_search/item_search_content.gd" id="1_v6cgf"]
+[ext_resource type="Script" uid="uid://dpmi2yknftruu" path="res://scenes/collection/widgets/item_search/item_search_secondary.gd" id="1_v6cgf"]
 
 [node name="ItemSearchContent" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 theme = ExtResource("1_1q5nw")
 script = ExtResource("1_v6cgf")
 
@@ -19,8 +17,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 700.0
-offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -41,12 +37,12 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/ScrollContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 15
 
 [node name="HeadingContainer" type="PanelContainer" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="HeadingLabel" type="Label" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer/HeadingContainer"]
@@ -54,16 +50,18 @@ custom_minimum_size = Vector2(680, 62)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Text Widget Title"
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="ContentContainer" type="PanelContainer" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
 [node name="ContentLabel" type="Label" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer/ContentContainer"]
 custom_minimum_size = Vector2(680, 0)
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
 autowrap_mode = 2

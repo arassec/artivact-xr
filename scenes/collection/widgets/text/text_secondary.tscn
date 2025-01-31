@@ -1,22 +1,21 @@
 [gd_scene load_steps=3 format=3 uid="uid://28gvkovxs7vo"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_fb2x0"]
-[ext_resource type="Script" uid="uid://bjsgdlrobnjti" path="res://scenes/collection/widgets/text/text_content.gd" id="1_fjfbo"]
+[ext_resource type="Script" uid="uid://bjsgdlrobnjti" path="res://scenes/collection/widgets/text/text_secondary.gd" id="1_fjfbo"]
 
 [node name="TextContent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 theme = ExtResource("1_fb2x0")
 script = ExtResource("1_fjfbo")
 
 [node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(700, 500)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 700.0
-offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -37,19 +36,19 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/ScrollContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 15
 
 [node name="HeadingContainer" type="PanelContainer" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="HeadingLabel" type="Label" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer/HeadingContainer"]
 custom_minimum_size = Vector2(680, 62)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Text Widget Title"
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="ContentContainer" type="PanelContainer" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer"]

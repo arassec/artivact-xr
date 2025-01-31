@@ -1,11 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3av7exx0tb53"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_1q13c"]
-[ext_resource type="Script" uid="uid://6nsl8q3rucgj" path="res://scenes/collection/widgets/avatar/avatar_content.gd" id="2_rd5xo"]
+[ext_resource type="Script" uid="uid://6nsl8q3rucgj" path="res://scenes/collection/widgets/avatar/avatar_secondary.gd" id="2_rd5xo"]
 
 [node name="AvatarContent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 theme = ExtResource("1_1q13c")
 script = ExtResource("2_rd5xo")
 
@@ -14,8 +16,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 700.0
-offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -32,13 +32,15 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 3
 
 [node name="AvatarSubtextLabel" type="Label" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(680, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 36
 text = "Avatar Subtext"
 horizontal_alignment = 1
 autowrap_mode = 2
+text_overrun_behavior = 3

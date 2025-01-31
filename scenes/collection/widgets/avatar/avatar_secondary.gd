@@ -10,10 +10,12 @@ func initialize(widget: AvatarWidget):
 	if avatarSubtextLabel != null:
 		avatarSubtextLabel.text = widget.avatarSubtext.translate()
 
+	SignalBus.debug({"Avatar": widget.avatarImage})
+
 	# Load avatar image if available:
 	if widget.avatarImage != null && widget.avatarImage != "":
 		var imageFile = widget.avatarImage
-		var img = CollectionStore.get_collection_zip_reader().read_file(str(widget.id, "/", imageFile))
+		var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(str(widget.id, "/", imageFile))
 	
 		var image = Image.new()
 		var loadResult = ERR_UNAVAILABLE

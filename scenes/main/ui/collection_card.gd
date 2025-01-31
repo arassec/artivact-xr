@@ -4,8 +4,11 @@ extends Control
 var handleHovering: bool = true
 var collectionId: String
 
+
 func initialize(collectionInfo: CollectionInfo, fontSize: int) -> void:
 	collectionId = collectionInfo.id
+	
+	find_child("ContentCoverColorRect").visible = false
 	
 	var fontSizeTitle = fontSize
 	var fontSizeDescription = fontSize * 0.7

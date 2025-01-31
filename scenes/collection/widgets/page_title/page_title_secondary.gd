@@ -12,7 +12,7 @@ func initialize(widget: PageTitleWidget):
 	# Load cover picture if available:
 	if widget.backgroundImage != null && widget.backgroundImage != "":
 		var imageFile = widget.backgroundImage
-		var img = CollectionStore.get_collection_zip_reader().read_file(str(widget.id, "/", imageFile))
+		var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(str(widget.id, "/", imageFile))
 	
 		var image = Image.new()
 		var loadResult = ERR_UNAVAILABLE

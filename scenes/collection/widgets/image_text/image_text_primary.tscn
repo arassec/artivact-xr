@@ -1,26 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://bva0cxgb7ihbf"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_jfane"]
-[ext_resource type="Script" uid="uid://br82j3r817juq" path="res://scenes/collection/widgets/image_text/image_text_content.gd" id="2_k4n3m"]
+[ext_resource type="Script" uid="uid://br82j3r817juq" path="res://scenes/collection/widgets/image_text/image_text_primary.gd" id="2_k4n3m"]
 
 [node name="ImageTextContent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 700.0
-offset_bottom = 500.0
+offset_right = 1250.0
+offset_bottom = 608.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_jfane")
 script = ExtResource("2_k4n3m")
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(700, 500)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(500, 350)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,12 +26,14 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="TextsLabel" type="Label" parent="Panel/MarginContainer/ScrollContainer"]
-custom_minimum_size = Vector2(680, 0)
+[node name="TextsLabel" type="Label" parent="MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quas
 i architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"

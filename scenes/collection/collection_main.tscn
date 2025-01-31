@@ -3,33 +3,37 @@
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_mwewq"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_8mo4w"]
 [ext_resource type="Script" uid="uid://ctmqfur23srh" path="res://scenes/collection/collection_main.gd" id="3_478kd"]
-[ext_resource type="PackedScene" uid="uid://b42ms61ue5yhd" path="res://scenes/collection/ui/item_content.tscn" id="7_8mo4w"]
+[ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="5_dem02"]
 [ext_resource type="PackedScene" uid="uid://cfqxi2cddn05j" path="res://scenes/collection/widget_manager.tscn" id="7_lm2t4"]
-[ext_resource type="PackedScene" uid="uid://di3tgd2yrvc40" path="res://scenes/collection/ui/widget_content.tscn" id="8_dem02"]
-[ext_resource type="PackedScene" uid="uid://cl4ujl1ujfrd3" path="res://scenes/collection/ui/collection_menu.tscn" id="8_jsbhn"]
+[ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/primary_panel.tscn" id="8_xgyat"]
+[ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/secondary_panel.tscn" id="9_dem02"]
 
 [node name="ArtivactSceneBase" instance=ExtResource("1_mwewq")]
 
-[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.25, -0.5)
-layer_viewport = NodePath("../../CollectionMenuSubViewport")
+layer_viewport = NodePath("../../DebugPanelSubViewport")
 sort_order = -1
 enable_hole_punch = true
 quad_size = Vector2(0.25, 0.25)
 script = ExtResource("3_8mo4w")
 controller = NodePath("../RightHand")
 
-[node name="WidgetContentOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3.5)
-layer_viewport = NodePath("../../WidgetContentSubViewport")
-quad_size = Vector2(2, 1.4)
-
-[node name="ItemContentOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" node_paths=PackedStringArray("layer_viewport", "controller")]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 2.5, 1.5, -3)
-layer_viewport = NodePath("../../ItemContentSubViewport")
+[node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport", "controller")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 1, -5)
+layer_viewport = NodePath("../../PrimaryPanelSubViewport")
 sort_order = -2
 enable_hole_punch = true
-quad_size = Vector2(2, 1.4)
+quad_size = Vector2(3.2, 1.8)
+script = ExtResource("3_8mo4w")
+controller = NodePath("../RightHand")
+
+[node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" node_paths=PackedStringArray("layer_viewport", "controller")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 2, 1, -5)
+layer_viewport = NodePath("../../SecondaryPanelSubViewport")
+sort_order = -2
+enable_hole_punch = true
+quad_size = Vector2(3.2, 1.8)
 script = ExtResource("3_8mo4w")
 controller = NodePath("../RightHand")
 
@@ -38,26 +42,25 @@ script = ExtResource("3_478kd")
 
 [node name="WidgetManager" parent="CollectionMain" index="0" instance=ExtResource("7_lm2t4")]
 
-[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="2"]
+[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(500, 500)
 render_target_update_mode = 4
 
-[node name="CollectionMenu" parent="CollectionMenuSubViewport" index="0" instance=ExtResource("8_jsbhn")]
+[node name="DebugPanel" parent="DebugPanelSubViewport" index="0" instance=ExtResource("5_dem02")]
+custom_minimum_size = Vector2(500, 500)
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="WidgetContentSubViewport" type="SubViewport" parent="." index="3"]
-size = Vector2i(700, 500)
+[node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="3"]
+size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="WidgetContent" parent="WidgetContentSubViewport" index="0" instance=ExtResource("8_dem02")]
+[node name="PrimaryPanel" parent="PrimaryPanelSubViewport" index="0" instance=ExtResource("8_xgyat")]
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="ItemContentSubViewport" type="SubViewport" parent="." index="4"]
-size = Vector2i(700, 500)
+[node name="SecondaryPanelSubViewport" type="SubViewport" parent="." index="4"]
+size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="ItemContent" parent="ItemContentSubViewport" index="0" instance=ExtResource("7_8mo4w")]
-offset_right = 0.0
-offset_bottom = 0.0
+[node name="SecondaryPanel" parent="SecondaryPanelSubViewport" index="0" instance=ExtResource("9_dem02")]

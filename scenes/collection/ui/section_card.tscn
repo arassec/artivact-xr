@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlvhkx67pbq4q"]
+
+[ext_resource type="Theme" uid="uid://cq2ue1roofs1u" path="res://themes/card_button_ui.tres" id="1_n2s8y"]
+[ext_resource type="Script" uid="uid://xith26r76gcb" path="res://scenes/collection/ui/section_card.gd" id="2_n2s8y"]
+
+[node name="SectionCard" type="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_n2s8y")
+script = ExtResource("2_n2s8y")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="SectionButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_n2s8y")
+text_overrun_behavior = 3
+autowrap_mode = 2
+
+[connection signal="pressed" from="MarginContainer/SectionButton" to="." method="_on_section_button_pressed"]

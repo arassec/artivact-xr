@@ -1,0 +1,28 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cq2ue1roofs1u"]
+
+[ext_resource type="StyleBox" uid="uid://cwmg8qeyd0wep" path="res://themes/card_style_button_disabled.tres" id="1_d3lfg"]
+[ext_resource type="StyleBox" uid="uid://cnhwhtiab16mv" path="res://themes/card_style_button_focus.tres" id="2_m6ti6"]
+[ext_resource type="StyleBox" uid="uid://bkp2bh6ruytg2" path="res://themes/card_style_button_hover.tres" id="3_pcttf"]
+[ext_resource type="StyleBox" uid="uid://b32rcvm4exc7b" path="res://themes/card_style_button_normal.tres" id="4_n8qs3"]
+[ext_resource type="StyleBox" uid="uid://dts4r3akuqasd" path="res://themes/card_style_button_pressed.tres" id="5_4045r"]
+[ext_resource type="StyleBox" uid="uid://bw15skgwgho5x" path="res://themes/style_panel.tres" id="6_c56oh"]
+[ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="7_c8nt2"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_e1x2a"]
+color = Color(0.960784, 0.960784, 0.960784, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_km8tm"]
+bg_color = Color(0.431, 0.494, 0.522, 0)
+
+[resource]
+default_font = ExtResource("7_c8nt2")
+default_font_size = 32
+Button/styles/disabled = ExtResource("1_d3lfg")
+Button/styles/focus = ExtResource("2_m6ti6")
+Button/styles/hover = ExtResource("3_pcttf")
+Button/styles/normal = ExtResource("4_n8qs3")
+Button/styles/pressed = ExtResource("5_4045r")
+HSeparator/styles/separator = SubResource("StyleBoxLine_e1x2a")
+Panel/styles/panel = ExtResource("6_c56oh")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_km8tm")
