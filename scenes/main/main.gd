@@ -111,7 +111,7 @@ func _update_remote_collection_infos():
 func _remote_collection_infos_updated(result, response_code, headers, body):
 	CollectionStore.load_collection_infos()
 	if result != HTTPRequest.RESULT_SUCCESS:
-		SignalBus.debug({"HTTP Error": result})
+		SignalBus.debug_json({"HTTP Error": result})
 
 
 ####################################################################################################
@@ -130,7 +130,7 @@ func _download_collection(collectionId: String):
 ####################################################################################################
 func _download_collection_finished(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		SignalBus.debug({"HTTP-ERROR": result})
+		SignalBus.debug_json({"HTTP-ERROR": result})
 
 	SignalBus.trigger(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION_FINISHED)
 	downloadInProgress = false
@@ -161,7 +161,7 @@ func _delete_collection(collectionId: String):
 	debug["input"] = collectionId
 	var collectionInfo = CollectionStore.get_collection_info(collectionId)
 	debug["collectionInfo"] = collectionInfo
-	SignalBus.debug(debug)
+	SignalBus.debug_json(debug)
 	if collectionInfo == null:
 		return
 	var fileToDelete = collectionInfo.localFile

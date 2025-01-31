@@ -163,6 +163,7 @@ func _on_widget_back_button_pressed() -> void:
 
 func _on_widget_content_back_button_pressed() -> void:
 	find_child("WidgetContentAnchor").remove_child(widgetContentSceneInstance)
+	widgetContentSceneInstance.queue_free()
 	_update_widget_nav(widgets)
 
 

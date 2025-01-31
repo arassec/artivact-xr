@@ -122,11 +122,32 @@ func _open_page(menuId):
 # TODO
 ####################################################################################################
 func _open_widget(widgetId):
+	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
+
 	if selectedPage != null:
 		for widget in selectedPage.widgets:
 			if widget.id == widgetId:
-				$WidgetManager.replace_widget(widget)
-				break
+				var widgetSceneData: WidgetSceneData = WidgetSceneData.new()
+
+				widgetSceneData.widget = widget
+				
+				if widget is PageTitleWidget:
+					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/page_title/page_title_secondary.tscn"
+				elif widget is TextWidget:
+					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/text/text_secondary.tscn"
+				elif widget is InfoBoxWidget:
+					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/info_box/info_box_secondary.tscn"
+				elif widget is AvatarWidget:
+					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/avatar/avatar_secondary.tscn"
+				elif widget is ImageTextWidget:
+					widgetSceneData.primaryPanelScene = "res://scenes/collection/widgets/image_text/image_text_primary.tscn"
+				elif widget is ItemSearchWidget:
+					widgetSceneData.primaryPanelScene = "res://scenes/collection/widgets/item_search/item_search_primary.tscn"
+					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/item_search/item_search_secondary.tscn"
+
+				SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, widgetSceneData)
+
+				return
 
 
 ####################################################################################################

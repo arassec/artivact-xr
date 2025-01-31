@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_8mo4w"]
 [ext_resource type="Script" uid="uid://ctmqfur23srh" path="res://scenes/collection/collection_main.gd" id="3_478kd"]
 [ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="5_dem02"]
-[ext_resource type="PackedScene" uid="uid://cfqxi2cddn05j" path="res://scenes/collection/widget_manager.tscn" id="7_lm2t4"]
+[ext_resource type="PackedScene" uid="uid://c7qvq3tcrbcl2" path="res://scenes/collection/media_manager.tscn" id="5_jsbhn"]
 [ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/primary_panel.tscn" id="8_xgyat"]
 [ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/secondary_panel.tscn" id="9_dem02"]
 
@@ -12,6 +12,7 @@
 
 [node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.25, -0.5)
+visible = false
 layer_viewport = NodePath("../../DebugPanelSubViewport")
 sort_order = -1
 enable_hole_punch = true
@@ -40,7 +41,8 @@ controller = NodePath("../RightHand")
 [node name="CollectionMain" type="Node3D" parent="." index="1"]
 script = ExtResource("3_478kd")
 
-[node name="WidgetManager" parent="CollectionMain" index="0" instance=ExtResource("7_lm2t4")]
+[node name="MediaManager" parent="CollectionMain" index="0" instance=ExtResource("5_jsbhn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
 
 [node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(500, 500)

@@ -12,8 +12,7 @@ MAIN_SYNCHRONIZING,Synchronizing…,Synchronisiere…
 MAIN_OPEN,Open,Öffnen
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
-COLL_CHAPTER_SELECTION,Chapter Selection,Kapitel
-COLL_SECTION_SELECTION,Section Selection,Abschnitte
+COLL_ITEM_DESCRIPTION,Description,Beschreibung
 PAGE_TITLE,Title,Titel
 TEXT,Text,Text
 ITEM_SEARCH,Items,Ausstellungsstücke

@@ -76,12 +76,12 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="PaginationContainer" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("5_cu7do")]
-visible = false
 layout_mode = 2
 pageSize = 6
 columns = 3
 
 [node name="WidgetContentAnchor" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 

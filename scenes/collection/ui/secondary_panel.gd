@@ -38,7 +38,6 @@ func _process(_delta):
 		sceneLoaded = false
 		$FallbackPanel.visible = false
 		add_child(secondarySceneInstance)
-
 		
 
 func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:

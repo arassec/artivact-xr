@@ -153,7 +153,7 @@ func _read_remote_collection_infos():
 	var contentExportOverviewsJsonFile = zipReader.read_file("artivact.collection-export-overviews.json").get_string_from_utf8()
 	var parseResult := contentExportOverviewsJson.parse(contentExportOverviewsJsonFile)
 	if parseResult != OK:
-		SignalBus.debug({"status": "ERROR", "file": "artivact.collection-export-overviews.json", "parseResult": parseResult})
+		SignalBus.debug_json({"status": "ERROR", "file": "artivact.collection-export-overviews.json", "parseResult": parseResult})
 		return
 
 	var contentExportOverviews = contentExportOverviewsJson.data
@@ -194,7 +194,7 @@ func _merge_collection_info(locationPrefix: String, collectionFile: String):
 	var zipReader = ZIPReader.new()
 	var openResult := zipReader.open(collectionZipFile)
 	if openResult != OK:
-		SignalBus.debug({"status": "ERROR", "file": collectionZipFile, "openResult": openResult})
+		SignalBus.debug_json({"status": "ERROR", "file": collectionZipFile, "openResult": openResult})
 		return
 
 	# Store general collection information:
@@ -202,7 +202,7 @@ func _merge_collection_info(locationPrefix: String, collectionFile: String):
 	var collectionJsonString = zipReader.read_file(collectionJsonFile).get_string_from_utf8()
 	var parseResult := collectionJson.parse(collectionJsonString)
 	if parseResult != OK:
-		SignalBus.debug({"status": "ERROR", "file": collectionJsonFile, "parseResult": parseResult})
+		SignalBus.debug_json({"status": "ERROR", "file": collectionJsonFile, "parseResult": parseResult})
 		return
 	var collectionData = collectionJson.data
 	artivactContentJsons[collectionId] = ArtivactContentJson.new(collectionData)
@@ -212,7 +212,7 @@ func _merge_collection_info(locationPrefix: String, collectionFile: String):
 	var propertiesJsonString = zipReader.read_file(propertiesConfigurationJsonFile).get_string_from_utf8()
 	parseResult = propertiesJson.parse(propertiesJsonString)
 	if parseResult != OK:
-		SignalBus.debug({"status": "ERROR", "file": propertiesJsonString, "parseResult": parseResult})
+		SignalBus.debug_json({"status": "ERROR", "file": propertiesJsonString, "parseResult": parseResult})
 		return
 	var propertiesConfigurationData = propertiesJson.data
 	artivactPropertiesConfigurationJsons[collectionId] = ArtivactPropertiesConfigurationJson.new(propertiesConfigurationData)

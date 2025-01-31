@@ -19,10 +19,8 @@ enum SignalType {
 	COLL_UPDATE_WIDGET_CONTENT,
 	COLL_ITEM_NEXT,
 	COLL_ITEM_PREVIOUS,
-	COLL_ITEM_UPDATE_PAGINATOR,
-	COLL_ITEM_UPDATE_DATA,
-	COLL_WIDGET_CONTENT_LEFT,
-	COLL_WIDGET_CONTENT_CENTER,
+	COLL_OPEN_ITEM_MEDIA,
+	COLL_CLOSE_ITEM_MEDIA,
 	
 	UPDATE_PAGE_NAVIGATION,
 	OPEN_PAGE,
@@ -59,10 +57,8 @@ var callbacks = {
 	SignalType.COLL_UPDATE_WIDGET_CONTENT: [],
 	SignalType.COLL_ITEM_NEXT: [],
 	SignalType.COLL_ITEM_PREVIOUS: [],
-	SignalType.COLL_ITEM_UPDATE_PAGINATOR: [],
-	SignalType.COLL_ITEM_UPDATE_DATA: [],
-	SignalType.COLL_WIDGET_CONTENT_LEFT: [],
-	SignalType.COLL_WIDGET_CONTENT_CENTER: [],
+	SignalType.COLL_OPEN_ITEM_MEDIA: [],
+	SignalType.COLL_CLOSE_ITEM_MEDIA: [],
 
 	SignalType.UPDATE_PAGE_NAVIGATION: [],
 	SignalType.OPEN_PAGE: [],
@@ -89,35 +85,40 @@ func deregister(type: SignalType, callback: Callable):
 
 
 func trigger(type: SignalType):
-	debug({"type": type})
+	debug_json({"type": type})
 	for callback in callbacks[type]:
 		callback.call()
 
 
 func trigger_with_payload(type: SignalType, payload: Variant):
-	debug({"type": type, "payload": payload})
+	debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
 func trigger_with_multiload(type: SignalType, payloadOne: Variant, payloadTwo: Variant):
-	debug({"type": type, "payloadOne": payloadOne, "payloadTwo": payloadTwo})
+	debug_json({"type": type, "payloadOne": payloadOne, "payloadTwo": payloadTwo})
 	for callback in callbacks[type]:
 		callback.call(payloadOne, payloadTwo)
 
 
 func trigger_with_node(type: SignalType, payload: Node):
-	debug({"type": type, "payload": payload})
+	debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
 func trigger_with_widget(type: SignalType, payload: Widget):
-	debug({"type": type, "payload": payload})
+	debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
-func debug(payload: Dictionary):
+func debug(payload: String) -> void:
+	for callback in callbacks[SignalType.DEBUG]:
+		callback.call(payload)
+
+
+func debug_json(payload: Dictionary):
 	for callback in callbacks[SignalType.DEBUG]:
 		callback.call(payload)

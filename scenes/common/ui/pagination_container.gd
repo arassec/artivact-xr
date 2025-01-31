@@ -2,6 +2,8 @@ class_name PaginationContainer
 
 extends Control
 
+signal before_clicked
+signal next_clicked
 
 @export var pageSize: int = 1
 @export var columns: int = 1
@@ -15,23 +17,12 @@ var pageContent: Array[Object] = []
 
 func set_content(totalContentInput: Array[Object]) -> void:
 	$ContentMargin/ContentContainer/ContentAnchor.columns = columns
-
 	totalContent = totalContentInput
 	@warning_ignore("integer_division")
 	totalPages = totalContent.size() / pageSize
 	if totalContent.size() % pageSize > 0:
 		totalPages += 1
 	_update_page(0)
-
-
-func set_left_actions(leftActionsInput: Array[Object]) -> void:
-	for actionChild in leftActionsInput:
-		$ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor.add_child(actionChild)
-
-
-func set_right_actions(rightActionsInput: Array[Object]) -> void:
-	for actionChild in rightActionsInput:
-		$ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor.add_child(actionChild)
 
 
 func _update_page(page: int) -> void:
@@ -66,8 +57,10 @@ func _update_page_label() -> void:
 func _on_before_button_pressed() -> void:
 	if curPage > 0:
 		_update_page(curPage -1)
+		before_clicked.emit()
 
 
 func _on_next_button_pressed() -> void:
 	if curPage + 1 < totalPages:
 		_update_page(curPage + 1)
+		next_clicked.emit()

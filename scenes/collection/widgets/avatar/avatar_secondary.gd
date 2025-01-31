@@ -10,8 +10,6 @@ func initialize(widget: AvatarWidget):
 	if avatarSubtextLabel != null:
 		avatarSubtextLabel.text = widget.avatarSubtext.translate()
 
-	SignalBus.debug({"Avatar": widget.avatarImage})
-
 	# Load avatar image if available:
 	if widget.avatarImage != null && widget.avatarImage != "":
 		var imageFile = widget.avatarImage
