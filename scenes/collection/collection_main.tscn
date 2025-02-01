@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://brbql0ue77hej"]
+[gd_scene load_steps=9 format=3 uid="uid://brbql0ue77hej"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_mwewq"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_8mo4w"]
 [ext_resource type="Script" uid="uid://ctmqfur23srh" path="res://scenes/collection/collection_main.gd" id="3_478kd"]
 [ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="5_dem02"]
 [ext_resource type="PackedScene" uid="uid://c7qvq3tcrbcl2" path="res://scenes/collection/media_manager.tscn" id="5_jsbhn"]
+[ext_resource type="AudioStream" uid="uid://b5gcae7kh2y08" path="res://assets/audio/Ethereal Heartbeat Main.wav" id="5_xgyat"]
 [ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/primary_panel.tscn" id="8_xgyat"]
 [ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/secondary_panel.tscn" id="9_dem02"]
 
@@ -43,6 +44,10 @@ script = ExtResource("3_478kd")
 
 [node name="MediaManager" parent="CollectionMain" index="0" instance=ExtResource("5_jsbhn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CollectionMain" index="1"]
+stream = ExtResource("5_xgyat")
+autoplay = true
 
 [node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(500, 500)

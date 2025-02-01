@@ -3,13 +3,12 @@ class_name Widget
 extends Object
 
 enum WidgetType {
+	UNSUPPORTED,
 	PAGE_TITLE,
 	TEXT,
 	ITEM_SEARCH,
 	INFO_BOX,
 	AVATAR,
-	SPACE,
-	IMAGE_TEXT
 }
 
 var id: String = ""
@@ -22,7 +21,7 @@ func _init(data: Dictionary):
 		if data.has("id"):
 			id = data["id"]
 		if data.has("type"):
-			type = WidgetType.get(data["type"])
+			type = WidgetType.get(data["type"], WidgetType.UNSUPPORTED)
 		if data.has("navigationTitle"):
 			navigationTitle = TranslatableString.new(data["navigationTitle"])
 

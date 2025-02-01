@@ -139,8 +139,6 @@ func _open_widget(widgetId):
 					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/info_box/info_box_secondary.tscn"
 				elif widget is AvatarWidget:
 					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/avatar/avatar_secondary.tscn"
-				elif widget is ImageTextWidget:
-					widgetSceneData.primaryPanelScene = "res://scenes/collection/widgets/image_text/image_text_primary.tscn"
 				elif widget is ItemSearchWidget:
 					widgetSceneData.primaryPanelScene = "res://scenes/collection/widgets/item_search/item_search_primary.tscn"
 					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/item_search/item_search_secondary.tscn"
