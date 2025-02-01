@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dnh285uknn4tk"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dnh285uknn4tk"]
 
 [ext_resource type="StyleBox" uid="uid://b4vijlfjrd6fs" path="res://themes/style_button_hover.tres" id="1_6nrgg"]
 [ext_resource type="StyleBox" uid="uid://0lwarcamudwy" path="res://themes/style_button_normal.tres" id="1_7egs0"]
@@ -7,6 +7,8 @@
 [ext_resource type="StyleBox" uid="uid://bwogieorpfwgg" path="res://themes/style_button_disabled.tres" id="1_lrp11"]
 [ext_resource type="StyleBox" uid="uid://cx5t6m3bd1v7w" path="res://themes/style_button_focus.tres" id="2_yhlr4"]
 [ext_resource type="StyleBox" uid="uid://dhkas2usorseo" path="res://themes/style_button_pressed.tres" id="3_sohqb"]
+[ext_resource type="Texture2D" uid="uid://ulk4b0jc8u4g" path="res://assets/ui/icons/check_box_32dp_F5F5F5.svg" id="6_rxuwr"]
+[ext_resource type="Texture2D" uid="uid://oa6ifcvrjq7o" path="res://assets/ui/icons/check_box_outline_blank_32dp_F5F5F5.svg" id="7_hqk4t"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_e1x2a"]
 color = Color(0.960784, 0.960784, 0.960784, 1)
@@ -23,6 +25,8 @@ Button/styles/focus = ExtResource("2_yhlr4")
 Button/styles/hover = ExtResource("1_6nrgg")
 Button/styles/normal = ExtResource("1_7egs0")
 Button/styles/pressed = ExtResource("3_sohqb")
+CheckBox/icons/checked = ExtResource("6_rxuwr")
+CheckBox/icons/unchecked = ExtResource("7_hqk4t")
 HSeparator/styles/separator = SubResource("StyleBoxLine_e1x2a")
 Panel/styles/panel = ExtResource("1_h3lub")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_km8tm")

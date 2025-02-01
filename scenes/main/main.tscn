@@ -25,7 +25,6 @@ collide_with_areas = true
 
 [node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1, -0.5)
-visible = false
 layer_viewport = NodePath("../../DebugPanelSubViewport")
 alpha_blend = true
 quad_size = Vector2(0.25, 0.25)
@@ -46,7 +45,6 @@ script = ExtResource("3_woaaa")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main" index="17"]
 stream = ExtResource("6_yyfjg")
-autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
 environment = SubResource("Environment_edct5")

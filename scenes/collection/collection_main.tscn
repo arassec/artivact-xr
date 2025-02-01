@@ -47,7 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CollectionMain" index="1"]
 stream = ExtResource("5_xgyat")
-autoplay = true
 
 [node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(500, 500)

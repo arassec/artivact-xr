@@ -90,6 +90,14 @@ func _load_page(id: String):
 # TODO
 ####################################################################################################
 func _ready():
+	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
+	if musicVolume:
+		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
+	
+	var musicEnabled = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
+	if musicEnabled:
+		$AudioStreamPlayer.play()
+
 	SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_PAGE_NAV, menus)
 
 

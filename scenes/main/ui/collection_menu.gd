@@ -27,6 +27,9 @@ func _ready():
 		if CollectionStore.collectionInfos.size() > 0:
 			_collection_infos_updated()
 
+	find_child("MusicEnabledCheckBox").button_pressed = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
+	find_child("MusicVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
+
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -75,3 +78,23 @@ func _download_collection_progress(progress: int):
 func _clear_operation_in_progress():
 	find_child("OperationInProgressCover").visible = false
 	find_child("StatusLabel").text = ''
+
+
+func _on_settings_button_pressed() -> void:
+	$PaginationContainer.visible = false
+	$SettingsPanel.visible = true
+
+
+func _on_settings_back_button_pressed() -> void:
+	$PaginationContainer.visible = true
+	$SettingsPanel.visible = false
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.MUSIC_ENABLED, toggled_on)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.MUSIC_ENABLED): toggled_on})
+
+
+func _on_music_volume_h_slider_value_changed(value: float) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.MUSIC_VOLUME, value)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.MUSIC_VOLUME): value})

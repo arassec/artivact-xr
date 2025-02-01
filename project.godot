@@ -24,6 +24,7 @@ XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
 I18n="*res://scripts/store/i18n.gd"
 SignalBus="*res://scripts/store/signal_bus.gd"
 CollectionStore="*res://scripts/store/collection_store.gd"
+SettingsStore="*res://scripts/store/settings_store.gd"
 
 [display]
 

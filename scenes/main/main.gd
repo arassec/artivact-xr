@@ -30,6 +30,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, _download_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
+	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 
 
 ####################################################################################################
@@ -40,6 +41,7 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, _download_collection)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
+	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 
 
 ####################################################################################################
@@ -52,6 +54,15 @@ func _ready():
 	# OpenXR Reference Space is set to "Local" in the project settings. So we have to set the
 	# camera's position manually here:
 	#get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
+	
+	
+	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
+	if musicVolume:
+		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
+	
+	var musicEnabled = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
+	if musicEnabled:
+		$AudioStreamPlayer.play()
 
 
 ####################################################################################################
@@ -169,3 +180,18 @@ func _delete_collection(collectionId: String):
 		CollectionStore.remove_collection_zip_reader(collectionInfo.id)
 		DirAccess.remove_absolute(fileToDelete)
 		CollectionStore.load_collection_infos()
+
+
+####################################################################################################
+# Reacts on setting changes.
+####################################################################################################
+func _setting_changed(setting: Dictionary) -> void:
+	if setting.has(str(SettingsStore.SettingType.MUSIC_ENABLED)):
+		var musicEnabled = setting[str(SettingsStore.SettingType.MUSIC_ENABLED)]
+		if musicEnabled:
+			$AudioStreamPlayer.play()
+		else:
+			$AudioStreamPlayer.stop()
+	elif setting.has(str(SettingsStore.SettingType.MUSIC_VOLUME)):
+		var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
+		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)

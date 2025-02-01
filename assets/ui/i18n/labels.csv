@@ -10,6 +10,10 @@ MAIN_COLL_PLACEHOLDER,No collections found. Please synchronize and download a co
 MAIN_DOWNLOADING,Downloading…,Downloading…
 MAIN_SYNCHRONIZING,Synchronizing…,Synchronisiere…
 MAIN_OPEN,Open,Öffnen
+MAIN_SETTINGS,Settings,Einstellungen
+MAIN_SETTINGS_BACK,Back,Zurück
+MAIN_SETTINGS_PLAY_MUSIC,Enables or disables ambient music.,Aktiviert oder deaktiviert die Hintergrundmusik.
+MAIN_SETTINGS_MUSIC_VOLUME,Adjusts the ambient music’s volume.,Regelt die Lautstärke der Hintergrundmusik.
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
 COLL_ITEM_DESCRIPTION,Description,Beschreibung
