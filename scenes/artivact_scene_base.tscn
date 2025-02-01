@@ -1,8 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://c77u65qfcq80w"]
+[gd_scene load_steps=11 format=3 uid="uid://c77u65qfcq80w"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_tbcxv"]
+[ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="2_fowlw"]
+[ext_resource type="Script" uid="uid://bam1phd43eed6" path="res://scripts/util/active_hand_helper.gd" id="2_wp5fa"]
 [ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="3_821sg"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_k2kmd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wp5fa"]
+albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fowlw"]
+albedo_color = Color(0.960784, 0.960784, 0.960784, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm2t0"]
 albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
@@ -13,10 +21,24 @@ albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
 
 [node name="ArtivactSceneBase" instance=ExtResource("1_tbcxv")]
 
-[node name="RightHand" parent="XROrigin3D" index="2"]
-show_when_tracked = true
+[node name="XROrigin3D" parent="." index="0"]
+script = ExtResource("2_wp5fa")
 
-[node name="RightHand" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("3_821sg")]
+[node name="LeftHand" parent="XROrigin3D" index="1"]
+visible = false
+
+[node name="LeftHandModel" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("2_fowlw")]
+hand_material_override = SubResource("StandardMaterial3D_wp5fa")
+
+[node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="1" instance=ExtResource("5_k2kmd")]
+y_offset = 0.0
+distance = 2.5
+laser_material = SubResource("StandardMaterial3D_fowlw")
+
+[node name="RightHand" parent="XROrigin3D" index="2"]
+visible = false
+
+[node name="RightHandModel" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("3_821sg")]
 hand_material_override = SubResource("StandardMaterial3D_pm2t0")
 
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("5_k2kmd")]
@@ -25,3 +47,6 @@ distance = 2.5
 laser_material = SubResource("StandardMaterial3D_vr2bc")
 target_radius = 0.01
 target_material = SubResource("StandardMaterial3D_nap2i")
+
+[connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]
+[connection signal="button_pressed" from="XROrigin3D/RightHand" to="XROrigin3D" method="_on_right_hand_button_pressed"]

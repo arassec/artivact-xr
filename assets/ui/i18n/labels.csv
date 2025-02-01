@@ -12,8 +12,11 @@ MAIN_SYNCHRONIZING,Synchronizing…,Synchronisiere…
 MAIN_OPEN,Open,Öffnen
 MAIN_SETTINGS,Settings,Einstellungen
 MAIN_SETTINGS_BACK,Back,Zurück
+MAIN_SETTINGS_MUSIC,Music Settings,Musik
 MAIN_SETTINGS_PLAY_MUSIC,Enables or disables ambient music.,Aktiviert oder deaktiviert die Hintergrundmusik.
 MAIN_SETTINGS_MUSIC_VOLUME,Adjusts the ambient music’s volume.,Regelt die Lautstärke der Hintergrundmusik.
+MAIN_SETTINGS_CONTROLS,Controls Settings,Steuerung
+MAIN_SETTINGS_ACTIVE_HAND,The active hand used throughout the application will automatically be set by pressing the trigger button of the desired controller.,"Die aktive Hand, die zur Benutzung der Anwendung verwendet wird, kann durch drücken der Trigger-Taste ausgewählt werden."
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
 COLL_ITEM_DESCRIPTION,Description,Beschreibung

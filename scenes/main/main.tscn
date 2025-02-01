@@ -29,14 +29,13 @@ layer_viewport = NodePath("../../DebugPanelSubViewport")
 alpha_blend = true
 quad_size = Vector2(0.25, 0.25)
 
-[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
 layer_viewport = NodePath("../../CollectionMenuSubViewport")
 sort_order = -1
 enable_hole_punch = true
 quad_size = Vector2(3.2, 1.8)
 script = ExtResource("3_b1x3f")
-controller = NodePath("../RightHand")
 
 [node name="Main" parent="." index="1" instance=ExtResource("2_e428c")]
 script = ExtResource("3_woaaa")

@@ -117,6 +117,10 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 theme_override_constants/separation = 25
 
+[node name="MusicLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAIN_SETTINGS_MUSIC"
+
 [node name="MusicEnabledHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
@@ -147,6 +151,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_MUSIC_VOLUME"
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ControlsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAIN_SETTINGS_CONTROLS"
+
+[node name="ActiveHandHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ActiveHandDescriptionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ActiveHandHBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.0
+text = "MAIN_SETTINGS_ACTIVE_HAND"
+autowrap_mode = 2
 
 [node name="Cursor" type="ColorRect" parent="."]
 process_mode = 4

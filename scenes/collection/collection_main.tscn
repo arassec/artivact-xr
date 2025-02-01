@@ -11,15 +11,13 @@
 
 [node name="ArtivactSceneBase" instance=ExtResource("1_mwewq")]
 
-[node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.25, -0.5)
 visible = false
 layer_viewport = NodePath("../../DebugPanelSubViewport")
 sort_order = -1
 enable_hole_punch = true
 quad_size = Vector2(0.25, 0.25)
-script = ExtResource("3_8mo4w")
-controller = NodePath("../RightHand")
 
 [node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -2, 1, -5)

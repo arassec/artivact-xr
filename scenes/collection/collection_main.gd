@@ -29,6 +29,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_QUIT_COLLECTION, _quit_collection)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
+	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 
 	_load_pages()
 	_load_background()
@@ -41,6 +42,7 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_QUIT_COLLECTION, _quit_collection)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
+	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 
 
 ####################################################################################################
@@ -166,3 +168,17 @@ func _quit_collection():
 		return
 	# Request loading the next scene
 	scene_base.exit_to_main_menu()
+
+
+####################################################################################################
+# Reacts on setting changes.
+####################################################################################################
+func _setting_changed(setting: Dictionary) -> void:
+	if setting.has(str(SettingsStore.SettingType.ACTIVE_HAND)):
+		var rightHandActive = setting[str(SettingsStore.SettingType.ACTIVE_HAND)]
+		if rightHandActive:
+			get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
+			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
+		else:
+			get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
+			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")

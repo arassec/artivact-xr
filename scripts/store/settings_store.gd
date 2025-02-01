@@ -4,7 +4,8 @@ var settingsFile = "user://artivact-user-settings.json"
 
 enum SettingType {
 	MUSIC_ENABLED,
-	MUSIC_VOLUME
+	MUSIC_VOLUME,
+	ACTIVE_HAND # value of 'true' means 'right hand'
 }
 
 var settings: Dictionary
@@ -30,16 +31,18 @@ func _init():
 		settings[str(SettingType.MUSIC_ENABLED)] = true
 	if !settings.has(str(SettingType.MUSIC_VOLUME)):
 		settings[str(SettingType.MUSIC_VOLUME)] = 0.2
+	if !settings.has(str(SettingType.ACTIVE_HAND)):
+		settings[str(SettingType.ACTIVE_HAND)] = true
 
 	_save_settings()
+	
 	print("Settings: ", settings)
 	
 	
 
 func set_value(setting: SettingType, value: Variant) -> void:
-	if value:
-		settings[str(setting)] = value
-		_save_settings()
+	settings[str(setting)] = value
+	_save_settings()
 
 
 func get_value(setting: SettingType) -> Variant:

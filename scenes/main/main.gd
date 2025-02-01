@@ -55,7 +55,7 @@ func _ready():
 	# camera's position manually here:
 	#get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
 	
-	
+	# Apply settings:
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 	if musicVolume:
 		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
@@ -63,6 +63,12 @@ func _ready():
 	var musicEnabled = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	if musicEnabled:
 		$AudioStreamPlayer.play()
+
+	var rightHandActive = SettingsStore.get_value(SettingsStore.SettingType.ACTIVE_HAND)
+	if rightHandActive:
+		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
+	else:
+		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
 
 
 ####################################################################################################
@@ -119,7 +125,7 @@ func _update_remote_collection_infos():
 ####################################################################################################
 # Callback, called after remote collection information has been downloaded.
 ####################################################################################################
-func _remote_collection_infos_updated(result, response_code, headers, body):
+func _remote_collection_infos_updated(result, _response_code, _headers, _body):
 	CollectionStore.load_collection_infos()
 	if result != HTTPRequest.RESULT_SUCCESS:
 		SignalBus.debug_json({"HTTP Error": result})
@@ -139,7 +145,7 @@ func _download_collection(collectionId: String):
 ####################################################################################################
 # Callback, called after remote collection information has been downloaded.
 ####################################################################################################
-func _download_collection_finished(result, response_code, headers, body):
+func _download_collection_finished(result, _response_code, _headers, _body):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		SignalBus.debug_json({"HTTP-ERROR": result})
 
@@ -193,5 +199,11 @@ func _setting_changed(setting: Dictionary) -> void:
 		else:
 			$AudioStreamPlayer.stop()
 	elif setting.has(str(SettingsStore.SettingType.MUSIC_VOLUME)):
-		var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
+		var musicVolume = setting[str(SettingsStore.SettingType.MUSIC_VOLUME)]
 		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
+	elif setting.has(str(SettingsStore.SettingType.ACTIVE_HAND)):
+		var rightHandActive = setting[str(SettingsStore.SettingType.ACTIVE_HAND)]
+		if rightHandActive:
+			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
+		else:
+			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
