@@ -1,19 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdtdnlnm638tq"]
+[gd_scene load_steps=6 format=3 uid="uid://cdtdnlnm638tq"]
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
-[ext_resource type="PackedScene" uid="uid://clpd42t0wii1k" path="res://assets/models/main.glb" id="2_e428c"]
+[ext_resource type="PackedScene" uid="uid://52w8ouyis4j0" path="res://scenes/main/main_starter.tscn" id="3_6q06x"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_b1x3f"]
-[ext_resource type="Script" uid="uid://dljqelx3xjvgs" path="res://scenes/main/main.gd" id="3_woaaa"]
-[ext_resource type="PackedScene" uid="uid://besyy3cq3hxsy" path="res://scripts/util/remote_artivact_server.tscn" id="4_ky8e4"]
-[ext_resource type="AudioStream" uid="uid://3jvplt6kb7k8" path="res://assets/audio/Ethereal Epiphone Main.wav" id="6_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="7_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://f14p1c74oohd" path="res://scenes/main/ui/collection_menu.tscn" id="10_a8run"]
-
-[sub_resource type="Environment" id="Environment_edct5"]
-ambient_light_color = Color(1, 1, 0.831373, 1)
-reflected_light_source = 1
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sohj6"]
 
 [node name="ArtivactMainScene" instance=ExtResource("1_8d5xv")]
 
@@ -25,39 +16,22 @@ collide_with_areas = true
 
 [node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1, -0.5)
+visible = false
 layer_viewport = NodePath("../../DebugPanelSubViewport")
 alpha_blend = true
 quad_size = Vector2(0.25, 0.25)
 
 [node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4)
 layer_viewport = NodePath("../../CollectionMenuSubViewport")
 sort_order = -1
 enable_hole_punch = true
 quad_size = Vector2(3.2, 1.8)
 script = ExtResource("3_b1x3f")
 
-[node name="Main" parent="." index="1" instance=ExtResource("2_e428c")]
-script = ExtResource("3_woaaa")
+[node name="MainStarter" parent="." index="1" instance=ExtResource("3_6q06x")]
 
-[node name="RemoteArtivactServer" parent="Main" index="16" instance=ExtResource("4_ky8e4")]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main" index="17"]
-stream = ExtResource("6_yyfjg")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
-environment = SubResource("Environment_edct5")
-camera_attributes = SubResource("CameraAttributesPractical_sohj6")
-
-[node name="Light" type="OmniLight3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.37775, -4.15558)
-light_color = Color(1, 1, 0.968627, 1)
-light_size = 25.0
-light_specular = 15.0
-omni_range = 9.041
-omni_attenuation = 2.0
-
-[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="4"]
+[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(500, 500)
 render_target_update_mode = 4
 
@@ -65,7 +39,7 @@ render_target_update_mode = 4
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="5"]
+[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="3"]
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 

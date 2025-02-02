@@ -28,9 +28,9 @@ func initialize(collectionInfo: CollectionInfo, fontSize: int) -> void:
 	find_child("DetailsLabel").text = collectionInfo.get_formatted_filesize()
 	find_child("DetailsLabel").set("theme_override_font_sizes/font_size", fontSizeSmall)
 	
-	find_child("DownloadButton").set("theme_override_font_sizes/font_size", fontSizeDescription)
-	find_child("OpenButton").set("theme_override_font_sizes/font_size", fontSizeDescription)
-	find_child("DeleteButton").set("theme_override_font_sizes/font_size", fontSizeDescription)
+	find_child("DownloadButton").set("theme_override_font_sizes/font_size", 32)
+	find_child("OpenButton").set("theme_override_font_sizes/font_size", 32)
+	find_child("DeleteButton").set("theme_override_font_sizes/font_size", 32)
 	
 	var coverPictureTextureRect = find_child("CoverPictureTextureRect")
 	if coverPictureTextureRect != null && collectionInfo.coverPicture != null:
