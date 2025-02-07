@@ -22,6 +22,14 @@ func _exit_tree():
 
 
 func _ready():
+	var arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
+	if arMode:
+		find_child("PassthroughModeButton").visible = false
+		find_child("ImmersiveModeButton").visible = true
+	else:
+		find_child("PassthroughModeButton").visible = true
+		find_child("ImmersiveModeButton").visible = false
+
 	if !initialized:
 		initialized = true
 		if CollectionStore.collectionInfos.size() > 0:
@@ -98,3 +106,17 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 func _on_music_volume_h_slider_value_changed(value: float) -> void:
 	SettingsStore.set_value(SettingsStore.SettingType.MUSIC_VOLUME, value)
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.MUSIC_VOLUME): value})
+
+
+func _on_passthrough_mode_button_pressed() -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, true)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): true})
+	find_child("PassthroughModeButton").visible = false
+	find_child("ImmersiveModeButton").visible = true
+
+
+func _on_immersive_mode_button_pressed() -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, false)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
+	find_child("PassthroughModeButton").visible = true
+	find_child("ImmersiveModeButton").visible = false

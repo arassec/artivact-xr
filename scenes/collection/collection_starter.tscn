@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsb13hpsnagd8"]
+
+[ext_resource type="Script" uid="uid://dbqh3qrtbo4kg" path="res://scenes/collection/collection_starter.gd" id="1_ftfx0"]
+[ext_resource type="PackedScene" uid="uid://c7qvq3tcrbcl2" path="res://scenes/collection/media_manager.tscn" id="1_x71mu"]
+[ext_resource type="AudioStream" uid="uid://b5gcae7kh2y08" path="res://assets/audio/Ethereal Heartbeat Main.wav" id="2_ftfx0"]
+[ext_resource type="PackedScene" uid="uid://075siwao8jfy" path="res://scenes/common/environment/EnvironmentManager.tscn" id="3_wu437"]
+
+[node name="CollectionStarter" type="Node3D"]
+script = ExtResource("1_ftfx0")
+
+[node name="MediaManager" parent="." instance=ExtResource("1_x71mu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
+
+[node name="EnvironmentManager" parent="." instance=ExtResource("3_wu437")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ftfx0")

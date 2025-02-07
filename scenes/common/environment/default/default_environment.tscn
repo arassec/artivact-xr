@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://egmgcumgamgw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsyls"]
+albedo_color = Color(0.211765, 0.286275, 0.345098, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ldulw"]
+material = SubResource("StandardMaterial3D_xsyls")
+size = Vector2(1000, 1000)
+
+[node name="DefaultEnvironment" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ldulw")

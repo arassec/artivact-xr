@@ -1,5 +1,9 @@
 extends Node
 
+
+var debugLogSignals = false
+
+
 enum SignalType {
 	DEBUG,
 	
@@ -86,31 +90,36 @@ func deregister(type: SignalType, callback: Callable):
 
 
 func trigger(type: SignalType):
-	debug_json({"type": type})
+	if debugLogSignals:
+		debug_json({"type": type})
 	for callback in callbacks[type]:
 		callback.call()
 
 
 func trigger_with_payload(type: SignalType, payload: Variant):
-	debug_json({"type": type, "payload": payload})
+	if debugLogSignals:
+		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
 func trigger_with_multiload(type: SignalType, payloadOne: Variant, payloadTwo: Variant):
-	debug_json({"type": type, "payloadOne": payloadOne, "payloadTwo": payloadTwo})
+	if debugLogSignals:
+		debug_json({"type": type, "payloadOne": payloadOne, "payloadTwo": payloadTwo})
 	for callback in callbacks[type]:
 		callback.call(payloadOne, payloadTwo)
 
 
 func trigger_with_node(type: SignalType, payload: Node):
-	debug_json({"type": type, "payload": payload})
+	if debugLogSignals:
+		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 
 
 func trigger_with_widget(type: SignalType, payload: Widget):
-	debug_json({"type": type, "payload": payload})
+	if debugLogSignals:
+		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
 		callback.call(payload)
 

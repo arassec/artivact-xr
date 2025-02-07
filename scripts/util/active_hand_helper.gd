@@ -40,5 +40,3 @@ func _on_right_hand_button_pressed(name: String) -> void:
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ACTIVE_HAND): true})
 
 		$LeftHand.visible = false
-	else:
-		SignalBus.debug(name)
