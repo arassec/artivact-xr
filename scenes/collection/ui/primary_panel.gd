@@ -88,7 +88,7 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 
 	for widget in widgets:
 		var cardSceneInstance = sectionCardScene.instantiate()
-		cardSceneInstance.initialize(widget, _compute_font_size(fontSize))
+		cardSceneInstance.initialize(widget, fontSize)
 		content.push_back(cardSceneInstance)
 
 	find_child("PaginationContainer").set_content(content)

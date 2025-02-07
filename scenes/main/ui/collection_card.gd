@@ -2,11 +2,13 @@ extends Control
 
 
 var handleHovering: bool = true
-var collectionId: String
+var hovered: bool = false
+
+var collectionInfo: CollectionInfo
 
 
-func initialize(collectionInfo: CollectionInfo, fontSize: int) -> void:
-	collectionId = collectionInfo.id
+func initialize(collectionInfoInput: CollectionInfo, fontSize: int) -> void:
+	collectionInfo = collectionInfoInput
 	
 	find_child("ContentCoverColorRect").visible = false
 	
@@ -28,8 +30,6 @@ func initialize(collectionInfo: CollectionInfo, fontSize: int) -> void:
 	find_child("DetailsLabel").text = collectionInfo.get_formatted_filesize()
 	find_child("DetailsLabel").set("theme_override_font_sizes/font_size", fontSizeSmall)
 	
-	find_child("DownloadButton").set("theme_override_font_sizes/font_size", 32)
-	find_child("OpenButton").set("theme_override_font_sizes/font_size", 32)
 	find_child("DeleteButton").set("theme_override_font_sizes/font_size", 32)
 	
 	var coverPictureTextureRect = find_child("CoverPictureTextureRect")
@@ -39,26 +39,32 @@ func initialize(collectionInfo: CollectionInfo, fontSize: int) -> void:
 		coverPictureTextureRect.texture = null
 
 	if collectionInfo.fileSize > 0:
-		find_child("OpenButton").disabled = false
-		find_child("DeleteButton").disabled = false
+		find_child("DeleteButton").visible = true
+		find_child("DownloadTextureRect").visible = false
 	else:
-		find_child("OpenButton").disabled = true
-		find_child("DeleteButton").disabled = true
+		find_child("DeleteButton").visible = false
+		find_child("DownloadTextureRect").visible = true
 
-	if collectionInfo.fileSize == 0 && collectionInfo.fileSizeRemote > 0 || collectionInfo.update_available():
-		find_child("DownloadButton").disabled = false
-	else:
-		find_child("DownloadButton").disabled = true
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if hovered:
+			if (collectionInfo.fileSize == 0 && collectionInfo.fileSizeRemote > 0) || collectionInfo.update_available():
+				SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, collectionInfo.id)
+			elif collectionInfo.fileSize > 0:
+				SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_OPEN_COLLECTION, collectionInfo.id)
 
 
 func _on_mouse_entered() -> void:
 	if handleHovering:
 		find_child("ContentCoverColorRect").visible = true
+		hovered = true
 
 
 func _on_mouse_exited() -> void:
 	if handleHovering:
 		find_child("ContentCoverColorRect").visible = false
+		hovered = false
 
 
 func _on_mouse_entered_ignore() -> void:
@@ -71,13 +77,5 @@ func _on_mouse_exited_ignore() -> void:
 	handleHovering = true
 
 
-func _on_open_button_pressed() -> void:
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_OPEN_COLLECTION, collectionId)
-
-
 func _on_delete_button_pressed() -> void:
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DELETE_COLLECTION, collectionId)
-
-
-func _on_download_button_pressed() -> void:
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, collectionId)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DELETE_COLLECTION, collectionInfo.id)

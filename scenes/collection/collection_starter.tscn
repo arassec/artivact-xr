@@ -12,6 +12,7 @@ script = ExtResource("1_ftfx0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
 
 [node name="EnvironmentManager" parent="." instance=ExtResource("3_wu437")]
+initializeXrMode = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ftfx0")

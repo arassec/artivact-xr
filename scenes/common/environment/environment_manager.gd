@@ -1,6 +1,7 @@
 extends Node3D
 
 
+@export var initializeXrMode: bool = true
 @onready var environment: Environment = $WorldEnvironment.environment
 
 var environmentSceneInstance
@@ -48,24 +49,26 @@ func _setting_changed(setting: Dictionary) -> void:
 # Switches to AR mode.
 ####################################################################################################
 func _switch_to_ar() -> bool:
-	var viewport = get_viewport()
-	var xr_interface: XRInterface = XRServer.primary_interface
-	if xr_interface:
-		var modes = xr_interface.get_supported_environment_blend_modes()
-		if XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND in modes:
-			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND
-			viewport.transparent_bg = true
-		elif XRInterface.XR_ENV_BLEND_MODE_ADDITIVE in modes:
-			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ADDITIVE
-			viewport.transparent_bg = false
-	else:
-		return false
+	if initializeXrMode:
+		var viewport = get_viewport()
+		var xr_interface: XRInterface = XRServer.primary_interface
+		if xr_interface:
+			var modes = xr_interface.get_supported_environment_blend_modes()
+			if XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND in modes:
+				xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND
+				viewport.transparent_bg = true
+			elif XRInterface.XR_ENV_BLEND_MODE_ADDITIVE in modes:
+				xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ADDITIVE
+				viewport.transparent_bg = false
+		else:
+			return false
+
+		environment.background_mode = Environment.BG_COLOR
+		environment.background_color = Color(0.0, 0.0, 0.0, 0.0)
+		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 
 	_remove_environment()
 
-	environment.background_mode = Environment.BG_COLOR
-	environment.background_color = Color(0.0, 0.0, 0.0, 0.0)
-	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	return true
 
 
@@ -73,20 +76,22 @@ func _switch_to_ar() -> bool:
 # Switches to VR mode.
 ####################################################################################################
 func _switch_to_vr() -> bool:
-	var viewport = get_viewport()
-	var xr_interface: XRInterface = XRServer.primary_interface
-	if xr_interface:
-		var modes = xr_interface.get_supported_environment_blend_modes()
-		if XRInterface.XR_ENV_BLEND_MODE_OPAQUE in modes:
-			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_OPAQUE
-		else:
-			return false
+	if initializeXrMode:
+		var viewport = get_viewport()
+		var xr_interface: XRInterface = XRServer.primary_interface
+		if xr_interface:
+			var modes = xr_interface.get_supported_environment_blend_modes()
+			if XRInterface.XR_ENV_BLEND_MODE_OPAQUE in modes:
+				xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_OPAQUE
+			else:
+				return false
+
+		viewport.transparent_bg = false
+		environment.background_mode = Environment.BG_SKY
+		environment.ambient_light_source = Environment.AMBIENT_SOURCE_BG
 
 	_load_environment()
 
-	viewport.transparent_bg = false
-	environment.background_mode = Environment.BG_SKY
-	environment.ambient_light_source = Environment.AMBIENT_SOURCE_BG
 	return true
 	
 
