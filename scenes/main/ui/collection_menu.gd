@@ -38,6 +38,19 @@ func _ready():
 	find_child("MusicEnabledCheckBox").button_pressed = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	find_child("MusicVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 
+	var firstStart = SettingsStore.get_value(SettingsStore.SettingType.FIRST_START)
+	if firstStart:
+		SettingsStore.set_value(SettingsStore.SettingType.FIRST_START, false)
+		_on_about_button_pressed()
+		
+	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
+	if locale == 0:
+		find_child("EnCheckButton").button_pressed = true
+		find_child("DeCheckButton").button_pressed = false
+	elif locale == 1:
+		find_child("EnCheckButton").button_pressed = false
+		find_child("DeCheckButton").button_pressed = true
+
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -54,12 +67,12 @@ func _collection_infos_updated() -> void:
 	
 	var fontSize = 96
 	if collectionInfos.size() >= 9:
-		$PaginationContainer.pageSize = 9
-		$PaginationContainer.columns = 3
+		$CollectionPaginationContainer.pageSize = 9
+		$CollectionPaginationContainer.columns = 3
 		fontSize = 32
 	elif collectionInfos.size() >= 4:
-		$PaginationContainer.pageSize = 4
-		$PaginationContainer.columns = 2
+		$CollectionPaginationContainer.pageSize = 4
+		$CollectionPaginationContainer.columns = 2
 		fontSize = 64
 		
 	for collectionInfo in collectionInfos:
@@ -67,7 +80,7 @@ func _collection_infos_updated() -> void:
 		cardSceneInstance.initialize(collectionInfo, fontSize)
 		content.push_back(cardSceneInstance)
 		
-	$PaginationContainer.set_content(content)
+	$CollectionPaginationContainer.set_content(content)
 
 
 func _on_quit_button_pressed() -> void:
@@ -89,16 +102,44 @@ func _clear_operation_in_progress():
 
 
 func _on_settings_button_pressed() -> void:
-	$PaginationContainer.visible = false
+	$CollectionPaginationContainer.visible = false
 	$SettingsPanel.visible = true
 
 
 func _on_settings_back_button_pressed() -> void:
-	$PaginationContainer.visible = true
+	$CollectionPaginationContainer.visible = true
 	$SettingsPanel.visible = false
+	
+
+func _on_about_button_pressed() -> void:
+	$CollectionPaginationContainer.visible = false
+	$AboutPanel.visible = true
 
 
-func _on_check_box_toggled(toggled_on: bool) -> void:
+func _on_about_back_button_pressed() -> void:
+	$CollectionPaginationContainer.visible = true
+	$AboutPanel.visible = false
+
+
+func _on_en_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 0)
+		TranslationServer.set_locale('en')
+		find_child("EnCheckButton").button_pressed = true
+		find_child("DeCheckButton").button_pressed = false
+		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.LOCALE): 0})
+
+
+func _on_de_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 1)
+		TranslationServer.set_locale('de')
+		find_child("EnCheckButton").button_pressed = false
+		find_child("DeCheckButton").button_pressed = true
+		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.LOCALE): 1})
+
+
+func _on_music_enabled_check_box_toggled(toggled_on: bool) -> void:
 	SettingsStore.set_value(SettingsStore.SettingType.MUSIC_ENABLED, toggled_on)
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.MUSIC_ENABLED): toggled_on})
 

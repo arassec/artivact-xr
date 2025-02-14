@@ -30,8 +30,9 @@ func _exit_tree():
 func _process(delta):
 	if mediaLoaded:
 		mediaLoaded = false
-		mediaLoaderThread.wait_to_finish()
-		mediaLoaderThread = null
+		if mediaLoaderThread:
+			mediaLoaderThread.wait_to_finish()
+			mediaLoaderThread = null
 
 		if mediaModelNode:
 			add_child(mediaModelNode)

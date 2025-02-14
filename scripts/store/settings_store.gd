@@ -7,6 +7,8 @@ enum SettingType {
 	MUSIC_VOLUME,
 	ACTIVE_HAND, # value of 'true' means 'right hand'
 	AR_MODE, # value of 'true' means 'AR', 'false' means 'VR'
+	FIRST_START,
+	LOCALE # 0 == en, 1 == de
 }
 
 var settings: Dictionary
@@ -36,6 +38,15 @@ func _init():
 		settings[str(SettingType.ACTIVE_HAND)] = true
 	if !settings.has(str(SettingType.AR_MODE)):
 		settings[str(SettingType.AR_MODE)] = false
+	if !settings.has(str(SettingType.FIRST_START)):
+		settings[str(SettingType.FIRST_START)] = true
+	if !settings.has(str(SettingType.LOCALE)):
+		if TranslationServer.get_locale() == 'en':
+			settings[str(SettingType.LOCALE)] = 0
+		elif TranslationServer.get_locale() == 'de':
+			settings[str(SettingType.LOCALE)] = 1
+		else:
+			settings[str(SettingType.LOCALE)] = -1
 
 	_save_settings()
 	

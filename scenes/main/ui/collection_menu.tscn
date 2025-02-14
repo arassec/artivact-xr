@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://f14p1c74oohd"]
+[gd_scene load_steps=15 format=3 uid="uid://f14p1c74oohd"]
 
 [ext_resource type="Script" uid="uid://17p1j28hhhme" path="res://scenes/main/ui/collection_menu.gd" id="1_4a80r"]
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_lbtn3"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://d2k2r4p6qbmoq" path="res://assets/ui/icons/settings_64dp_F5F5F5.svg" id="5_iug8l"]
 [ext_resource type="Texture2D" uid="uid://dat8wv4v6xcha" path="res://assets/ui/icons/visibility_off_64dp_F5F5F5.svg" id="5_uda07"]
 [ext_resource type="Texture2D" uid="uid://cyufc7y5tlhpd" path="res://assets/ui/icons/visibility_64dp_F5F5F5.svg" id="6_x77j7"]
+[ext_resource type="Texture2D" uid="uid://sj0qijnoqdmk" path="res://assets/ui/icons/info_64dp_F5F5F5.svg" id="7_x77j7"]
+[ext_resource type="Texture2D" uid="uid://b64ihktt2qa2t" path="res://assets/ui/logos/artivact-logo.png" id="10_0o3wp"]
+[ext_resource type="Texture2D" uid="uid://bhofvapa7prsg" path="res://assets/ui/logos/godot_logo.png" id="11_nlc0g"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iug8l"]
 font = ExtResource("5_hah2j")
@@ -31,23 +34,27 @@ grow_vertical = 2
 theme = ExtResource("1_lbtn3")
 script = ExtResource("1_4a80r")
 
-[node name="PaginationContainer" parent="." instance=ExtResource("2_7v2gc")]
+[node name="CollectionPaginationContainer" parent="." instance=ExtResource("2_7v2gc")]
 layout_mode = 1
 
-[node name="QuitButton" type="Button" parent="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
+[node name="QuitButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
 layout_mode = 2
 text = "MAIN_EXIT"
 icon = ExtResource("4_jgyxj")
 
-[node name="ImmersiveModeButton" type="Button" parent="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="0"]
+[node name="ImmersiveModeButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="0"]
 layout_mode = 2
 icon = ExtResource("5_uda07")
 
-[node name="PassthroughModeButton" type="Button" parent="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="1"]
+[node name="PassthroughModeButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="1"]
 layout_mode = 2
 icon = ExtResource("6_x77j7")
 
-[node name="SettingsButton" type="Button" parent="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="2"]
+[node name="AboutButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="2"]
+layout_mode = 2
+icon = ExtResource("7_x77j7")
+
+[node name="SettingsButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="3"]
 layout_mode = 2
 icon = ExtResource("5_iug8l")
 
@@ -75,7 +82,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SettingsPanel" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,6 +133,33 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 theme_override_constants/separation = 25
 
+[node name="LocaleLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAIN_SETTINGS_LOCALE"
+
+[node name="LocaleSelectionHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="EnCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+layout_mode = 2
+text = "MAIN_SETTINGS_LOCALE_EN"
+
+[node name="DeCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+layout_mode = 2
+text = "MAIN_SETTINGS_LOCALE_DE"
+
+[node name="LocaleSelectionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.1
+text = "MAIN_SETTINGS_LOCALE_SELECTION"
+autowrap_mode = 2
+
+[node name="LocaleHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="MusicLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "MAIN_SETTINGS_MUSIC"
@@ -162,7 +195,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_MUSIC_VOLUME"
 
-[node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MusicHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="ControlsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
@@ -182,6 +215,98 @@ size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_ACTIVE_HAND"
 autowrap_mode = 2
 
+[node name="AboutPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AboutPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AboutMenu" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AboutBackButton" type="Button" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu"]
+layout_mode = 2
+text = "MAIN_ABOUT_BACK"
+icon = ExtResource("4_jgyxj")
+
+[node name="AboutLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MAIN_ABOUT"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="AboutPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AboutPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+
+[node name="ArtivactLogoTextureRect" type="TextureRect" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_0o3wp")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "MAIN_ABOUT_ARTIVACT"
+autowrap_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "MAIN_ABOUT_GODOT"
+autowrap_mode = 2
+
+[node name="GodotLogoTextureRect" type="TextureRect" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("11_nlc0g")
+expand_mode = 3
+
 [node name="Cursor" type="ColorRect" parent="."]
 process_mode = 4
 material = SubResource("ShaderMaterial_lbtn3")
@@ -190,12 +315,16 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[connection signal="pressed" from="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
-[connection signal="pressed" from="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
-[connection signal="pressed" from="PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
+[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
+[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
-[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer/MusicEnabledCheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/EnCheckButton" to="." method="_on_en_check_button_toggled"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/DeCheckButton" to="." method="_on_de_check_button_toggled"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer/MusicEnabledCheckBox" to="." method="_on_music_enabled_check_box_toggled"]
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
+[connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
 
-[editable path="PaginationContainer"]
+[editable path="CollectionPaginationContainer"]

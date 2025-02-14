@@ -12,11 +12,35 @@ MAIN_SYNCHRONIZING,Synchronizing…,Synchronisiere…
 MAIN_OPEN,Open,Öffnen
 MAIN_SETTINGS,Settings,Einstellungen
 MAIN_SETTINGS_BACK,Back,Zurück
+MAIN_SETTINGS_LOCALE,Localization,Lokalisierung
+MAIN_SETTINGS_LOCALE_SELECTION,Sets the application’s language. Your selected language might not be available in downloaded collections!,Konfiguriert die Anwendungssprache. Die gewählte Sprache ist ggf. In heruntergeladenen Sammlungen nicht verfügbar!
+MAIN_SETTINGS_LOCALE_EN,English,Englisch
+MAIN_SETTINGS_LOCALE_DE,German,Deutsch
 MAIN_SETTINGS_MUSIC,Music Settings,Musik
 MAIN_SETTINGS_PLAY_MUSIC,Enables or disables ambient music.,Aktiviert oder deaktiviert die Hintergrundmusik.
 MAIN_SETTINGS_MUSIC_VOLUME,Adjusts the ambient music’s volume.,Regelt die Lautstärke der Hintergrundmusik.
 MAIN_SETTINGS_CONTROLS,Controls Settings,Steuerung
 MAIN_SETTINGS_ACTIVE_HAND,The active hand used throughout the application will automatically be set by pressing the trigger button of the desired controller.,"Die aktive Hand, die zur Benutzung der Anwendung verwendet wird, kann durch drücken der Trigger-Taste ausgewählt werden."
+MAIN_ABOUT,About Artivact XR,Über Artivact XR
+MAIN_ABOUT_BACK,Back,Zurück
+MAIN_ABOUT_ARTIVACT,"Artivact and Artivact XR are free, open-source tools for collection management, presentation and virtual item creation. 
+
+The software is provided under the permissive MIT license, without warranty of any kind, but without limitations regarding the usage, too.
+
+You can find out more about the project at: www.artivact.io
+
+Artivact XR is written using the free and open-source game engine ‘Godot’.","Artivact und Artivact XR sind Open-Source Tools zur Verwaltung von Sammlungen, deren virtualisierung und Präsentation.
+
+Die Software wird unter der MIT-Lizenz zur freien Verfügung bereitgestellt, ohne jegliche Garantie, aber auch ohne Einschränkungen der Nutzung.
+
+Unter ‘www.artivact.io’ können Sie mehr über das Projekt erfahren.
+
+Artivact XR wurde mit der freien Open-Source Gane-Engine ‘Godot’ entwickelt."
+MAIN_ABOUT_GODOT,"Godot Engine is a feature-packed, cross-platform game engine to create 2D and 3D games from a unified interface. It provides a comprehensive set of common tools, so that users can focus on making games without having to reinvent the wheel. Games can be exported with one click to a number of platforms, including the major desktop platforms (Linux, macOS, Windows), mobile platforms (Android, iOS), as well as Web-based platforms and consoles.
+
+Many thanks to all contributors of this engine for their great work!","Die Godot Engine ist eine funktionsreiche, plattformübergreifende Spiele-Engine zur Erstellung von 2D- und 3D-Spielen über eine einheitliche Oberfläche. Sie bietet einen umfassenden Satz gemeinsamer Tools, sodass sich die Benutzer auf die Erstellung von Spielen konzentrieren können, ohne das Rad neu erfinden zu müssen. Spiele können mit einem Klick auf eine Reihe von Plattformen exportiert werden, darunter die wichtigsten Desktop-Plattformen (Linux, macOS, Windows), mobile Plattformen (Android, iOS), sowie webbasierte Plattformen und Konsolen.
+
+Vielen Dank an alle, die zu dieser Engine beigetragen haben!"
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
 COLL_ITEM_DESCRIPTION,Description,Beschreibung

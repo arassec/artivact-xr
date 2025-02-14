@@ -56,7 +56,7 @@ func _ready():
 	get_viewport().msaa_3d = Viewport.MSAA_4X
 	# OpenXR Reference Space is set to "Local" in the project settings. So we have to set the
 	# camera's position manually here:
-	#get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
+	get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
 	
 	# Apply settings:
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
@@ -72,6 +72,12 @@ func _ready():
 		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
 	else:
 		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
+		
+	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
+	if locale == 0:
+		TranslationServer.set_locale('en')
+	elif locale == 1:
+		TranslationServer.set_locale('de')
 
 
 ####################################################################################################
@@ -210,3 +216,6 @@ func _setting_changed(setting: Dictionary) -> void:
 			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
 		else:
 			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
+	elif setting.has(str(SettingsStore.SettingType.LOCALE)):
+		# If the locale changed -> reload collection infos:
+		CollectionStore.load_collection_infos()
