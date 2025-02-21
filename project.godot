@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="Artivact XR"
-config/version="1.0"
+config/description="\"Artivact XR\" is an application to bring virtual artifacts into the metaverse."
+config/version="0.0.1"
 run/main_scene="res://scenes/artivact_staging.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="res://artivactxr-logo-white-text.png"

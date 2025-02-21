@@ -19,7 +19,5 @@ android/build/*
 !android/build/AndroidManifest.xml
 
 # ArtivactVR specific
-addons/
 *.apk
 *.artivact.content.json.zip
-!2eeb4572-123e-4ed8-80b2-a05b05128e79.artivact.content.json.zip
