@@ -8,7 +8,8 @@ var mediaImageTexture: ImageTexture
 var mediaLoaded = false
 
 var rotateModelHorizontally = true
-var rotateModelVertically = false
+
+var wasGripped = false
 
 
 ####################################################################################################
@@ -17,6 +18,8 @@ var rotateModelVertically = false
 func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_ITEM_MEDIA, _open_item_media)
 	SignalBus.register(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA, _close_item_media)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grab_item_model)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _release_item_model)
 
 
 ####################################################################################################
@@ -25,6 +28,8 @@ func _init():
 func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_ITEM_MEDIA, _open_item_media)
 	SignalBus.deregister(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA, _close_item_media)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grab_item_model)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _release_item_model)
 
 
 func _process(delta):
@@ -42,8 +47,26 @@ func _process(delta):
 
 	if mediaModelNode != null && rotateModelHorizontally:
 		mediaModelNode.rotate(Vector3(0, 1, 0), 0.4 * delta)
-	elif mediaModelNode != null && rotateModelVertically:
-		mediaModelNode.rotate(Vector3(1, 0, 0), 0.4 * delta)
+
+
+func _grab_item_model(controller: XRController3D) -> void:
+	if controller != null && mediaModelNode != null && !mediaLoaded:
+		wasGripped = true
+		controller.find_child("FunctionPointer").visible = false
+		rotateModelHorizontally = false
+		remove_child(mediaModelNode)
+		mediaModelNode.scale *= 0.25
+		controller.add_child(mediaModelNode)
+
+
+func _release_item_model(controller: XRController3D) -> void:
+	if controller != null && mediaModelNode != null && wasGripped:
+		wasGripped = false
+		controller.find_child("FunctionPointer").visible = true
+		controller.remove_child(mediaModelNode)
+		mediaModelNode.scale *= 4
+		add_child(mediaModelNode)
+		rotateModelHorizontally = true
 
 
 func _close_item_media() -> void:
@@ -72,7 +95,6 @@ func _load_media(item: ArtivactItem) -> void:
 		mediaLoaded = true
 
 
-
 func _load_model(itemId: String, model: String):
 	var gltfDocument = GLTFDocument.new()
 	var gltfState = GLTFState.new()
@@ -92,7 +114,6 @@ func _load_model(itemId: String, model: String):
 	ModelHelper.scale_model(mediaModelNode, 1.0)
 
 	mediaLoaded = true
-
 
 
 func _load_image(itemId: String, imageFile: String):

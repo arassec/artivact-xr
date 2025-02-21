@@ -21,10 +21,10 @@ func _on_left_hand_button_pressed(name: String) -> void:
 		SettingsStore.set_value(SettingsStore.SettingType.ACTIVE_HAND, false)
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ACTIVE_HAND): false})
 
-		SignalBus.debug_json(SettingsStore.settings)
-
 		$RightHand.visible = false
 		
+	if name == "grip_click":
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_PRESSED, $LeftHand)
 
 
 func _on_right_hand_button_pressed(name: String) -> void:
@@ -40,3 +40,16 @@ func _on_right_hand_button_pressed(name: String) -> void:
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ACTIVE_HAND): true})
 
 		$LeftHand.visible = false
+
+	if name == "grip_click":
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_PRESSED, $RightHand)
+
+
+func _on_left_hand_button_released(name: String) -> void:
+	if name == "grip_click":
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_RELEASED, $LeftHand)
+
+
+func _on_right_hand_button_released(name: String) -> void:
+	if name == "grip_click":
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_RELEASED, $RightHand)

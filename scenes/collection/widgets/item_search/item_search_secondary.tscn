@@ -29,6 +29,10 @@ grow_vertical = 2
 [node name="PaginationContainer" parent="Panel" instance=ExtResource("3_1rhb3")]
 layout_mode = 1
 
+[node name="ItemsLabel" type="Label" parent="Panel/PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/Pager" index="1"]
+layout_mode = 2
+text = "COLL_ITEM_LABEL"
+
 [node name="Cursor" type="ColorRect" parent="."]
 process_mode = 4
 material = SubResource("ShaderMaterial_atasl")

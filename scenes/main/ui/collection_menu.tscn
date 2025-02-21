@@ -34,27 +34,35 @@ grow_vertical = 2
 theme = ExtResource("1_lbtn3")
 script = ExtResource("1_4a80r")
 
-[node name="CollectionPaginationContainer" parent="." instance=ExtResource("2_7v2gc")]
+[node name="CollectionContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollectionPaginationContainer" parent="CollectionContainer" instance=ExtResource("2_7v2gc")]
 layout_mode = 1
 
-[node name="QuitButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
+[node name="QuitButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
 layout_mode = 2
 text = "MAIN_EXIT"
 icon = ExtResource("4_jgyxj")
 
-[node name="ImmersiveModeButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="0"]
+[node name="ImmersiveModeButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="0"]
 layout_mode = 2
 icon = ExtResource("5_uda07")
 
-[node name="PassthroughModeButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="1"]
+[node name="PassthroughModeButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="1"]
 layout_mode = 2
 icon = ExtResource("6_x77j7")
 
-[node name="AboutButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="2"]
+[node name="AboutButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="2"]
 layout_mode = 2
 icon = ExtResource("7_x77j7")
 
-[node name="SettingsButton" type="Button" parent="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="3"]
+[node name="SettingsButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="3"]
 layout_mode = 2
 icon = ExtResource("5_iug8l")
 
@@ -82,6 +90,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SettingsPanel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,11 +150,16 @@ text = "MAIN_SETTINGS_LOCALE"
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="EnCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+
+[node name="EnCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "MAIN_SETTINGS_LOCALE_EN"
 
-[node name="DeCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+[node name="DeCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "MAIN_SETTINGS_LOCALE_DE"
 
@@ -153,7 +167,8 @@ text = "MAIN_SETTINGS_LOCALE_DE"
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.1
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_LOCALE_SELECTION"
 autowrap_mode = 2
 
@@ -315,16 +330,16 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
-[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
-[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/AboutButton" to="." method="_on_about_button_pressed"]
-[connection signal="pressed" from="CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
-[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/EnCheckButton" to="." method="_on_en_check_button_toggled"]
-[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/DeCheckButton" to="." method="_on_de_check_button_toggled"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/EnCheckButton" to="." method="_on_en_check_button_toggled"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/DeCheckButton" to="." method="_on_de_check_button_toggled"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer/MusicEnabledCheckBox" to="." method="_on_music_enabled_check_box_toggled"]
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
 [connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
 
-[editable path="CollectionPaginationContainer"]
+[editable path="CollectionContainer/CollectionPaginationContainer"]

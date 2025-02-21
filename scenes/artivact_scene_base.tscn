@@ -49,4 +49,6 @@ target_radius = 0.01
 target_material = SubResource("StandardMaterial3D_nap2i")
 
 [connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_released"]
 [connection signal="button_pressed" from="XROrigin3D/RightHand" to="XROrigin3D" method="_on_right_hand_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/RightHand" to="XROrigin3D" method="_on_right_hand_button_released"]

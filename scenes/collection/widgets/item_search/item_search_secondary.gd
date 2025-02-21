@@ -30,13 +30,9 @@ func initialize(widgetInput: ItemSearchWidget):
 	if paginationContainer && paginationContent.size() > 0:
 		paginationContainer.set_content(paginationContent)
 
-	SignalBus.debug("AAA")
-
 	if items.size() > 0:
 		currentItemIndex = 0
-		SignalBus.debug("BBB")
 		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_OPEN_ITEM_MEDIA, items[currentItemIndex])
-		SignalBus.debug("CCC")
 
 
 ####################################################################################################

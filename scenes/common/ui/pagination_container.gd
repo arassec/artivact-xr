@@ -7,6 +7,8 @@ signal next_clicked
 
 @export var pageSize: int = 1
 @export var columns: int = 1
+@export var showActionBar: bool = true
+
 
 var curPage: int = 0
 var totalPages: int = 0
@@ -16,6 +18,7 @@ var pageContent: Array[Object] = []
 
 
 func set_content(totalContentInput: Array[Object]) -> void:
+	$ContentMargin/ContentContainer/ActionBarContainer.visible = showActionBar
 	$ContentMargin/ContentContainer/ContentAnchor.columns = columns
 	totalContent = totalContentInput
 	@warning_ignore("integer_division")

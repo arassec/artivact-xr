@@ -16,7 +16,7 @@ func _init(data: Dictionary):
 
 
 func translate():
-	var locale = I18n.locale
+	var locale = TranslationServer.get_locale()
 	if translations.has(locale):
 		var translatedValue = translations[locale]
 		if translatedValue != "":

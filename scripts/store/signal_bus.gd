@@ -7,6 +7,9 @@ var debugLogSignals = false
 enum SignalType {
 	DEBUG,
 	
+	CTRL_GRIP_PRESSED,
+	CTRL_GRIP_RELEASED,
+	
 	MAIN_EXIT_APPLICATION,
 	MAIN_COLLECTION_INFOS_UPDATED,
 	MAIN_DELETE_COLLECTION,
@@ -44,6 +47,9 @@ enum SignalType {
 
 var callbacks = {
 	SignalType.DEBUG: [],
+
+	SignalType.CTRL_GRIP_PRESSED: [],
+	SignalType.CTRL_GRIP_RELEASED: [],
 	
 	SignalType.MAIN_EXIT_APPLICATION: [],
 	SignalType.MAIN_COLLECTION_INFOS_UPDATED: [],

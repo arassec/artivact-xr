@@ -27,15 +27,15 @@ MAIN_ABOUT_ARTIVACT,"Artivact and Artivact XR are free, open-source tools for co
 
 The software is provided under the permissive MIT license, without warranty of any kind, but without limitations regarding the usage, too.
 
-You can find out more about the project at: www.artivact.io
+You can find out more about the project at: www.arassec.com
 
 Artivact XR is written using the free and open-source game engine ‘Godot’.","Artivact und Artivact XR sind Open-Source Tools zur Verwaltung von Sammlungen, deren virtualisierung und Präsentation.
 
 Die Software wird unter der MIT-Lizenz zur freien Verfügung bereitgestellt, ohne jegliche Garantie, aber auch ohne Einschränkungen der Nutzung.
 
-Unter ‘www.artivact.io’ können Sie mehr über das Projekt erfahren.
+Unter www.arassec.de können Sie mehr über das Projekt erfahren.
 
-Artivact XR wurde mit der freien Open-Source Gane-Engine ‘Godot’ entwickelt."
+Artivact XR wurde mit der freien Open-Source Game-Engine ‘Godot’ entwickelt."
 MAIN_ABOUT_GODOT,"Godot Engine is a feature-packed, cross-platform game engine to create 2D and 3D games from a unified interface. It provides a comprehensive set of common tools, so that users can focus on making games without having to reinvent the wheel. Games can be exported with one click to a number of platforms, including the major desktop platforms (Linux, macOS, Windows), mobile platforms (Android, iOS), as well as Web-based platforms and consoles.
 
 Many thanks to all contributors of this engine for their great work!","Die Godot Engine ist eine funktionsreiche, plattformübergreifende Spiele-Engine zur Erstellung von 2D- und 3D-Spielen über eine einheitliche Oberfläche. Sie bietet einen umfassenden Satz gemeinsamer Tools, sodass sich die Benutzer auf die Erstellung von Spielen konzentrieren können, ohne das Rad neu erfinden zu müssen. Spiele können mit einem Klick auf eine Reihe von Plattformen exportiert werden, darunter die wichtigsten Desktop-Plattformen (Linux, macOS, Windows), mobile Plattformen (Android, iOS), sowie webbasierte Plattformen und Konsolen.
@@ -43,6 +43,7 @@ Many thanks to all contributors of this engine for their great work!","Die Godot
 Vielen Dank an alle, die zu dieser Engine beigetragen haben!"
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
+COLL_ITEM_LABEL,Exhibition Item,Ausstellungsstück
 COLL_ITEM_DESCRIPTION,Description,Beschreibung
 PAGE_TITLE,Title,Titel
 TEXT,Text,Text

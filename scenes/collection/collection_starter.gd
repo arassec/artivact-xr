@@ -28,6 +28,8 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
 
 	_load_pages()
 
@@ -40,6 +42,8 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
 
 
 ####################################################################################################
@@ -168,3 +172,13 @@ func _setting_changed(setting: Dictionary) -> void:
 		else:
 			get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
 			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
+
+
+func _grip_pressed(controller: XRController3D) -> void:
+	get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = null
+	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = null
+	
+	
+func _grip_released(controller: XRController3D) -> void:
+	get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = controller
+	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = controller

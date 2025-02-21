@@ -46,10 +46,14 @@ func _ready():
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
 		find_child("EnCheckButton").button_pressed = true
+		find_child("EnCheckButton").disabled = true
 		find_child("DeCheckButton").button_pressed = false
+		find_child("DeCheckButton").disabled = false
 	elif locale == 1:
 		find_child("EnCheckButton").button_pressed = false
+		find_child("EnCheckButton").disabled = false
 		find_child("DeCheckButton").button_pressed = true
+		find_child("DeCheckButton").disabled = true
 
 
 func _input(event):
@@ -67,12 +71,12 @@ func _collection_infos_updated() -> void:
 	
 	var fontSize = 96
 	if collectionInfos.size() >= 9:
-		$CollectionPaginationContainer.pageSize = 9
-		$CollectionPaginationContainer.columns = 3
+		$CollectionContainer/CollectionPaginationContainer.pageSize = 9
+		$CollectionContainer/CollectionPaginationContainer.columns = 3
 		fontSize = 32
 	elif collectionInfos.size() >= 4:
-		$CollectionPaginationContainer.pageSize = 4
-		$CollectionPaginationContainer.columns = 2
+		$CollectionContainer/CollectionPaginationContainer.pageSize = 4
+		$CollectionContainer/CollectionPaginationContainer.columns = 2
 		fontSize = 64
 		
 	for collectionInfo in collectionInfos:
@@ -80,7 +84,7 @@ func _collection_infos_updated() -> void:
 		cardSceneInstance.initialize(collectionInfo, fontSize)
 		content.push_back(cardSceneInstance)
 		
-	$CollectionPaginationContainer.set_content(content)
+	$CollectionContainer/CollectionPaginationContainer.set_content(content)
 
 
 func _on_quit_button_pressed() -> void:
@@ -102,22 +106,22 @@ func _clear_operation_in_progress():
 
 
 func _on_settings_button_pressed() -> void:
-	$CollectionPaginationContainer.visible = false
+	$CollectionContainer/CollectionPaginationContainer.visible = false
 	$SettingsPanel.visible = true
 
 
 func _on_settings_back_button_pressed() -> void:
-	$CollectionPaginationContainer.visible = true
+	$CollectionContainer/CollectionPaginationContainer.visible = true
 	$SettingsPanel.visible = false
 	
 
 func _on_about_button_pressed() -> void:
-	$CollectionPaginationContainer.visible = false
+	$CollectionContainer/CollectionPaginationContainer.visible = false
 	$AboutPanel.visible = true
 
 
 func _on_about_back_button_pressed() -> void:
-	$CollectionPaginationContainer.visible = true
+	$CollectionContainer/CollectionPaginationContainer.visible = true
 	$AboutPanel.visible = false
 
 
@@ -126,7 +130,9 @@ func _on_en_check_button_toggled(toggled_on: bool) -> void:
 		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 0)
 		TranslationServer.set_locale('en')
 		find_child("EnCheckButton").button_pressed = true
+		find_child("EnCheckButton").disabled = true
 		find_child("DeCheckButton").button_pressed = false
+		find_child("DeCheckButton").disabled = false
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.LOCALE): 0})
 
 
@@ -135,7 +141,9 @@ func _on_de_check_button_toggled(toggled_on: bool) -> void:
 		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 1)
 		TranslationServer.set_locale('de')
 		find_child("EnCheckButton").button_pressed = false
+		find_child("EnCheckButton").disabled = false
 		find_child("DeCheckButton").button_pressed = true
+		find_child("DeCheckButton").disabled = true
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.LOCALE): 1})
 
 

@@ -1,7 +1,7 @@
 extends Control
 
 @export var TAB_MARGIN = 25
-@export var FONT_SIZE = 24
+@export var FONT_SIZE = 32
 
 
 func initialize(item: ArtivactItem):
