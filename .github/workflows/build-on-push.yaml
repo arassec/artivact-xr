@@ -16,9 +16,6 @@ env:
   # Configure Godot version
   GODOT_VERSION: 4.3.0
 
-  # OpenXR Vendors version
-  OPENXR_VENDORS_VERSION: 3.1.0-stable
-  
   # Butler API Key (comment to disable)
   BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
   
@@ -64,17 +61,6 @@ jobs:
       # Check out the repository
       - name: Checkout
         uses: actions/checkout@v4
-
-      # Install the OpenXR Vendors Plugin
-      - name: Install OpenXR Vendors Plugin
-        shell: bash
-        run: |
-          curl -L -O https://github.com/GodotVR/godot_openxr_vendors/releases/download/${{ env.OPENXR_VENDORS_VERSION }}/godotopenxrvendorsaddon.zip
-          unzip -o godotopenxrvendorsaddon.zip -d godotopenxrvendorsaddon
-          mkdir addons
-          mv godotopenxrvendorsaddon/asset/addons/godotopenxrvendors addons/godotopenxrvendors
-          rm godotopenxrvendorsaddon.zip
-          rm -rf godotopenxrvendorsaddon
 
       # If targeting android then install JDK
       - name: Set up JDK 17
