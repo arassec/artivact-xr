@@ -131,7 +131,7 @@ jobs:
           github.event_name == 'push' && 
           github.ref_type == 'tag'
         run: |
-          echo "$GITHUB_REF:11}"
+          echo "${GITHUB_REF:11}"
           echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
           echo "RELEASE_FILE=${{ matrix.export-file }}" >> GITHUB_ENV
 
@@ -141,9 +141,7 @@ jobs:
           github.event_name == 'push' && 
           github.ref_type == 'tag'
         run: |
-          echo "RELEASE_VERSION: $RELEASE_VERSION AAA ${{ env.RELEASE_VERSION }}"
-          echo "RELEASE_FILE: $RELEASE_FILE AAA ${{ env.RELEASE_FILE }}"
-          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/${RELEASE_FILE/.apk/_v$RELEASE_VERSION.apk}
+          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/${${{ matrix.export-file }}/.apk/_v$RELEASE_VERSION.apk}
 
       # Publish release (if building release)
       - name: Publish Release
