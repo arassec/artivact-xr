@@ -144,7 +144,7 @@ jobs:
           echo "RELEASE_FILE: $RELEASE_FILE"
           mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/$RELEASE_FILE
           ls ${{ matrix.export-folder }}/
-          echo "RELEASE_FILE=${RELEASE_FILE}" >> GITHUB_ENV
+          echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
 
       # Publish release (if building release)
       - name: Publish Release
