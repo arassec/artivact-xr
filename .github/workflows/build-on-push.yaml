@@ -37,7 +37,7 @@ jobs:
             export-type: debug
             export-args: --install-android-build-template
             export-folder: build/android-quest
-            export-file: Artivact_XR_Quest.apk
+            export-file: Artivact_XR_Quest
 
           # Export for Android Pico
           - name: 🤖 Android Pico
@@ -47,7 +47,7 @@ jobs:
             export-type: debug
             export-args: --install-android-build-template
             export-folder: build/android-pico
-            export-file: Artivact_XR_Pico.apk
+            export-file: Artivact_XR_Pico
 
     steps:
       # Check out the repository
@@ -94,7 +94,7 @@ jobs:
           godot --headless --import || exit 0
 
       # Export project - Regular Build
-      - name: Export Godot Project
+      - name: Export Godot Project (SNAPSHOT Build)
         if: >
           github.event_name == 'push' && 
           github.ref_type != 'tag'
@@ -106,7 +106,7 @@ jobs:
           --export-debug "${{ matrix.export-preset }}"
 
       # Export project - Release Build
-      - name: Export Godot Project
+      - name: Export Godot Project (Release Build)
         if: >
           github.event_name == 'push' && 
           github.ref_type == 'tag'
@@ -121,7 +121,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.export-file }}
+          name: ${{ matrix.export-file }}.apk
           path: |
             ${{ matrix.export-folder }}/${{ matrix.export-file }}
       
@@ -132,10 +132,9 @@ jobs:
           github.ref_type == 'tag'
         run: |
           echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
-          RELEASE_FILE=${{ matrix.export-file }}
-          RELEASE_FILE=${RELEASE_FILE/.apk/_$RELEASE_VERSION.apk}
-          echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
-          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/$RELEASE_FILE
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
+          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/${{ matrix.export-file }}_${GITHUB_REF:11}.apk
 
       # Publish release (if building release)
       - name: Publish Release
