@@ -93,14 +93,29 @@ jobs:
         run: |
           godot --headless --import || exit 0
 
-      # Export project
+      # Export project - Regular Build
       - name: Export Godot Project
+        if: >
+          github.event_name == 'push' && 
+          github.ref_type != 'tag'
         shell: bash
         run: >
           godot
           --headless
           ${{ matrix.export-args }}
-          --export-${{ matrix.export-type }} "${{ matrix.export-preset }}"
+          --export-debug "${{ matrix.export-preset }}"
+
+      # Export project - Release Build
+      - name: Export Godot Project
+        if: >
+          github.event_name == 'push' && 
+          github.ref_type == 'tag'
+        shell: bash
+        run: >
+          godot
+          --headless
+          ${{ matrix.export-args }}
+          --export-release "${{ matrix.export-preset }}"
 
       # Upload artifacts
       - name: Upload Artifacts
@@ -117,8 +132,10 @@ jobs:
           github.ref_type == 'tag'
         run: |
           echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
-          echo "RELEASE_FILE=${{ matrix.export-file }}" | sed "s/.apk/_$RELEASE_VERSION.apk/" >> $GITHUB_ENV
-          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/${{ env.RELEASE_FILE }}
+          release-file=${{ matrix.export-file }}
+          release-file="${release-file/.apk/_$RELEASE_VERSION.apk}"
+          echo "RELEASE_FILE=$release-file" >> $GITHUB_ENV
+          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/$RELEASE_FILE
 
       # Publish release (if building release)
       - name: Publish Release
