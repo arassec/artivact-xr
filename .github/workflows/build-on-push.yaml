@@ -115,7 +115,7 @@ jobs:
           godot
           --headless
           ${{ matrix.export-args }}
-          --export-release "${{ matrix.export-preset }}"
+          --export-debug "${{ matrix.export-preset }}"
 
       # Upload artifacts
       - name: Upload Artifacts
