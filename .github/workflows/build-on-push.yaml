@@ -132,9 +132,9 @@ jobs:
           github.ref_type == 'tag'
         run: |
           echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
-          release-file=${{ matrix.export-file }}
-          release-file="${release-file/.apk/_$RELEASE_VERSION.apk}"
-          echo "RELEASE_FILE=$release-file" >> $GITHUB_ENV
+          RELEASE_FILE=${{ matrix.export-file }}
+          RELEASE_FILE=${RELEASE_FILE/.apk/_$RELEASE_VERSION.apk}
+          echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
           mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/$RELEASE_FILE
 
       # Publish release (if building release)
