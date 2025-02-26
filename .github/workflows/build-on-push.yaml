@@ -141,7 +141,7 @@ jobs:
           github.event_name == 'push' && 
           github.ref_type == 'tag'
         run: |
-          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/${${{ matrix.export-file }}/.apk/_v$RELEASE_VERSION.apk}
+          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/${${{ matrix.export-file }}/.apk/_v${{ env.RELEASE_VERSION }}.apk}
 
       # Publish release (if building release)
       - name: Publish Release
