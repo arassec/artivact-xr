@@ -95,7 +95,7 @@ jobs:
         run: |
           echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
 
-      # If release build: Replace version in godot project file
+      # Replace version in godot project file (if building release)
       - name: Replace Version Number
         if: >
           github.event_name == 'push' && 
@@ -132,12 +132,13 @@ jobs:
         shell: bash
         env:
           AVXR_KEYSTORE_BASE64: ${{ secrets.AVXR_RELEASE_KEYSTORE }}
-          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: "./artivact-xr-release.keystore"
+          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: "artivact-xr-release.keystore"
           GODOT_ANDROID_KEYSTORE_RELEASE_USER: ${{ secrets.AVXR_RELEASE_ALIAS }}
           GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.AVXR_RELEASE_PASS }}
         run: |
           echo "$AVXR_KEYSTORE_BASE64" > ./artivact-xr-release.keystore.base64.txt
-          openssl base64 -A -d -in ./artivact-xr-release.keystore.base64.txt -out ./artivact-rx-release.keystore 
+          openssl base64 -A -d -in ./artivact-xr-release.keystore.base64.txt -out ./artivact-rx-release.keystore
+          ls -lah *
           godot --headless ${{ matrix.export-args }} --export-release "${{ matrix.export-preset }}"
 
       # Upload artifacts
