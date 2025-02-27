@@ -137,8 +137,7 @@ jobs:
           GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.AVXR_RELEASE_PASS }}
         run: |
           echo "$AVXR_KEYSTORE_BASE64" > ./artivact-xr-release.keystore.base64.txt
-          openssl base64 -A -d -in ./artivact-xr-release.keystore.base64.txt -out ./artivact-rx-release.keystore
-          ls -lah *
+          openssl base64 -A -d -in ./artivact-xr-release.keystore.base64.txt -out ./artivact-xr-release.keystore
           godot --headless ${{ matrix.export-args }} --export-release "${{ matrix.export-preset }}"
 
       # Upload artifacts
