@@ -17,15 +17,14 @@ It has to be built and installed on headsets manually at the moment.
 
 The app is developed using the free and open-source [Godot](https://godotengine.org/) game engine. 
 
-<img alt="godot-logo" src="https://github.com/arassec/artivact-xr/blob/main/godot-logo-watercolor-text.jpg" width="512">
+<img alt="godot-logo" src="https://github.com/arassec/artivact-xr/blob/main/assets/ui/logos/godot_logo.png" width="512">
 
 In order to build and Export it, the following steps are required:
 
 * Checkout the Project from Github
 * Open the Godot editor and Import the Project
 * Follow the [setup instructions](https://docs.godotengine.org/en/stable/tutorials/xr/index.html#basic-tutorial) for XR projects
-* Install the [Godot XR Tools for Godot 4](https://godotengine.org/asset-library/asset/1698) plugin from the asset library  
-* Update the configuration file `android/build/gradle.properties` and add the path to the JDK at the bottom, e.g. `org.gradle.java.home=C:\\Users\\arassec\\.jdks\\temurin-17.0.9`
+* Configure the JDK to use under: Editor -> Editor Settings -> Export -> Android -> Java SDK Path
 
 ## License
 

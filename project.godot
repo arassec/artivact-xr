@@ -16,7 +16,7 @@ config/version="0.0.0"
 run/main_scene="res://scenes/artivact_staging.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="res://artivactxr-logo-white-text.png"
-config/icon="res://artivactxr-logo-white-zoom.png"
+config/icon="res://assets/project-icons/godot-project-icon.png"
 
 [autoload]
 

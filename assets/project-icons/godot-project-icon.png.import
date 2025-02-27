@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mjwbr1t3k3vg"
-path="res://.godot/imported/artivactxr-logo-white-zoom.png-7f1f5a2e6b9167df3bdd613ea557d383.ctex"
+path="res://.godot/imported/godot-project-icon.png-1ba5cae863b3eceadb4ff8b236e02da6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://artivactxr-logo-white-zoom.png"
-dest_files=["res://.godot/imported/artivactxr-logo-white-zoom.png-7f1f5a2e6b9167df3bdd613ea557d383.ctex"]
+source_file="res://assets/project-icons/godot-project-icon.png"
+dest_files=["res://.godot/imported/godot-project-icon.png-1ba5cae863b3eceadb4ff8b236e02da6.ctex"]
 
 [params]
 

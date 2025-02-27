@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr0sprrr64yrt"
-path="res://.godot/imported/godot-logo-watercolor-text.jpg-61b1417bee9f3d86537f64007793866d.ctex"
+uid="uid://04xp8jg3tgmm"
+path="res://.godot/imported/android-monochrome-icon.png-f19cc371a94d0a4775478c700c14feb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://godot-logo-watercolor-text.jpg"
-dest_files=["res://.godot/imported/godot-logo-watercolor-text.jpg-61b1417bee9f3d86537f64007793866d.ctex"]
+source_file="res://assets/project-icons/android-monochrome-icon.png"
+dest_files=["res://.godot/imported/android-monochrome-icon.png-f19cc371a94d0a4775478c700c14feb0.ctex"]
 
 [params]
 
