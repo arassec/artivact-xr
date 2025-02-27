@@ -14,7 +14,7 @@ on:
 # Environment variables
 env:
   # Configure Godot version
-  GODOT_VERSION: 4.4.0.rc2
+  GODOT_VERSION: 4.4.0-rc.2
 
 
 # CI jobs
