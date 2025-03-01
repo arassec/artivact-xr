@@ -174,11 +174,24 @@ jobs:
           omitBodyDuringUpdate: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Publish release to Meta (if building release)
-      - name: Publish Release to Meta
+      # Prepare publish to Meta (if building release)
+      - name: Prepare Release for Meta Upload
         uses: RageAgainstThePixel/setup-ovr-platform-util@v1
         if: >
           github.event_name == 'push' && 
           github.ref_type == 'tag' &&
           contains(${{ env.RELEASE_FILE}}, 'Quest')          
-        run: 'ovr-platform-util upload-quest-build --app-id ${{ secrets.OVR_APP_ID }} --app-secret ${{ secrets.OVR_APP_SECRET }} --apk ${{ env.RELEASE_FILE }} --channel LIVE'
+        
+      # Publish release to Meta (if building release)
+      - name: Upload Release to Meta
+        uses: RageAgainstThePixel/upload-meta-quest-build@v2
+        if: >
+          github.event_name == 'push' && 
+          github.ref_type == 'tag' &&
+          contains(${{ env.RELEASE_FILE}}, 'Quest')
+        with:
+          ageGroup: 'TEENS_AND_ADULTS'
+          appId: ${{ secrets.OVR_APP_ID }}
+          appSecret: ${{ secrets.OVR_APP_SECRET }}
+          apkPath: '${{ matrix.export-folder }}/${{ env.RELEASE_FILE }}'
+
