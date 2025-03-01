@@ -174,3 +174,11 @@ jobs:
           omitBodyDuringUpdate: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Publish release to Meta (if building release)
+      - name: Publish Release to Meta
+        uses: RageAgainstThePixel/setup-ovr-platform-util@v1
+        if: >
+          github.event_name == 'push' && 
+          github.ref_type == 'tag' &&
+          matrix.export-preset == 'Quest'
+        run: 'ovr-platform-util upload-quest-build --app-id ${{ secrets.OVR_APP_ID }} --app-secret ${{ secrets.OVR_APP_SECRET }} --apk ${{ env.RELEASE_FILE }} --channel LIVE

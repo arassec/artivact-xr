@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://52w8ouyis4j0"]
 
 [ext_resource type="Script" uid="uid://bp1ddrc41ky4o" path="res://scenes/main/main_starter.gd" id="1_ijyvw"]
-[ext_resource type="PackedScene" uid="uid://075siwao8jfy" path="res://scenes/common/environment/EnvironmentManager.tscn" id="2_8428a"]
+[ext_resource type="PackedScene" uid="uid://075siwao8jfy" path="res://scenes/common/environment/environment_manager.tscn" id="2_8428a"]
 [ext_resource type="PackedScene" uid="uid://besyy3cq3hxsy" path="res://scripts/util/remote_artivact_server.tscn" id="2_lfroa"]
 [ext_resource type="AudioStream" uid="uid://3jvplt6kb7k8" path="res://assets/audio/Ethereal Epiphone Main.wav" id="3_lfroa"]
 

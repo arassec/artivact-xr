@@ -2,18 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b853yg4ecewxt"
-path.s3tc="res://.godot/imported/artivactxr-logo-white-text.png-091560ff5a72458d26b2b6e3d095d535.s3tc.ctex"
-path.etc2="res://.godot/imported/artivactxr-logo-white-text.png-091560ff5a72458d26b2b6e3d095d535.etc2.ctex"
+uid="uid://bokjbue1q40re"
+path.s3tc="res://.godot/imported/repository_model_0.png-6c7d13e801e8a061e88d5fcbeebc5303.s3tc.ctex"
+path.etc2="res://.godot/imported/repository_model_0.png-6c7d13e801e8a061e88d5fcbeebc5303.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "2b8f0ce25193d424b11231562d789e46"
+}
 
 [deps]
 
-source_file="res://artivactxr-logo-white-text.png"
-dest_files=["res://.godot/imported/artivactxr-logo-white-text.png-091560ff5a72458d26b2b6e3d095d535.s3tc.ctex", "res://.godot/imported/artivactxr-logo-white-text.png-091560ff5a72458d26b2b6e3d095d535.etc2.ctex"]
+source_file="res://scenes/common/environment/repository/assets/repository_model_0.png"
+dest_files=["res://.godot/imported/repository_model_0.png-6c7d13e801e8a061e88d5fcbeebc5303.s3tc.ctex", "res://.godot/imported/repository_model_0.png-6c7d13e801e8a061e88d5fcbeebc5303.etc2.ctex"]
 
 [params]
 

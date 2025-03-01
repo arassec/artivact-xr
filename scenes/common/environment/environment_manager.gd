@@ -30,7 +30,7 @@ func _ready() -> void:
 	if arMode:
 		_switch_to_ar()
 	else:
-		_switch_to_vr()	
+		_switch_to_vr()
 
 
 ####################################################################################################
@@ -93,21 +93,21 @@ func _switch_to_vr() -> bool:
 	_load_environment()
 
 	return true
-	
+
 
 ####################################################################################################
 # Loads the background environment scene.
 ####################################################################################################
 func _load_environment() -> void:
 	if !environmentSceneInstance:
-		var environmentScene = load("res://scenes/common/environment/default/default_environment.tscn")
+		var environmentScene = load("res://scenes/common/environment/repository/repository_environment.tscn")
 		if environmentScene != null:
 			environmentSceneInstance = environmentScene.instantiate()
 			add_child(environmentSceneInstance)
 
 	if environmentSceneInstance:
 		environmentSceneInstance.visible = true
-		
+
 
 ####################################################################################################
 # Loads the background environment scene.

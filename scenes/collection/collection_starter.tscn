@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbqh3qrtbo4kg" path="res://scenes/collection/collection_starter.gd" id="1_ftfx0"]
 [ext_resource type="PackedScene" uid="uid://c7qvq3tcrbcl2" path="res://scenes/collection/media_manager.tscn" id="1_x71mu"]
 [ext_resource type="AudioStream" uid="uid://b5gcae7kh2y08" path="res://assets/audio/Ethereal Heartbeat Main.wav" id="2_ftfx0"]
-[ext_resource type="PackedScene" uid="uid://075siwao8jfy" path="res://scenes/common/environment/EnvironmentManager.tscn" id="3_wu437"]
+[ext_resource type="PackedScene" uid="uid://075siwao8jfy" path="res://scenes/common/environment/environment_manager.tscn" id="3_wu437"]
 
 [node name="CollectionStarter" type="Node3D"]
 script = ExtResource("1_ftfx0")

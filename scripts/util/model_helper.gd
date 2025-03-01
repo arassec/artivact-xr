@@ -3,7 +3,17 @@ class_name ModelHelper
 extends Object
 
 
-static func scale_model(model: Node3D, targetSize: float):
+static func disable_light(model: Node3D) -> void:
+	for n in model.get_children().size():
+		if "MeshInstance3D"	== model.get_child(n).get_class():
+			var mesh:MeshInstance3D = model.get_child(n)
+			var mat:Material = mesh.get_active_material(0)
+			if mat:
+				mat.shading_mode = 0
+				print("SUCCESS")
+
+
+static func scale_model(model: Node3D, targetSize: float) -> void:
 	var size = _get_size(model)
 		
 	var scaleX = true

@@ -24,6 +24,9 @@ albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
 [node name="XROrigin3D" parent="." index="0"]
 script = ExtResource("2_wp5fa")
 
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="LeftHand" parent="XROrigin3D" index="1"]
 visible = false
 

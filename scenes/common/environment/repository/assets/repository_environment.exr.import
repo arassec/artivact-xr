@@ -1,0 +1,28 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://bvrhbyia6ns0w"
+path.bptc="res://.godot/imported/repository_environment.exr-faf1dc338df96fd3704b498cc703f8bf.bptc.ctexarray"
+path.astc="res://.godot/imported/repository_environment.exr-faf1dc338df96fd3704b498cc703f8bf.astc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://scenes/common/environment/repository/assets/repository_environment.exr"
+dest_files=["res://.godot/imported/repository_environment.exr-faf1dc338df96fd3704b498cc703f8bf.bptc.ctexarray", "res://.godot/imported/repository_environment.exr-faf1dc338df96fd3704b498cc703f8bf.astc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=11

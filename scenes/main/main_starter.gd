@@ -54,9 +54,6 @@ func _ready():
 	# Initialize Godot XR stuff:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	get_viewport().msaa_3d = Viewport.MSAA_4X
-	# OpenXR Reference Space is set to "Local" in the project settings. So we have to set the
-	# camera's position manually here:
-	get_parent().find_child("XROrigin3D").set_position(Vector3(0, 1.8, 0))
 	
 	# Apply settings:
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
@@ -106,7 +103,7 @@ func _process(delta):
 		var collectionMenu = get_parent().find_child("DebugPanelOpenXRCompositionLayerQuad")
 		if cam && collectionMenu:
 			collectionMenu.transform.origin.y = (cam.transform.origin.y - 0.35)
-		
+
 
 ####################################################################################################
 # Closes the app on notification.

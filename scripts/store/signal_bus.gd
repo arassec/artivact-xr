@@ -99,35 +99,40 @@ func trigger(type: SignalType):
 	if debugLogSignals:
 		debug_json({"type": type})
 	for callback in callbacks[type]:
-		callback.call()
+		if callback:
+			callback.call()
 
 
 func trigger_with_payload(type: SignalType, payload: Variant):
 	if debugLogSignals:
 		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
-		callback.call(payload)
+		if callback:
+			callback.call(payload)
 
 
 func trigger_with_multiload(type: SignalType, payloadOne: Variant, payloadTwo: Variant):
 	if debugLogSignals:
 		debug_json({"type": type, "payloadOne": payloadOne, "payloadTwo": payloadTwo})
 	for callback in callbacks[type]:
-		callback.call(payloadOne, payloadTwo)
+		if callback:
+			callback.call(payloadOne, payloadTwo)
 
 
 func trigger_with_node(type: SignalType, payload: Node):
 	if debugLogSignals:
 		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
-		callback.call(payload)
+		if callback:
+			callback.call(payload)
 
 
 func trigger_with_widget(type: SignalType, payload: Widget):
 	if debugLogSignals:
 		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
-		callback.call(payload)
+		if callback:
+			callback.call(payload)
 
 
 func debug(payload: String) -> void:
