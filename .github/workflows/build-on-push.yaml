@@ -180,7 +180,7 @@ jobs:
         if: >
           github.event_name == 'push' && 
           github.ref_type == 'tag' &&
-          contains(${{ env.RELEASE_FILE}}, 'Quest')          
+          ${{ contains(env.RELEASE_FILE, 'Quest') }}          
         
       # Publish release to Meta (if building release)
       - name: Upload Release to Meta
@@ -188,10 +188,11 @@ jobs:
         if: >
           github.event_name == 'push' && 
           github.ref_type == 'tag' &&
-          contains(${{ env.RELEASE_FILE}}, 'Quest')
+          ${{ contains(env.RELEASE_FILE, 'Quest') }}
         with:
           ageGroup: 'TEENS_AND_ADULTS'
           appId: ${{ secrets.OVR_APP_ID }}
           appSecret: ${{ secrets.OVR_APP_SECRET }}
           apkPath: '${{ matrix.export-folder }}/${{ env.RELEASE_FILE }}'
+          releaseChannel: 'ALPHA'
 

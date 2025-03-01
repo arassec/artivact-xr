@@ -34,6 +34,8 @@
             android:name="org.godotengine.editor.version"
             android:value="${godotEditorVersion}" />
 
+        <meta-data android:name="com.oculus.vr.focusaware" android:value="true" />
+    
         <activity
             android:name=".GodotApp"
             android:label="@string/godot_project_name_string"
@@ -48,7 +50,7 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.oculus.intent.category.VR" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
