@@ -35,9 +35,9 @@ quad_size = Vector2(3.2, 1.8)
 script = ExtResource("2_a824d")
 controller = NodePath("../RightHand")
 
-[node name="CollectionStarter" parent="." index="1" instance=ExtResource("3_cx0yf")]
+[node name="CollectionStarter" parent="XROrigin3D" index="6" instance=ExtResource("3_cx0yf")]
 
-[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
+[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="1"]
 size = Vector2i(500, 500)
 render_target_update_mode = 4
 
@@ -46,7 +46,7 @@ custom_minimum_size = Vector2(500, 500)
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="3"]
+[node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
@@ -54,7 +54,7 @@ render_target_update_mode = 4
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="SecondaryPanelSubViewport" type="SubViewport" parent="." index="4"]
+[node name="SecondaryPanelSubViewport" type="SubViewport" parent="." index="3"]
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 

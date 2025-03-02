@@ -26,9 +26,9 @@ enable_hole_punch = true
 quad_size = Vector2(3.2, 1.8)
 script = ExtResource("3_b1x3f")
 
-[node name="MainStarter" parent="." index="1" instance=ExtResource("3_6q06x")]
+[node name="MainStarter" parent="XROrigin3D" index="5" instance=ExtResource("3_6q06x")]
 
-[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="2"]
+[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="1"]
 size = Vector2i(500, 500)
 render_target_update_mode = 4
 
@@ -36,7 +36,7 @@ render_target_update_mode = 4
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="3"]
+[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="2"]
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 

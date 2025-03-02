@@ -29,20 +29,6 @@ enum SignalType {
 	COLL_ITEM_PREVIOUS,
 	COLL_OPEN_ITEM_MEDIA,
 	COLL_CLOSE_ITEM_MEDIA,
-	
-	UPDATE_PAGE_NAVIGATION,
-	OPEN_PAGE,
-	UPDATE_WIDGET_NAVIGATION,
-	OPEN_WIDGET,
-	WIDGET_CONTENT_LOAD,
-	WIDGET_CONTENT_CLEAR,
-	WIDGET_NAVIGATION_MENU_SHOW,
-	WIDGET_NAVIGATION_MENU_HIDE,
-	WIDGET_NAVIGATION_MENU_UPDATE_PAGINATOR,
-	WIDGET_NAVIGATION_MENU_NEXT,
-	WIDGET_NAVIGATION_MENU_PREVIOUS,
-	WIDGET_NAVIGATION_MENU_INFO,
-	WIDGET_NAVIGATION_MENU_DATA,
 }
 
 var callbacks = {
@@ -70,20 +56,6 @@ var callbacks = {
 	SignalType.COLL_ITEM_PREVIOUS: [],
 	SignalType.COLL_OPEN_ITEM_MEDIA: [],
 	SignalType.COLL_CLOSE_ITEM_MEDIA: [],
-
-	SignalType.UPDATE_PAGE_NAVIGATION: [],
-	SignalType.OPEN_PAGE: [],
-	SignalType.UPDATE_WIDGET_NAVIGATION: [],
-	SignalType.OPEN_WIDGET: [],
-	SignalType.WIDGET_CONTENT_LOAD: [],
-	SignalType.WIDGET_CONTENT_CLEAR: [],
-	SignalType.WIDGET_NAVIGATION_MENU_SHOW: [],
-	SignalType.WIDGET_NAVIGATION_MENU_HIDE: [],
-	SignalType.WIDGET_NAVIGATION_MENU_UPDATE_PAGINATOR: [],
-	SignalType.WIDGET_NAVIGATION_MENU_NEXT: [],
-	SignalType.WIDGET_NAVIGATION_MENU_PREVIOUS: [],
-	SignalType.WIDGET_NAVIGATION_MENU_INFO: [],
-	SignalType.WIDGET_NAVIGATION_MENU_DATA: [],
 }
 
 
@@ -99,16 +71,20 @@ func trigger(type: SignalType):
 	if debugLogSignals:
 		debug_json({"type": type})
 	for callback in callbacks[type]:
-		if callback:
+		if !callback.is_null():
 			callback.call()
+		else:
+			deregister(type, callback)
 
 
 func trigger_with_payload(type: SignalType, payload: Variant):
 	if debugLogSignals:
 		debug_json({"type": type, "payload": payload})
 	for callback in callbacks[type]:
-		if callback:
+		if !callback.is_null():
 			callback.call(payload)
+		else:
+			deregister(type, callback)
 
 
 func trigger_with_multiload(type: SignalType, payloadOne: Variant, payloadTwo: Variant):

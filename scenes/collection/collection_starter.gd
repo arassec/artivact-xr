@@ -42,8 +42,8 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
-	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
 
 
 ####################################################################################################

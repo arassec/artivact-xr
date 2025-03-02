@@ -9,7 +9,7 @@ var mediaLoaded = false
 
 var rotateModelHorizontally = true
 
-var wasGripped = false
+var grabbingController: XRController3D = null
 
 
 ####################################################################################################
@@ -50,8 +50,8 @@ func _process(delta):
 
 
 func _grab_item_model(controller: XRController3D) -> void:
-	if controller != null && mediaModelNode != null && !mediaLoaded:
-		wasGripped = true
+	if controller != null && mediaModelNode != null && !mediaLoaded && grabbingController == null:
+		grabbingController = controller
 		controller.find_child("FunctionPointer").visible = false
 		rotateModelHorizontally = false
 		remove_child(mediaModelNode)
@@ -60,8 +60,8 @@ func _grab_item_model(controller: XRController3D) -> void:
 
 
 func _release_item_model(controller: XRController3D) -> void:
-	if controller != null && mediaModelNode != null && wasGripped:
-		wasGripped = false
+	if controller != null && mediaModelNode != null && grabbingController == controller:
+		grabbingController = null
 		controller.find_child("FunctionPointer").visible = true
 		controller.remove_child(mediaModelNode)
 		mediaModelNode.scale *= 4
