@@ -1,4 +1,6 @@
-# <img src="https://github.com/arassec/artivact-xr/blob/main/artivactxr-logo-white-text.png" width="256">
+# <img src="https://github.com/arassec/artivact-xr/blob/main/assets/logos/artivact-xr-splash-logo.png" width="256">
+
+# Artivact XR
 
 ## About
 

@@ -27,6 +27,9 @@ var loadCollectionInfosThread: Thread
 # Contains the ID of the currently selected collection.
 var selectedCollectionId: String
 
+# PageTitleWidget of the current collection, if any.
+var currentCollectionPageTitleWidget: PageTitleWidget = null
+
 
 func _process(_delta) -> void:
 	if loadCollectionInfosThread != null:
@@ -101,6 +104,13 @@ func load_collection_infos():
 	loadCollectionInfosThread.start(_load_collection_infos)
 
 
+func set_page_title_widget(pageTitleWidget: PageTitleWidget) -> void:
+	currentCollectionPageTitleWidget = pageTitleWidget
+	
+
+func get_page_title_widget() -> PageTitleWidget:
+	return currentCollectionPageTitleWidget
+	
 
 ####################################################################################################
 # TODO

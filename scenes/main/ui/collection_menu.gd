@@ -22,6 +22,9 @@ func _exit_tree():
 
 
 func _ready():
+	# Set project version in "About"-Panel
+	$AboutPanel/MarginContainer/VBoxContainer/AboutMenu/VersionLabel.text = str('v', ProjectSettings.get_setting("application/config/version"))
+	
 	var arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
 	if arMode:
 		find_child("PassthroughModeButton").visible = false

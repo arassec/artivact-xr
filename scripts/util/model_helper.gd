@@ -10,7 +10,6 @@ static func disable_light(model: Node3D) -> void:
 			var mat:Material = mesh.get_active_material(0)
 			if mat:
 				mat.shading_mode = 0
-				print("SUCCESS")
 
 
 static func scale_model(model: Node3D, targetSize: float) -> void:

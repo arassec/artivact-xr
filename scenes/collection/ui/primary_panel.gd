@@ -86,10 +86,14 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 	var fontSize = _compute_font_size(widgets)
 	var content: Array[Object] = []
 
+	var pageTitleWidgetExists = false
+	
 	for widget in widgets:
-		var cardSceneInstance = sectionCardScene.instantiate()
-		cardSceneInstance.initialize(widget, fontSize)
-		content.push_back(cardSceneInstance)
+		if !widget is PageTitleWidget:
+			pageTitleWidgetExists = true
+			var cardSceneInstance = sectionCardScene.instantiate()
+			cardSceneInstance.initialize(widget, fontSize)
+			content.push_back(cardSceneInstance)
 
 	find_child("PaginationContainer").set_content(content)
 	
@@ -105,7 +109,10 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 	find_child("PaginationContainer").visible = true
 	find_child("WidgetContentAnchor").visible = false
 	
-	SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_OPEN_WIDGET, widgets[0].id)
+	if pageTitleWidgetExists:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_OPEN_WIDGET, widgets[1].id)
+	else:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_OPEN_WIDGET, widgets[0].id)
 
 
 func _page_selected(menuId: String) -> void:
@@ -141,6 +148,10 @@ func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 
 
 func _update_breadcrumb() -> void:
+	if pages.size() == 1:
+		var pageTitleWidget = CollectionStore.get_page_title_widget()
+		if pageTitleWidget != null && pageTitleWidget.navigationTitle != null:
+			pageBreadcrumb = pageTitleWidget.navigationTitle.translate()
 	var breadcrumbLabel = find_child("BreadcrumbLabel")
 	if pageBreadcrumb == '' && widgetBreadcrumb == '':
 		breadcrumbLabel.visible = false

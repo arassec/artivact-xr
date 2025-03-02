@@ -5,6 +5,7 @@ var secondarySceneInstance
 var sceneLoaded: bool = false
 var sceneLoaderThread: Thread
 
+
 ####################################################################################################
 # Registers for signals.
 ####################################################################################################
@@ -38,9 +39,13 @@ func _process(_delta):
 		sceneLoaded = false
 		$FallbackPanel.visible = false
 		add_child(secondarySceneInstance)
-		
+		sceneLoaderThread = null
+
 
 func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
+	if sceneLoaderThread != null:
+		sceneLoaderThread.wait_to_finish()
+		
 	if secondarySceneInstance:
 		remove_child(secondarySceneInstance)
 		secondarySceneInstance.queue_free()
