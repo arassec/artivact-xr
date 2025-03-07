@@ -14,6 +14,8 @@ sky_material = SubResource("ProceduralSkyMaterial_o6i8l")
 [sub_resource type="Environment" id="Environment_g4pl2"]
 background_mode = 2
 sky = SubResource("Sky_hl6kp")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.0
 
 [node name="EnvironmentManager" type="Node3D"]
 script = ExtResource("1_o6i8l")

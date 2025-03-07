@@ -10,15 +10,29 @@ transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -3)
 
 [node name="LeftSpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.00851709, 0.999964, 0, -0.999964, -0.00851709, -1.76608, 1.92652, -2.90414)
+visible = false
+light_bake_mode = 1
+shadow_enabled = true
 
 [node name="LeftOmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76895, 1.8655, -2.92617)
+visible = false
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.0
 
 [node name="RightSpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.00851709, 0.999964, 0, -0.999964, -0.00851709, 1.67756, 1.80615, -2.88999)
+visible = false
+light_bake_mode = 1
+shadow_enabled = true
 
 [node name="RightOmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64386, 1.79866, -2.87354)
+visible = false
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.0
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 light_data = ExtResource("2_kwsrm")
