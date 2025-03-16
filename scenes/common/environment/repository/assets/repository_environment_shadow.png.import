@@ -1,0 +1,28 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://7j2eehcdp8xn"
+path.s3tc="res://.godot/imported/repository_environment_shadow.png-ac4a45a9bbeb5c8b06832b324b788961.s3tc.ctexarray"
+path.etc2="res://.godot/imported/repository_environment_shadow.png-ac4a45a9bbeb5c8b06832b324b788961.etc2.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://scenes/common/environment/repository/assets/repository_environment_shadow.png"
+dest_files=["res://.godot/imported/repository_environment_shadow.png-ac4a45a9bbeb5c8b06832b324b788961.s3tc.ctexarray", "res://.godot/imported/repository_environment_shadow.png-ac4a45a9bbeb5c8b06832b324b788961.etc2.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=11

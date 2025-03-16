@@ -1,38 +1,29 @@
 [gd_scene load_steps=3 format=3 uid="uid://2g8hbrk6jt7h"]
 
-[ext_resource type="PackedScene" uid="uid://du5e38gho1n16" path="res://scenes/common/environment/repository/assets/repository_model.glb" id="1_x4kct"]
-[ext_resource type="LightmapGIData" uid="uid://b8uens2kmcpls" path="res://scenes/common/environment/repository/assets/repository_environment.lmbake" id="2_kwsrm"]
+[ext_resource type="PackedScene" uid="uid://jtxf1jcd6g1n" path="res://scenes/common/environment/repository/assets/repository.glb" id="1_x4kct"]
+[ext_resource type="LightmapGIData" uid="uid://ce7iostk6n473" path="res://scenes/common/environment/repository/assets/repository_environment.lmbake" id="2_kwsrm"]
 
 [node name="RepositoryEnvironment" type="Node3D"]
 
 [node name="RepositoryModel" parent="." instance=ExtResource("1_x4kct")]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -3)
 
-[node name="LeftSpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.00851709, 0.999964, 0, -0.999964, -0.00851709, -1.76608, 1.92652, -2.90414)
+[node name="StaticOmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -3.5)
 visible = false
+light_indirect_energy = 3.0
+light_size = 5.0
 light_bake_mode = 1
-shadow_enabled = true
+omni_range = 25.0
 
-[node name="LeftOmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76895, 1.8655, -2.92617)
+[node name="StaticSpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.8, -3.5)
 visible = false
+light_energy = 3.0
 light_bake_mode = 1
-shadow_enabled = true
-omni_range = 15.0
-
-[node name="RightSpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.00851709, 0.999964, 0, -0.999964, -0.00851709, 1.67756, 1.80615, -2.88999)
-visible = false
-light_bake_mode = 1
-shadow_enabled = true
-
-[node name="RightOmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64386, 1.79866, -2.87354)
-visible = false
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 15.0
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 2
+interior = true
+environment_mode = 0
 light_data = ExtResource("2_kwsrm")

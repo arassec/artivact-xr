@@ -41,6 +41,9 @@ MAIN_ABOUT_GODOT,"Godot Engine is a feature-packed, cross-platform game engine t
 Many thanks to all contributors of this engine for their great work!","Die Godot Engine ist eine funktionsreiche, plattformübergreifende Spiele-Engine zur Erstellung von 2D- und 3D-Spielen über eine einheitliche Oberfläche. Sie bietet einen umfassenden Satz gemeinsamer Tools, sodass sich die Benutzer auf die Erstellung von Spielen konzentrieren können, ohne das Rad neu erfinden zu müssen. Spiele können mit einem Klick auf eine Reihe von Plattformen exportiert werden, darunter die wichtigsten Desktop-Plattformen (Linux, macOS, Windows), mobile Plattformen (Android, iOS), sowie webbasierte Plattformen und Konsolen.
 
 Vielen Dank an alle, die zu dieser Engine beigetragen haben!"
+MAIN_WELCOME,Welcome to Artivact XR,Willkommen bei Artivact XR
+MAIN_WELCOME_PRIMARY,Artivact is an open source tool to manage and present collections.,Artivact ist ein Open-Source Tool zur Verwaltung und Präsentation von Sammlungen.
+MAIN_WELCOME_SECONDARY,The demo collections shown here demonstrate the feature set of Artivact and Artivact XR.,Die hier gezeigten Beispielsammlungen demonstrieren die Fähligkeiten von Artivact und Artivact XR.
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
 COLL_ITEM_LABEL,Exhibition Item,Ausstellungsstück

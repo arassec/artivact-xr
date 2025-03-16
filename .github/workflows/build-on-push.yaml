@@ -13,8 +13,9 @@ on:
 
 # Environment variables
 env:
-  # Configure Godot version
-  GODOT_VERSION: 4.4.0-rc.2
+  # Configure Godot version. 
+  # The release is downloaded from here: https://github.com/godotengine/godot-builds/releases/
+  GODOT_VERSION: 4.4-stable
 
 
 # CI jobs

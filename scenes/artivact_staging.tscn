@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cropeq6s8aaq8"]
 
 [ext_resource type="PackedScene" uid="uid://bnqnnnet4dw12" path="res://addons/godot-xr-tools/staging/staging.tscn" id="1_fmfkn"]
-[ext_resource type="Texture2D" uid="uid://b8v730ceeydqb" path="res://assets/logos/artivact-xr-splash-logo.png" id="2_da6ps"]
+[ext_resource type="Texture2D" uid="uid://b8v730ceeydqb" path="res://assets/ui/logos/artivact-xr-splash-logo.png" id="2_da6ps"]
 
 [node name="ArtivactStaging" instance=ExtResource("1_fmfkn")]
 main_scene = "res://scenes/main/main.tscn"

@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpis5ienpaut7"
-path.s3tc="res://.godot/imported/repository_model_Image_0.png-9b6e8ec1cf53419e450bc5c038f239af.s3tc.ctex"
-path.etc2="res://.godot/imported/repository_model_Image_0.png-9b6e8ec1cf53419e450bc5c038f239af.etc2.ctex"
+uid="uid://db0gi4oyh6rq3"
+path.s3tc="res://.godot/imported/repository_1.png-2aa2cc2dcf4d8cf69bb6ee7392424455.s3tc.ctex"
+path.etc2="res://.godot/imported/repository_1.png-2aa2cc2dcf4d8cf69bb6ee7392424455.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "2b8f0ce25193d424b11231562d789e46"
+"md5": "fd907f39a5d600a417ca80c3138e9191"
 }
 
 [deps]
 
-source_file="res://scenes/common/environment/repository/assets/repository_model_Image_0.png"
-dest_files=["res://.godot/imported/repository_model_Image_0.png-9b6e8ec1cf53419e450bc5c038f239af.s3tc.ctex", "res://.godot/imported/repository_model_Image_0.png-9b6e8ec1cf53419e450bc5c038f239af.etc2.ctex"]
+source_file="res://scenes/common/environment/repository/assets/repository_1.png"
+dest_files=["res://.godot/imported/repository_1.png-2aa2cc2dcf4d8cf69bb6ee7392424455.s3tc.ctex", "res://.godot/imported/repository_1.png-2aa2cc2dcf4d8cf69bb6ee7392424455.etc2.ctex"]
 
 [params]
 

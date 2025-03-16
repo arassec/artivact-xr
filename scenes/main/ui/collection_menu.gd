@@ -44,7 +44,8 @@ func _ready():
 	var firstStart = SettingsStore.get_value(SettingsStore.SettingType.FIRST_START)
 	if firstStart:
 		SettingsStore.set_value(SettingsStore.SettingType.FIRST_START, false)
-		_on_about_button_pressed()
+		$CollectionContainer.visible = false
+		$WelcomePanel.visible = true
 		
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
@@ -109,23 +110,28 @@ func _clear_operation_in_progress():
 
 
 func _on_settings_button_pressed() -> void:
-	$CollectionContainer/CollectionPaginationContainer.visible = false
+	$CollectionContainer.visible = false
 	$SettingsPanel.visible = true
 
 
 func _on_settings_back_button_pressed() -> void:
-	$CollectionContainer/CollectionPaginationContainer.visible = true
+	$CollectionContainer.visible = true
 	$SettingsPanel.visible = false
 	
 
 func _on_about_button_pressed() -> void:
-	$CollectionContainer/CollectionPaginationContainer.visible = false
+	$CollectionContainer.visible = false
 	$AboutPanel.visible = true
 
 
 func _on_about_back_button_pressed() -> void:
-	$CollectionContainer/CollectionPaginationContainer.visible = true
+	$CollectionContainer.visible = true
 	$AboutPanel.visible = false
+
+
+func _on_welcome_back_button_pressed() -> void:
+	$CollectionContainer.visible = true
+	$WelcomePanel.visible = false
 
 
 func _on_en_check_button_toggled(toggled_on: bool) -> void:

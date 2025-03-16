@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://f14p1c74oohd"]
+[gd_scene load_steps=16 format=3 uid="uid://f14p1c74oohd"]
 
 [ext_resource type="Script" uid="uid://17p1j28hhhme" path="res://scenes/main/ui/collection_menu.gd" id="1_4a80r"]
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_lbtn3"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://sj0qijnoqdmk" path="res://assets/ui/icons/info_64dp_F5F5F5.svg" id="7_x77j7"]
 [ext_resource type="Texture2D" uid="uid://b64ihktt2qa2t" path="res://assets/ui/logos/artivact-logo.png" id="10_0o3wp"]
 [ext_resource type="Texture2D" uid="uid://bhofvapa7prsg" path="res://assets/ui/logos/godot_logo.png" id="11_nlc0g"]
+[ext_resource type="Texture2D" uid="uid://biahjxigt6urq" path="res://assets/ui/logos/artivact-xr-logo.png" id="12_deku2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iug8l"]
 font = ExtResource("5_hah2j")
@@ -33,6 +34,29 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_lbtn3")
 script = ExtResource("1_4a80r")
+
+[node name="OperationInProgressCover" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="StatusLabel" type="Label" parent="OperationInProgressCover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Status Label"
+label_settings = SubResource("LabelSettings_iug8l")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CollectionContainer" type="Panel" parent="."]
 layout_mode = 1
@@ -65,29 +89,6 @@ icon = ExtResource("7_x77j7")
 [node name="SettingsButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="3"]
 layout_mode = 2
 icon = ExtResource("5_iug8l")
-
-[node name="OperationInProgressCover" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.8)
-
-[node name="StatusLabel" type="Label" parent="OperationInProgressCover"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "Status Label"
-label_settings = SubResource("LabelSettings_iug8l")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="SettingsPanel" type="Panel" parent="."]
 visible = false
@@ -326,6 +327,93 @@ layout_mode = 2
 texture = ExtResource("11_nlc0g")
 expand_mode = 3
 
+[node name="WelcomePanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="WelcomeMenu" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WelcomeBackButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu"]
+layout_mode = 2
+text = "MAIN_ABOUT_BACK"
+icon = ExtResource("4_jgyxj")
+
+[node name="WelcomeLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MAIN_WELCOME"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="WelcomePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+
+[node name="ArtivactXRLogoTextureRect" type="TextureRect" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_deku2")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "MAIN_WELCOME_PRIMARY"
+autowrap_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "MAIN_WELCOME_SECONDARY"
+autowrap_mode = 2
+
 [node name="Cursor" type="ColorRect" parent="."]
 process_mode = 4
 material = SubResource("ShaderMaterial_lbtn3")
@@ -345,5 +433,6 @@ mouse_filter = 2
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer/MusicEnabledCheckBox" to="." method="_on_music_enabled_check_box_toggled"]
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
 [connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
+[connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu/WelcomeBackButton" to="." method="_on_welcome_back_button_pressed"]
 
 [editable path="CollectionContainer/CollectionPaginationContainer"]

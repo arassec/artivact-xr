@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8v730ceeydqb"
-path.s3tc="res://.godot/imported/artivact-xr-splash-logo.png-53d24b53e20031a7a8b02c38fd0eb8d5.s3tc.ctex"
-path.etc2="res://.godot/imported/artivact-xr-splash-logo.png-53d24b53e20031a7a8b02c38fd0eb8d5.etc2.ctex"
+path.s3tc="res://.godot/imported/artivact-xr-splash-logo.png-bb9965bd3f7fa2fbeb3b94b160bace18.s3tc.ctex"
+path.etc2="res://.godot/imported/artivact-xr-splash-logo.png-bb9965bd3f7fa2fbeb3b94b160bace18.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/logos/artivact-xr-splash-logo.png"
-dest_files=["res://.godot/imported/artivact-xr-splash-logo.png-53d24b53e20031a7a8b02c38fd0eb8d5.s3tc.ctex", "res://.godot/imported/artivact-xr-splash-logo.png-53d24b53e20031a7a8b02c38fd0eb8d5.etc2.ctex"]
+source_file="res://assets/ui/logos/artivact-xr-splash-logo.png"
+dest_files=["res://.godot/imported/artivact-xr-splash-logo.png-bb9965bd3f7fa2fbeb3b94b160bace18.s3tc.ctex", "res://.godot/imported/artivact-xr-splash-logo.png-bb9965bd3f7fa2fbeb3b94b160bace18.etc2.ctex"]
 
 [params]
 
