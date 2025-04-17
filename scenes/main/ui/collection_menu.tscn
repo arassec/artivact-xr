@@ -391,7 +391,7 @@ layout_mode = 2
 texture = ExtResource("12_deku2")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PrimaryLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -400,12 +400,12 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN_WELCOME_PRIMARY"
 autowrap_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 25
+theme_override_constants/separation = 75
 
-[node name="Label" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="SecondaryLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -413,6 +413,12 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 32
 text = "MAIN_WELCOME_SECONDARY"
 autowrap_mode = 2
+
+[node name="UrlLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "MAIN_WELCOME_URL"
+horizontal_alignment = 1
 
 [node name="Cursor" type="ColorRect" parent="."]
 process_mode = 4

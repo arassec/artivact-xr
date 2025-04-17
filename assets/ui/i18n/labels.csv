@@ -27,13 +27,13 @@ MAIN_ABOUT_ARTIVACT,"Artivact and Artivact XR are free, open-source tools for co
 
 The software is provided under the permissive MIT license, without warranty of any kind, but without limitations regarding the usage, too.
 
-You can find out more about the project at: www.arassec.com
+You can find out more about the project at: www.artivact.io
 
 Artivact XR is written using the free and open-source game engine ‘Godot’.","Artivact und Artivact XR sind Open-Source Tools zur Verwaltung von Sammlungen, deren virtualisierung und Präsentation.
 
 Die Software wird unter der MIT-Lizenz zur freien Verfügung bereitgestellt, ohne jegliche Garantie, aber auch ohne Einschränkungen der Nutzung.
 
-Unter www.arassec.de können Sie mehr über das Projekt erfahren.
+Unter www.artivact.io können Sie mehr über das Projekt erfahren.
 
 Artivact XR wurde mit der freien Open-Source Game-Engine ‘Godot’ entwickelt."
 MAIN_ABOUT_GODOT,"Godot Engine is a feature-packed, cross-platform game engine to create 2D and 3D games from a unified interface. It provides a comprehensive set of common tools, so that users can focus on making games without having to reinvent the wheel. Games can be exported with one click to a number of platforms, including the major desktop platforms (Linux, macOS, Windows), mobile platforms (Android, iOS), as well as Web-based platforms and consoles.
@@ -42,11 +42,20 @@ Many thanks to all contributors of this engine for their great work!","Die Godot
 
 Vielen Dank an alle, die zu dieser Engine beigetragen haben!"
 MAIN_WELCOME,Welcome to Artivact XR,Willkommen bei Artivact XR
-MAIN_WELCOME_PRIMARY,Artivact is an open source tool to manage and present collections.,Artivact ist ein Open-Source Tool zur Verwaltung und Präsentation von Sammlungen.
-MAIN_WELCOME_SECONDARY,The demo collections shown here demonstrate the feature set of Artivact and Artivact XR.,Die hier gezeigten Beispielsammlungen demonstrieren die Fähligkeiten von Artivact und Artivact XR.
+MAIN_WELCOME_PRIMARY,"Artivact and Artivact XR are free, open-source tools for collection management, presentation and virtual item creation. Both applications can easily be configured and adapted to personal needs, and thus be used as base for own publications.
+
+The example collections shown here demonstrate the feature set of Artivact and Artivact XR. If not otherwise specified, all assets of the collections are published under the CC BY-SA 4.0 license.
+
+The applications themselves are published under the MIT license.","Artivact und Artivact XR sind Open-Source Tools zur Verwaltung von Sammlungen, deren virtualisierung und Präsentation. Beide Anwendungen können einfach konfiguriert und angepasst, und so als Basis für eigene Veröffentlichungen genutzt werden.
+
+Die hier gezeigten Beispielsammlungen demonstrieren die Funktionen von Artivact und Artivact XR. Wenn nicht anders angegeben stehen sämtliche Mediendatein unter der CC BY-SA 4.0 Lizenz.
+
+Die Anwendungen selber werden unter der MIT Lizenz veröffentlicht."
+MAIN_WELCOME_URL,www.artivact.io,www.artivact.io
+MAIN_WELCOME_SECONDARY,"You can find out more about the project, the official documentation and contact information at:","Mehr Infos zum Projekt, die offizielle Dokumentation und Kontaktinformationen finden sich unter:"
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
-COLL_ITEM_LABEL,Exhibition Item,Ausstellungsstück
+COLL_ITEM_LABEL,Collection Item,Sammlungsobjekt
 COLL_ITEM_DESCRIPTION,Description,Beschreibung
 PAGE_TITLE,Title,Titel
 TEXT,Text,Text

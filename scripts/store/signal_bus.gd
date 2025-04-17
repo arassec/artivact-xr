@@ -113,9 +113,9 @@ func trigger_with_widget(type: SignalType, payload: Widget):
 
 func debug(payload: String) -> void:
 	for callback in callbacks[SignalType.DEBUG]:
-		callback.call(payload)
+		callback.call_deferred(payload)
 
 
 func debug_json(payload: Dictionary):
 	for callback in callbacks[SignalType.DEBUG]:
-		callback.call(payload)
+		callback.call_deferred(payload)

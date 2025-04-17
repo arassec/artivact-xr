@@ -15,7 +15,7 @@ on:
 env:
   # Configure Godot version. 
   # The release is downloaded from here: https://github.com/godotengine/godot-builds/releases/
-  GODOT_VERSION: 4.4-stable
+  GODOT_VERSION: 4.4.stable
 
 
 # CI jobs

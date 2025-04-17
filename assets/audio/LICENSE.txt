@@ -1,0 +1,50 @@
+The music tracks in this directory are, other than the rest of Artivact XR, NOT provided under MIT license.
+The following terms of service apply to them: https://ovanisound.com/policies/terms-of-service
+
+---
+
+Ovani Sound - Terms of service
+
+These Terms of Service ("Terms") govern your access to and use of the Ovani Sound website ("Website") and any services, content, features, or products provided by Ovani Sound ("Services"). By using our Website or Services, you agree to be bound by these Terms. Please read them carefully.
+
+Acceptance of Terms
+By accessing or using our Website or Services, you affirm that you are of legal age and have the authority to enter into these Terms. If you do not agree with any part of these Terms, you should not use our Website or Services.
+
+License
+2.1 Use of Content: Ovani Sound grants you a non-exclusive, non-transferable, worldwide license to access and use the audio samples, audio loops, and audio plugins ("Content") made available through our Website or Services. This license grants all commercial or personal use. The Content falls under "royalty-free" which grants the ability to use the Content in interactive media, games, films, streaming services, VoD services, and the like ("Attached Media"). However, standalone media player-type applications, such as soundboards or song players that pre-load or stream our Content without integrating it into interactive or production-based media, fall outside the scope of Attached Media and are prohibited.
+
+2.2 Attribution: Credits for the use of Sound FX and Music packs are not required but are highly appreciated. However, for our "Voices" Series voice lines packs, which contain pre-recorded voice lines, crediting the specific voice actors whose lines were used is required ("Ovani Sound" is optional). However, an exception applies for productions involving adult-themed or pornographic content, where crediting the voice actors is not permitted.
+
+2.3 Restrictions: We welcome and encourage the use of our music in your games, films, or products for sale. You agree not to distribute, sell, or sublicense the Content on its own or separated from Attached Media (example: selling our music, alone and unaltered, as a your own creative work). 
+
+2.4 Sampling and Use of Content: Users may incorporate and sample the audio samples and audio loops ("Content") into their original musical compositions, provided the resulting sound is a new and transformative creation. Unauthorized use or distribution of unaltered original Content is prohibited. By using the Content, users grant Ovani Sound a non-exclusive, worldwide, royalty-free license to showcase their work on our platform for promotional purposes. If Ovani Sound elects to use your content for these purposes, we agree only to use what is publically available and will remove or delete any posts at the request of the content owner without question.
+
+2.5 Misuse and Copyright Registration: Users are permitted to use Ovani Sound's music or sounds in copyrighted productions. However, users are explicitly prohibited from registering these productions in a manner that may trigger copyright strikes or claims against other users who legitimately use the same music or sounds from Ovani Sound. This includes, but is not limited to, registering a copyrighted production in a way that falsely claims exclusive ownership or rights to the incorporated music or sounds. If users choose to register their copyrighted productions containing Ovani Sound's music or sounds, they must ensure that such registration does not unfairly restrict or claim ownership over the original music or sounds, impeding other users' rights to use them in compliance with these Terms. Ovani Sound reserves the right to take appropriate action, including but not limited to suspending or terminating the account of any user found to be misusing the music or sounds in a manner that results in unjust copyright claims against other users.
+
+Intellectual Property
+3.1 Ownership: Ovani Sound retains all rights, ownership, and interest in and to the Website, Services, and Content, including any copyrights, trademarks, or other intellectual property rights.
+
+3.2 User Content: You may have the opportunity to upload or submit your own content ("User Content") through our Services. By submitting User Content, you grant Ovani Sound a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, adapt, publish, and display the User Content for the purpose of providing the Services.
+
+Payment and Subscriptions
+4.1 Pricing: The prices for our audio samples, audio loops, and audio plugins are displayed on our Website. Ovani Sound reserves the right to change the prices at any time without prior notice.
+
+4.2 Payment: To make a purchase, you may be required to provide payment information. You agree to provide accurate and complete payment information and authorize us to charge the applicable fees through the provided payment method.
+
+Additional Term: Use of Artificial Intelligence (AI) Systems
+We do not utilize artificial intelligence (AI) to compose our music or create our sounds. Therefore, we explicitly forbid the use of our music or sounds for training AI systems or algorithms. Any attempt to use our products for AI training purposes is strictly prohibited. We reserve the right to take appropriate action, including but not limited to suspending or terminating the account of any user found to be in violation of this term. Furthermore, we will pursue legal action and prosecute individuals or entities found to be in breach of this term.
+
+Limitations of Liability
+To the extent permitted by law, Ovani Sound shall not be liable for any direct, indirect, incidental, consequential, or special damages arising out of or in connection with your use of the Website or Services, including but not limited to damages for loss of profits, goodwill, data, or other intangible losses.
+
+Indemnification
+You agree to indemnify, defend, and hold harmless Ovani Sound, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, or expenses arising out of or in connection with your use of the Website or Services, your violation of these Terms, or your violation of any rights of any other person or entity.
+
+Modifications and Termination
+Ovani Sound reserves the right to modify, suspend, or terminate the Website or Services at any time without prior notice. We may also modify these Terms from time to time. It is your responsibility to review these Terms periodically for any changes.
+
+Governing Law
+These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where Ovani Sound operates.
+
+Severability
+If any provision of these Terms is found to be invalid, illegal, or unenforceable, the remaining provisions shall continue
