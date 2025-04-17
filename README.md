@@ -1,4 +1,4 @@
-# <img src="https://github.com/arassec/artivact-xr/blob/main/assets/logos/artivact-xr-splash-logo.png" width="256">
+# <img src="https://github.com/arassec/artivact-xr/blob/main/assets/ui/logos/artivact-xr-logo.png" width="256">
 
 # Artivact XR
 
