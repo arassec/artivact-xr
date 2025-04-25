@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2adlrcgfnenx"]
+
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_4ktqj"]
+[ext_resource type="Script" uid="uid://dosw831uyx2l6" path="res://scenes/collection/widgets/image_gallery/image_gallery_primary.gd" id="1_bx803"]
+
+[node name="ImageGalleryPrimary" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1250.0
+offset_bottom = 608.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4ktqj")
+script = ExtResource("1_bx803")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="HeadingContainer" type="PanelContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+
+[node name="HeadingLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HeadingContainer"]
+custom_minimum_size = Vector2(680, 62)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Text Widget Title"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContentContainer" type="PanelContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="ContentLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ContentContainer"]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+autowrap_mode = 2

@@ -89,8 +89,9 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 	var pageTitleWidgetExists = false
 	
 	for widget in widgets:
-		if !widget is PageTitleWidget:
+		if widget is PageTitleWidget:
 			pageTitleWidgetExists = true
+		else:
 			var cardSceneInstance = sectionCardScene.instantiate()
 			cardSceneInstance.initialize(widget, fontSize)
 			content.push_back(cardSceneInstance)

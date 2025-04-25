@@ -16,5 +16,7 @@ static func create_from_json(data: Dictionary) -> Widget:
 			return InfoBoxWidget.new(data)
 		elif type == Widget.WidgetType.AVATAR:
 			return AvatarWidget.new(data)
+		elif type == Widget.WidgetType.IMAGE_GALLERY:
+			return ImageGalleryWidget.new(data)
 
 	return Widget.new(data)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn16unntpl8nj"]
+
+[ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_w0c40"]
+[ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="2_bsa2w"]
+[ext_resource type="Script" uid="uid://vh6t4s7580dd" path="res://scenes/collection/widgets/image_gallery/image_gallery_secondary.gd" id="2_xm34u"]
+[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="3_xm34u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nl771"]
+shader = ExtResource("3_xm34u")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="ImageGallerySecondary" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme = ExtResource("1_w0c40")
+script = ExtResource("2_xm34u")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PaginationContainer" parent="Panel" instance=ExtResource("2_bsa2w")]
+layout_mode = 1
+
+[node name="Cursor" type="ColorRect" parent="."]
+process_mode = 4
+material = SubResource("ShaderMaterial_nl771")
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[editable path="Panel/PaginationContainer"]

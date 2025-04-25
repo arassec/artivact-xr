@@ -37,15 +37,17 @@ func _input(event):
 func _process(_delta):
 	if sceneLoaded:
 		sceneLoaded = false
-		$FallbackPanel.visible = false
 		add_child(secondarySceneInstance)
 		sceneLoaderThread = null
+		$FallbackPanel.visible = false
 
 
 func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 	if sceneLoaderThread != null:
 		sceneLoaderThread.wait_to_finish()
-		
+
+	$FallbackPanel.visible = true
+
 	if secondarySceneInstance:
 		remove_child(secondarySceneInstance)
 		secondarySceneInstance.queue_free()
@@ -56,6 +58,7 @@ func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 
 func _load_widget_scene(widgetSceneData: WidgetSceneData) -> void:
 	var secondaryScene: Resource = load(widgetSceneData.secondaryPanelScene)
-	secondarySceneInstance = secondaryScene.instantiate()
-	secondarySceneInstance.initialize(widgetSceneData.widget)
+	if secondaryScene:
+		secondarySceneInstance = secondaryScene.instantiate()
+		secondarySceneInstance.initialize(widgetSceneData.widget)
 	sceneLoaded = true

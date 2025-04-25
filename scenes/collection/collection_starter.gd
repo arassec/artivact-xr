@@ -137,14 +137,17 @@ func _open_widget(widgetId):
 				widgetSceneData.widget = widget
 				
 				if widget is TextWidget:
-					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/text/text_secondary.tscn"
+					widgetSceneData.secondaryPanelScene = "uid://28gvkovxs7vo"
 				elif widget is InfoBoxWidget:
-					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/info_box/info_box_secondary.tscn"
+					widgetSceneData.secondaryPanelScene = "uid://1kxrpw8wdics"
 				elif widget is AvatarWidget:
-					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/avatar/avatar_secondary.tscn"
+					widgetSceneData.secondaryPanelScene = "uid://c3av7exx0tb53"
 				elif widget is ItemSearchWidget:
-					widgetSceneData.primaryPanelScene = "res://scenes/collection/widgets/item_search/item_search_primary.tscn"
-					widgetSceneData.secondaryPanelScene = "res://scenes/collection/widgets/item_search/item_search_secondary.tscn"
+					widgetSceneData.primaryPanelScene = "uid://423w5nqiguav"
+					widgetSceneData.secondaryPanelScene = "uid://c4kqmp3ysj60r"
+				elif widget is ImageGalleryWidget:
+					widgetSceneData.primaryPanelScene = "uid://c2adlrcgfnenx"
+					widgetSceneData.secondaryPanelScene = "uid://bn16unntpl8nj"
 
 				SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, widgetSceneData)
 

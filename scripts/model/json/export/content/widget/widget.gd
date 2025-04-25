@@ -9,6 +9,7 @@ enum WidgetType {
 	ITEM_SEARCH,
 	INFO_BOX,
 	AVATAR,
+	IMAGE_GALLERY
 }
 
 var id: String = ""
