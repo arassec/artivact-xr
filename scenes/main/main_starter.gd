@@ -146,6 +146,7 @@ func _download_collection(collectionId: String):
 		remoteCollectionFileSize = collectionInfo.fileSizeRemote
 		$RemoteArtivactServer.download_collection(_download_collection_finished, collectionInfo.id)
 		downloadInProgress = true
+		CollectionStore.set_selected_collection(collectionId)
 
 
 ####################################################################################################
@@ -159,6 +160,8 @@ func _download_collection_finished(result, _response_code, _headers, _body):
 	downloadInProgress = false
 	
 	CollectionStore.load_collection_infos()
+	
+	_open_collection(CollectionStore.get_selected_collection())
 
 
 ####################################################################################################

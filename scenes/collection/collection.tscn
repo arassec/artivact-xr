@@ -28,6 +28,7 @@ controller = NodePath("../RightHand")
 
 [node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 2, 1, -5)
+visible = false
 layer_viewport = NodePath("../../SecondaryPanelSubViewport")
 sort_order = -2
 enable_hole_punch = true

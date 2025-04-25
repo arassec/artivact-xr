@@ -48,10 +48,11 @@ func initialize(collectionInfoInput: CollectionInfo, fontSize: int) -> void:
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if hovered:
+		if hovered && event.pressed:
 			if (collectionInfo.fileSize == 0 && collectionInfo.fileSizeRemote > 0) || collectionInfo.update_available():
 				SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, collectionInfo.id)
 			elif collectionInfo.fileSize > 0:
+				print(event)
 				SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_OPEN_COLLECTION, collectionInfo.id)
 
 

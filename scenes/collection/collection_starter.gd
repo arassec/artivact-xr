@@ -115,6 +115,7 @@ func _open_page(menuId):
 			for page in pages:
 				if page.id == pageId:
 					selectedPage = page
+					get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = true
 					for widget in selectedPage.widgets:
 						if widget is PageTitleWidget:
 							CollectionStore.set_page_title_widget(widget)

@@ -66,6 +66,24 @@ func get_value(setting: SettingType) -> Variant:
 
 
 func _save_settings() -> void:
+	var files: Dictionary = {}
+	var dir = DirAccess.open("user://")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				files[file_name] = "dir"
+				print("Found directory: " + file_name)
+			else:
+				files[file_name] = "file"
+				print("Found file: " + file_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+
+	SignalBus.debug_json(files)
+	
 	var file_access := FileAccess.open(settingsFile, FileAccess.WRITE)
 	if not file_access:
 		print("Could not save user settings: ", FileAccess.get_open_error())

@@ -205,6 +205,7 @@ func _merge_collection_info(locationPrefix: String, collectionFile: String):
 	var openResult := zipReader.open(collectionZipFile)
 	if openResult != OK:
 		SignalBus.debug_json({"status": "ERROR", "file": collectionZipFile, "openResult": openResult})
+		DirAccess.remove_absolute(collectionZipFile)
 		return
 
 	# Store general collection information:

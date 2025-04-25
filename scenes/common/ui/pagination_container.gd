@@ -35,7 +35,7 @@ func _update_page(page: int) -> void:
 		$ContentMargin/ContentContainer/ContentAnchor.add_child(contentChild)
 	_update_page_label()
 
-	
+
 func _clear_page() -> void:
 	for contentChild in $ContentMargin/ContentContainer/ContentAnchor.get_children():
 		$ContentMargin/ContentContainer/ContentAnchor.remove_child(contentChild)

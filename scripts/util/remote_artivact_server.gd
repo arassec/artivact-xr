@@ -2,7 +2,7 @@ class_name RemoteArtivactServer
 
 extends Node
 
-var apiUrl: String = "https://arassec.com/api"
+var apiUrl: String = "https://artivact.io/api"
 
 var thread: Thread
 
