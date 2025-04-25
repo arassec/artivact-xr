@@ -46,6 +46,14 @@ grow_vertical = 2
 [node name="CollectionPaginationContainer" parent="CollectionContainer" instance=ExtResource("2_7v2gc")]
 layout_mode = 1
 
+[node name="NoCollectionsErrorLabel" type="Label" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "MAIN_ERROR_NO_COLLECTIONS"
+
+[node name="ApiUrlLabel" type="Label" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
 [node name="QuitButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
 layout_mode = 2
 text = "MAIN_EXIT"

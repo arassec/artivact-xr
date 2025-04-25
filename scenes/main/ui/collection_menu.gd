@@ -25,6 +25,9 @@ func _ready():
 	# Set project version in "About"-Panel
 	$AboutPanel/MarginContainer/VBoxContainer/AboutMenu/VersionLabel.text = str('v', ProjectSettings.get_setting("application/config/version"))
 	
+	# Set API-URL in "NoContentAvailable"-Panel:
+	find_child("ApiUrlLabel").text = str('( ', SettingsStore.get_value(SettingsStore.SettingType.API_URL), ' )')
+	
 	var arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
 	if arMode:
 		find_child("PassthroughModeButton").visible = false
@@ -42,10 +45,16 @@ func _ready():
 	find_child("MusicVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 
 	var firstStart = SettingsStore.get_value(SettingsStore.SettingType.FIRST_START)
+	var showWelcomePage = SettingsStore.get_value(SettingsStore.SettingType.SHOW_WELCOME_PAGE)
 	if firstStart:
 		SettingsStore.set_value(SettingsStore.SettingType.FIRST_START, false)
-		$WelcomePanel.visible = true
-		
+		if showWelcomePage:
+			$WelcomePanel.visible = true
+
+	var showAboutPage = SettingsStore.get_value(SettingsStore.SettingType.SHOW_ABOUT_PAGE)
+	if !showAboutPage:
+		find_child("AboutButton").visible = false
+
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
 		find_child("EnCheckButton").button_pressed = true

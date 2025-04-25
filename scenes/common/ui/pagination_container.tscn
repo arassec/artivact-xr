@@ -34,6 +34,40 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 theme_override_constants/separation = 25
 
+[node name="NoContentAvailablePanel" type="Panel" parent="ContentMargin/ContentContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="NoContentAvailableLabel" type="Label" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "MAIN_ERROR_NO_CONTENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ContentAnchor" type="GridContainer" parent="ContentMargin/ContentContainer"]
 layout_mode = 2
 size_flags_vertical = 3

@@ -18,6 +18,20 @@ var pageContent: Array[Object] = []
 
 
 func set_content(totalContentInput: Array[Object]) -> void:
+	# Hide pagination when only one page is available:
+	if totalContentInput.size() < 2:
+		find_child("Pager").visible = false
+	else:
+		find_child("Pager").visible = true
+	
+	# Show message that no content is available if necessary:
+	if totalContentInput.size() == 0:
+		find_child("NoContentAvailablePanel").visible = true
+		find_child("ContentAnchor").visible = false
+	else:
+		find_child("NoContentAvailablePanel").visible = false
+		find_child("ContentAnchor").visible = true
+	
 	$ContentMargin/ContentContainer/ActionBarContainer.visible = showActionBar
 	$ContentMargin/ContentContainer/ContentAnchor.columns = columns
 	totalContent = totalContentInput
