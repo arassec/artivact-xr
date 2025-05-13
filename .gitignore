@@ -19,4 +19,4 @@ android/build/*
 
 # ArtivactVR specific
 *.apk
-*.artivact.content.json.zip
+*.artivact.collection.zip

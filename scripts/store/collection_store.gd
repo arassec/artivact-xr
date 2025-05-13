@@ -168,8 +168,6 @@ func _read_remote_collection_infos():
 
 	var contentExportOverviews = contentExportOverviewsJson.data
 	
-	var resultCollectionInfos: Array[CollectionInfo] = []
-	
 	for rawContentExport in contentExportOverviews:
 	
 		var contentExport = ContentExport.new(rawContentExport)

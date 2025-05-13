@@ -86,12 +86,8 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 	var fontSize = _compute_font_size(widgets)
 	var content: Array[Object] = []
 
-	var pageTitleWidgetExists = false
-	
 	for widget in widgets:
-		if widget is PageTitleWidget:
-			pageTitleWidgetExists = true
-		else:
+		if !(widget is PageTitleWidget):
 			var cardSceneInstance = sectionCardScene.instantiate()
 			cardSceneInstance.initialize(widget, fontSize)
 			content.push_back(cardSceneInstance)
@@ -109,11 +105,6 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 
 	find_child("PaginationContainer").visible = true
 	find_child("WidgetContentAnchor").visible = false
-	
-	if pageTitleWidgetExists:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_OPEN_WIDGET, widgets[1].id)
-	else:
-		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_OPEN_WIDGET, widgets[0].id)
 
 
 func _page_selected(menuId: String) -> void:
@@ -164,19 +155,21 @@ func _update_breadcrumb() -> void:
 			breadcrumbLabel.text = pageBreadcrumb
 		elif widgetBreadcrumb != '':
 			breadcrumbLabel.text = widgetBreadcrumb
-			
+
 
 func _on_widget_back_button_pressed() -> void:
 	pageBreadcrumb = ''
 	widgetBreadcrumb = ''
 	_update_breadcrumb()
 	_update_page_nav(pages)
+	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_WIDGET)
 
 
 func _on_widget_content_back_button_pressed() -> void:
 	find_child("WidgetContentAnchor").remove_child(widgetContentSceneInstance)
 	widgetContentSceneInstance.queue_free()
 	_update_widget_nav(widgets)
+	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_WIDGET)
 
 
 func _on_quit_button_pressed() -> void:

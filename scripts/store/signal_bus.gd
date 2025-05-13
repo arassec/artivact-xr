@@ -29,6 +29,7 @@ enum SignalType {
 	COLL_ITEM_PREVIOUS,
 	COLL_OPEN_ITEM_MEDIA,
 	COLL_CLOSE_ITEM_MEDIA,
+	COLL_CLOSE_WIDGET
 }
 
 var callbacks = {
@@ -56,6 +57,7 @@ var callbacks = {
 	SignalType.COLL_ITEM_PREVIOUS: [],
 	SignalType.COLL_OPEN_ITEM_MEDIA: [],
 	SignalType.COLL_CLOSE_ITEM_MEDIA: [],
+	SignalType.COLL_CLOSE_WIDGET: [],
 }
 
 

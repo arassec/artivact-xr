@@ -11,6 +11,8 @@ var pages: Array[ArtivactPageContentJson] = []
 # Contains the menu information to create the page navigation from:
 var menus: Array[ArtivactMenuJson] = []
 
+var artivactContentJson: ArtivactContentJson
+
 var initialize = true
 
 var selectedPage: ArtivactPageContentJson
@@ -27,6 +29,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_QUIT_COLLECTION, _quit_collection)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
+	SignalBus.register(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
 	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
 	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
@@ -41,6 +44,7 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_QUIT_COLLECTION, _quit_collection)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
+	SignalBus.deregister(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
 	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
@@ -52,7 +56,7 @@ func _exit_tree():
 func _load_pages():
 	collectionZipReader = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection())
 
-	var artivactContentJson: ArtivactContentJson = CollectionStore.get_artivact_content_json(CollectionStore.get_selected_collection())
+	artivactContentJson = CollectionStore.get_artivact_content_json(CollectionStore.get_selected_collection())
 	var data = CollectionStore.read_json_file(str(artivactContentJson.sourceId, ".artivact.menu.json"))
 
 	mainArtivactMenuJson = ArtivactMenuJson.new(data)
@@ -104,6 +108,26 @@ func _process(_delta) -> void:
 		if cam && debugPanel:
 			debugPanel.transform.origin.y = (cam.transform.origin.y - 0.35)
 
+		# Fake a text widget to display the collection's general content description on the scondary panel:
+		if artivactContentJson.title && artivactContentJson.content:
+			var widgetData: Dictionary = {
+				"heading": {
+					"value": artivactContentJson.title.value,
+					"translations": artivactContentJson.title.translations
+				}, 
+				"content": {
+					"value": artivactContentJson.content.value,
+					"translations": artivactContentJson.content.translations
+				}
+			}
+			var widget = TextWidget.new(widgetData)
+			var widgetSceneData: WidgetSceneData = WidgetSceneData.new()
+			widgetSceneData.widget = widget
+			widgetSceneData.secondaryPanelScene = "uid://28gvkovxs7vo"
+			SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, widgetSceneData)
+		else:
+			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false
+
 
 ####################################################################################################
 # TODO
@@ -115,7 +139,6 @@ func _open_page(menuId):
 			for page in pages:
 				if page.id == pageId:
 					selectedPage = page
-					get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = true
 					for widget in selectedPage.widgets:
 						if widget is PageTitleWidget:
 							CollectionStore.set_page_title_widget(widget)
@@ -132,6 +155,8 @@ func _open_widget(widgetId):
 	if selectedPage != null:
 		for widget in selectedPage.widgets:
 			if widget.id == widgetId:
+				get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = true
+
 				var widgetSceneData: WidgetSceneData = WidgetSceneData.new()
 
 				widgetSceneData.widget = widget
@@ -152,6 +177,14 @@ func _open_widget(widgetId):
 				SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, widgetSceneData)
 
 				return
+
+
+####################################################################################################
+# TODO
+####################################################################################################
+func _close_widget():
+	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false
+	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
 
 
 ####################################################################################################
