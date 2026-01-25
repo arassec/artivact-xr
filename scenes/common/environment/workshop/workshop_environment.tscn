@@ -1,29 +1,7 @@
-[gd_scene format=3 uid="uid://cfky0xl4n6oc7"]
+[gd_scene format=3 uid="uid://bsddowkiq5hjy"]
 
-[ext_resource type="PackedScene" uid="uid://jtxf1jcd6g1n" path="res://scenes/common/environment/repository/assets/repository.glb" id="1_2juhq"]
-[ext_resource type="LightmapGIData" uid="uid://ce7iostk6n473" path="res://scenes/common/environment/repository/assets/repository_environment.lmbake" id="2_d0alq"]
+[ext_resource type="PackedScene" uid="uid://b2ymu8pi3es8l" path="res://scenes/common/environment/workshop/assets/workshop.glb" id="1_nc6q1"]
 
-[node name="RepositoryEnvironment" type="Node3D"]
+[node name="WorkshopEnvironment" type="Node3D" unique_id=280878854]
 
-[node name="RepositoryModel" parent="." instance=ExtResource("1_2juhq")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -3)
-
-[node name="StaticOmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -3.5)
-visible = false
-light_indirect_energy = 3.0
-light_size = 5.0
-light_bake_mode = 1
-omni_range = 25.0
-
-[node name="StaticSpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.8, -3.5)
-visible = false
-light_energy = 3.0
-light_bake_mode = 1
-
-[node name="LightmapGI" type="LightmapGI" parent="."]
-quality = 2
-interior = true
-environment_mode = 0
-light_data = ExtResource("2_d0alq")
+[node name="workshop" parent="." unique_id=694446238 instance=ExtResource("1_nc6q1")]

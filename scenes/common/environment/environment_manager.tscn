@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://075siwao8jfy"]
+[gd_scene format=3 uid="uid://075siwao8jfy"]
 
 [ext_resource type="Script" uid="uid://b71nw6j3uubdm" path="res://scenes/common/environment/environment_manager.gd" id="1_o6i8l"]
 
@@ -17,8 +17,8 @@ sky = SubResource("Sky_hl6kp")
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
-[node name="EnvironmentManager" type="Node3D"]
+[node name="EnvironmentManager" type="Node3D" unique_id=2031736789]
 script = ExtResource("1_o6i8l")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1664209676]
 environment = SubResource("Environment_g4pl2")

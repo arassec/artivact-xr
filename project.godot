@@ -23,8 +23,8 @@ config/icon="res://assets/project-icons/godot-project-icon.png"
 
 [autoload]
 
-XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
-XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
+XRToolsUserSettings="*uid://bqgb8i74tm0t"
+XRToolsRumbleManager="*uid://by853dk86g1qw"
 SignalBus="*res://scripts/store/signal_bus.gd"
 CollectionStore="*res://scripts/store/collection_store.gd"
 SettingsStore="*res://scripts/store/settings_store.gd"
