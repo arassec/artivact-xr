@@ -8,13 +8,17 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Artivact XR"
 config/description="\"Artivact XR\" is an application to bring virtual artifacts into the metaverse."
 config/version="0.0.0"
 run/main_scene="res://scenes/artivact_staging.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/project-icons/godot-project-icon.png"
 
 [autoload]
