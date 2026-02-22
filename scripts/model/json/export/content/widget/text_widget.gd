@@ -9,7 +9,7 @@ var content: TranslatableString
 func _init(data: Dictionary):
 	super._init(data)
 	if data:
-		if data.has("heading"):
+		if data.has("heading") and data["heading"] != null:
 			heading = TranslatableString.new(data["heading"])
-		if data.has("content"):
+		if data.has("content") and data["content"] != null:
 			content = TranslatableString.new(data["content"])

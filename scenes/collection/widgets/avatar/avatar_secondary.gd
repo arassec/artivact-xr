@@ -13,7 +13,8 @@ func initialize(widget: AvatarWidget):
 	# Load avatar image if available:
 	if widget.avatarImage != null && widget.avatarImage != "":
 		var imageFile = widget.avatarImage
-		var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(str(widget.id, "/", imageFile))
+		var imageFilePath = PathUtil.get_file_path(ComponentType.WIDGET, widget.id, imageFile)
+		var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(imageFilePath)
 	
 		var image = Image.new()
 		var loadResult = ERR_UNAVAILABLE

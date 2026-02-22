@@ -4,7 +4,7 @@ extends Object
 
 
 static func create_from_json(data: Dictionary) -> Widget:
-	if data && data.has("type"):
+	if data && data.has("type") && data["type"] != null:
 		var type = Widget.WidgetType.get(data["type"])
 		if type == Widget.WidgetType.PAGE_TITLE:
 			return PageTitleWidget.new(data)

@@ -8,6 +8,6 @@ var tags: Array[Tag] = []
 
 func _init(data: Dictionary):
 	if data:
-		if data.has("tags"):
+		if data.has("tags") and data["tags"] is Array:
 			for tag in data["tags"]:
 				tags.append(Tag.new(tag))

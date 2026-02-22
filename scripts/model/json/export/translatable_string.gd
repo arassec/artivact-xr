@@ -9,9 +9,9 @@ var translations: Dictionary = {}
 
 func _init(data: Dictionary):
 	if data:
-		if data.has("value"):
+		if data.has("value") and data["value"] != null:
 			value = data["value"]
-		if data.has("translations"):
+		if data.has("translations") and data["translations"] != null:
 			translations = data["translations"]
 
 

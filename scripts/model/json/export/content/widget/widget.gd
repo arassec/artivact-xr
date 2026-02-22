@@ -19,11 +19,11 @@ var navigationTitle: TranslatableString
 
 func _init(data: Dictionary):
 	if data:
-		if data.has("id"):
+		if data.has("id") and data["id"] != null:
 			id = data["id"]
-		if data.has("type"):
+		if data.has("type") and data["type"] != null:
 			type = WidgetType.get(data["type"], WidgetType.UNSUPPORTED)
-		if data.has("navigationTitle"):
+		if data.has("navigationTitle") and data["navigationTitle"] != null:
 			navigationTitle = TranslatableString.new(data["navigationTitle"])
 
 

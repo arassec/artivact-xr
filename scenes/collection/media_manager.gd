@@ -100,7 +100,7 @@ func _load_model(itemId: String, model: String):
 	var gltfState = GLTFState.new()
 
 	var zipReader = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection())
-	var modelFile = str(itemId, "/", model)
+	var modelFile = PathUtil.get_subdir_file_path(ComponentType.ITEM, itemId, "models", model)
 	var modelData = zipReader.read_file(modelFile)
 	var result = gltfDocument.append_from_buffer(modelData, "", gltfState, 64)
 
@@ -112,13 +112,14 @@ func _load_model(itemId: String, model: String):
 	mediaModelNode = gltfDocument.generate_scene(gltfState)
 
 	ModelHelper.disable_light(mediaModelNode)
-	ModelHelper.scale_model(mediaModelNode, 1.0)
+	ModelHelper.scale_model(mediaModelNode, 0.75)
 
 	mediaLoaded = true
 
 
 func _load_image(itemId: String, imageFile: String):
-	var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(str(itemId, "/", imageFile))
+	var imgFilePath = PathUtil.get_subdir_file_path(ComponentType.ITEM, itemId, "images", imageFile)
+	var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(imgFilePath)
 	
 	var image = Image.new()
 	var loadResult = ERR_UNAVAILABLE

@@ -2,23 +2,23 @@
 
 [ext_resource type="Script" uid="uid://b71nw6j3uubdm" path="res://scenes/common/environment/environment_manager.gd" id="1_o6i8l"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o6i8l"]
-sky_top_color = Color(0.211765, 0.286275, 0.345098, 1)
-sky_horizon_color = Color(0.733333, 0.729412, 0.776471, 1)
-ground_bottom_color = Color(0.733333, 0.729412, 0.776471, 1)
-ground_horizon_color = Color(0.733333, 0.729412, 0.776471, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rl3xy"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.14901961, 0.15686275, 0.18039216, 1)
+ground_horizon_color = Color(0.14901961, 0.15686275, 0.18039216, 1)
 
-[sub_resource type="Sky" id="Sky_hl6kp"]
-sky_material = SubResource("ProceduralSkyMaterial_o6i8l")
+[sub_resource type="Sky" id="Sky_83da1"]
+sky_material = SubResource("ProceduralSkyMaterial_rl3xy")
 
-[sub_resource type="Environment" id="Environment_g4pl2"]
+[sub_resource type="Environment" id="Environment_83da1"]
 background_mode = 2
-sky = SubResource("Sky_hl6kp")
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 2.0
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_83da1")
+ambient_light_source = 1
+reflected_light_source = 1
 
 [node name="EnvironmentManager" type="Node3D" unique_id=2031736789]
 script = ExtResource("1_o6i8l")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1664209676]
-environment = SubResource("Environment_g4pl2")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=542981464]
+environment = SubResource("Environment_83da1")

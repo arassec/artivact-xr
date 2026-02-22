@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3av7exx0tb53"]
+[gd_scene format=3 uid="uid://c3av7exx0tb53"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_1q13c"]
 [ext_resource type="Script" uid="uid://6nsl8q3rucgj" path="res://scenes/collection/widgets/avatar/avatar_secondary.gd" id="2_rd5xo"]
 
-[node name="AvatarContent" type="Control"]
+[node name="AvatarContent" type="Control" unique_id=2045174187]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
@@ -11,7 +11,7 @@ offset_bottom = 720.0
 theme = ExtResource("1_1q13c")
 script = ExtResource("2_rd5xo")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1099624691]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1319319238]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,17 +28,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1901040337]
 layout_mode = 2
 
-[node name="AvatarImageTextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="AvatarImageTextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer" unique_id=1638213493]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AvatarSubtextLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="AvatarSubtextLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=325485051]
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_vertical = 3

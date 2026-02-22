@@ -132,21 +132,43 @@ func read_json_file(jsonFile: String) -> Dictionary:
 	
 
 ####################################################################################################
+# TODO
+####################################################################################################
+func read_component_json_file(type: ComponentType, id: String) -> Dictionary:
+	var jsonFilePath = PathUtil.get_default_file_path(type, id)
+	var json := JSON.new()
+	var jsonString = get_collection_zip_reader(selectedCollectionId).read_file(jsonFilePath).get_string_from_utf8()
+	var parseResult := json.parse(jsonString)
+	
+	if parseResult != OK:
+		# TODO: Error handling!
+		return {}
+		
+	var result = json.data
+	if json.data is Array:
+		result = { "values": json.data}
+
+	return result
+	
+
+####################################################################################################
 # Loads collection information. First from a remote collections export file, then from local
 # files if available.
+#
+# TODO: Comment in code again after debugging!
 ####################################################################################################
 func _load_collection_infos():
-	_read_remote_collection_infos()
+	#_read_remote_collection_infos()
 
 	var resourceFiles = DirAccess.get_files_at("res://")
 	for resourceFile in resourceFiles:
 		if resourceFile.ends_with(".artivact.collection.zip"):
 			_merge_collection_info("res://", resourceFile)
 	
-	resourceFiles = DirAccess.get_files_at("user://")
-	for resourceFile in resourceFiles:
-		if resourceFile.ends_with(".artivact.collection.zip"):
-			_merge_collection_info("user://", resourceFile)
+#	resourceFiles = DirAccess.get_files_at("user://")
+#	for resourceFile in resourceFiles:
+#		if resourceFile.ends_with(".artivact.collection.zip"):
+#			_merge_collection_info("user://", resourceFile)
 
 	
 ####################################################################################################
@@ -197,7 +219,7 @@ func _merge_collection_info(locationPrefix: String, collectionFile: String):
 	var collectionId = collectionFile.replace(".artivact.collection.zip", "")
 	var collectionZipFile = str(locationPrefix, collectionFile)
 	var collectionJsonFile = "artivact.content.json"
-	var propertiesConfigurationJsonFile = "artivact.properties-configuration.json"
+	var propertiesConfigurationJsonFile = "configs/properties.artivact.configuration.json"
 	
 	var zipReader = ZIPReader.new()
 	var openResult := zipReader.open(collectionZipFile)

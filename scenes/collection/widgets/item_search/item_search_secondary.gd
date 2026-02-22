@@ -15,11 +15,12 @@ func initialize(widgetInput: ItemSearchWidget):
 		return
 		
 	widget = widgetInput
-	var json = CollectionStore.read_json_file(str(widget.id, ".artivact.search-result.json"))
-
+	var searchResultFile = PathUtil.get_default_file_path(ComponentType.WIDGET, widget.id)
+	var json = CollectionStore.read_json_file(searchResultFile)
 	
 	for itemId in json.values:
-		var artivactItem = ArtivactItem.new(CollectionStore.read_json_file(str(itemId, "/", "artivact.item.json")))
+		var artivactItemJsonFile = PathUtil.get_default_file_path(ComponentType.ITEM, itemId)
+		var artivactItem = ArtivactItem.new(CollectionStore.read_json_file(artivactItemJsonFile))
 		items.append(artivactItem)
 		
 		var itemSearchDataSceneInstance = itemSearchDataScene.instantiate()

@@ -33,7 +33,8 @@ func _load_images():
 	
 	# Load avatar image if available:
 	for imageFile in widget.images:
-		var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(str(widget.id, "/", imageFile))
+		var imgFilePath = PathUtil.get_file_path(ComponentType.WIDGET, widget.id, imageFile)
+		var img = CollectionStore.get_collection_zip_reader(CollectionStore.get_selected_collection()).read_file(imgFilePath)
 	
 		var image = Image.new()
 		var loadResult = ERR_UNAVAILABLE

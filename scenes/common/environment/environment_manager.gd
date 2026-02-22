@@ -100,7 +100,7 @@ func _switch_to_vr() -> bool:
 ####################################################################################################
 func _load_environment() -> void:
 	if !environmentSceneInstance:
-		var environmentScene = load("res://scenes/common/environment/repository/repository_environment.tscn")
+		var environmentScene = load("res://scenes/common/environment/workshop/workshop_environment.tscn")
 		if environmentScene != null:
 			environmentSceneInstance = environmentScene.instantiate()
 			add_child(environmentSceneInstance)
