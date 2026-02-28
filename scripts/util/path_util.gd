@@ -7,7 +7,7 @@ extends Object
 ####################################################################################################
 static func get_default_file_path(type: ComponentType, id: String) -> String:
 	var result = str(type.dir, "/", id.substr(0, 3), "/", id.substr(3, 3), "/", id, "/", type.file)
-	print("File path: %s" % result)
+	#print("File path: %s" % result)
 	return result
 
 
@@ -16,7 +16,7 @@ static func get_default_file_path(type: ComponentType, id: String) -> String:
 ####################################################################################################
 static func get_file_path(type: ComponentType, id: String, file: String) -> String:
 	var result = str(type.dir, "/", id.substr(0, 3), "/", id.substr(3, 3), "/", id, "/", file)
-	print("File path: %s" % result)
+	#print("File path: %s" % result)
 	return result
 
 
@@ -25,5 +25,5 @@ static func get_file_path(type: ComponentType, id: String, file: String) -> Stri
 ####################################################################################################
 static func get_subdir_file_path(type: ComponentType, id: String, subdir: String, file: String) -> String:
 	var result = str(type.dir, "/", id.substr(0, 3), "/", id.substr(3, 3), "/", id, "/", subdir, "/", file)
-	print("Subdir file path: %s" % result)
+	#print("Subdir file path: %s" % result)
 	return result

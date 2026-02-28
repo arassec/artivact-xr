@@ -38,6 +38,7 @@ func _process(_delta):
 	if sceneLoaded:
 		sceneLoaded = false
 		add_child(secondarySceneInstance)
+		sceneLoaderThread.wait_to_finish()
 		sceneLoaderThread = null
 		$FallbackPanel.visible = false
 

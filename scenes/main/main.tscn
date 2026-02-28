@@ -6,9 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="7_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://f14p1c74oohd" path="res://scenes/main/ui/collection_menu.tscn" id="10_a8run"]
 
+[sub_resource type="Environment" id="Environment_6q06x"]
+ambient_light_source = 2
+ambient_light_color = Color(0.9779369, 0.97793704, 0.9779369, 1)
+ambient_light_energy = 15.0
+
 [node name="ArtivactMainScene" unique_id=1905392874 instance=ExtResource("1_8d5xv")]
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1"]
+[node name="XRCamera3D" parent="XROrigin3D" index="0"]
+environment = SubResource("Environment_6q06x")
+
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" unique_id=1553004078]
 collide_with_areas = true
 
 [node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=515665425 node_paths=PackedStringArray("layer_viewport")]

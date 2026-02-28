@@ -20,7 +20,7 @@ func _init(data: Dictionary):
 			title = TranslatableString.new(data["title"])
 		if data.has("description") and data["description"] != null:
 			description = TranslatableString.new(data["description"])
-		if data.has("properties") and data["properties"] is Array:
+		if data.has("properties") and data["properties"] != null:
 			for propertyKey in data["properties"].keys():
 				properties[propertyKey] = TranslatableString.new(data["properties"][propertyKey])
 		if data.has("tags") and data["tags"] is Array:

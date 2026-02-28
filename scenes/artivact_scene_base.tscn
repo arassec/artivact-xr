@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c77u65qfcq80w"]
+[gd_scene format=3 uid="uid://c77u65qfcq80w"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_tbcxv"]
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="2_fowlw"]
@@ -19,7 +19,7 @@ albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nap2i"]
 
-[node name="ArtivactSceneBase" instance=ExtResource("1_tbcxv")]
+[node name="ArtivactSceneBase" unique_id=1177148375 instance=ExtResource("1_tbcxv")]
 
 [node name="XROrigin3D" parent="." index="0"]
 script = ExtResource("2_wp5fa")
@@ -30,23 +30,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 [node name="LeftHand" parent="XROrigin3D" index="1"]
 visible = false
 
-[node name="LeftHandModel" parent="XROrigin3D/LeftHand" index="0" instance=ExtResource("2_fowlw")]
+[node name="LeftHandModel" parent="XROrigin3D/LeftHand" index="0" unique_id=429646995 instance=ExtResource("2_fowlw")]
 hand_material_override = SubResource("StandardMaterial3D_wp5fa")
 
-[node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="1" instance=ExtResource("5_k2kmd")]
+[node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="1" unique_id=762162110 instance=ExtResource("5_k2kmd")]
 y_offset = 0.0
-distance = 2.5
+distance = 1.5
 laser_material = SubResource("StandardMaterial3D_fowlw")
 
 [node name="RightHand" parent="XROrigin3D" index="2"]
 visible = false
 
-[node name="RightHandModel" parent="XROrigin3D/RightHand" index="0" instance=ExtResource("3_821sg")]
+[node name="RightHandModel" parent="XROrigin3D/RightHand" index="0" unique_id=792580930 instance=ExtResource("3_821sg")]
 hand_material_override = SubResource("StandardMaterial3D_pm2t0")
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" instance=ExtResource("5_k2kmd")]
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" unique_id=1553004078 instance=ExtResource("5_k2kmd")]
 y_offset = 0.0
-distance = 2.5
+distance = 1.5
 laser_material = SubResource("StandardMaterial3D_vr2bc")
 target_radius = 0.01
 target_material = SubResource("StandardMaterial3D_nap2i")

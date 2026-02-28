@@ -10,22 +10,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.087729)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=889471429]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4022187, 1.0588068, -2.57961)
-light_color = Color(0.998723, 0.9664807, 0.9025112, 1)
-light_indirect_energy = 1.5
+light_indirect_energy = 5.0
 light_bake_mode = 1
 shadow_enabled = true
-omni_range = 10.0
+omni_range = 1.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1713995109]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6079003, 0.46651107, -2.3291707)
-light_color = Color(0.998723, 0.9664807, 0.9025112, 1)
 light_energy = 0.5
-light_indirect_energy = 1.5
+light_indirect_energy = 5.0
 light_bake_mode = 1
 shadow_enabled = true
-omni_range = 10.0
+omni_range = 1.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=279587109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07954657, 2.188952, -0.90315896)
+light_energy = 2.0
+light_indirect_energy = 25.0
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 4.0
 
 [node name="LightmapGI" type="LightmapGI" parent="." unique_id=1783748528]
 quality = 2
 supersampling = true
+supersampling_factor = 1.0
 light_data = ExtResource("2_o7feh")
