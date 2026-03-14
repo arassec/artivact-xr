@@ -15,10 +15,20 @@ func _init():
 
 
 ####################################################################################################
-# Deregisters from signals.
+# Deregisters from signals and cleans up resources.
 ####################################################################################################
 func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, _update_widget_content)
+
+	if sceneLoaderThread:
+		sceneLoaderThread.wait_to_finish()
+		sceneLoaderThread = null
+
+	if secondarySceneInstance != null:
+		if secondarySceneInstance.get_parent() == self:
+			remove_child(secondarySceneInstance)
+		secondarySceneInstance.queue_free()
+		secondarySceneInstance = null
 
 
 ####################################################################################################

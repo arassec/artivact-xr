@@ -23,13 +23,28 @@ func _init():
 
 
 ####################################################################################################
-# Deregisters from signals.
+# Deregisters from signals and cleans up resources.
 ####################################################################################################
 func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_ITEM_MEDIA, _open_item_media)
 	SignalBus.deregister(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA, _close_item_media)
 	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grab_item_model)
 	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _release_item_model)
+
+	if mediaLoaderThread:
+		mediaLoaderThread.wait_to_finish()
+		mediaLoaderThread = null
+
+	if mediaModelNode != null:
+		if grabbingController != null:
+			grabbingController.remove_child(mediaModelNode)
+			grabbingController = null
+		elif mediaModelNode.get_parent() == self:
+			remove_child(mediaModelNode)
+		mediaModelNode.queue_free()
+		mediaModelNode = null
+
+	mediaImageTexture = null
 
 
 func _process(delta):
