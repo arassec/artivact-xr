@@ -6,7 +6,7 @@
 [node name="WorkshopEnvironment" type="Node3D" unique_id=280878854]
 
 [node name="WorkshopModel" parent="." unique_id=1474398596 instance=ExtResource("1_nc6q1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.087729)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056729317, -0.0019518137, -1.0874462)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=889471429]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4022187, 1.0588068, -2.57961)

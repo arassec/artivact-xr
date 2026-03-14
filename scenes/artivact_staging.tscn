@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8v730ceeydqb" path="res://assets/ui/logos/artivact-xr-splash-logo.png" id="2_da6ps"]
 
 [node name="ArtivactStaging" unique_id=2145438146 instance=ExtResource("1_fmfkn")]
-main_scene = "res://scenes/main/main.tscn"
+main_scene = "uid://cdtdnlnm638tq"
 prompt_for_continue = false
 
 [node name="LoadingScreen" parent="." index="2"]

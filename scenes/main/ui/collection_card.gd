@@ -12,9 +12,8 @@ func initialize(collectionInfoInput: CollectionInfo, fontSize: int) -> void:
 	
 	find_child("ContentCoverColorRect").visible = false
 	
-	var fontSizeTitle = fontSize
 	var fontSizeDescription = fontSize * 0.7
-	var fontSizeSmall = fontSize / 2
+	var fontSizeSmall = fontSize / 2.0
 	
 	find_child("TitleLabel").text = collectionInfo.title
 	find_child("TitleLabel").set("theme_override_font_sizes/font_size", fontSize)

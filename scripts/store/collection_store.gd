@@ -158,17 +158,17 @@ func read_component_json_file(type: ComponentType, id: String) -> Dictionary:
 # TODO: Comment in code again after debugging!
 ####################################################################################################
 func _load_collection_infos():
-	#_read_remote_collection_infos()
+	_read_remote_collection_infos()
 
 	var resourceFiles = DirAccess.get_files_at("res://")
 	for resourceFile in resourceFiles:
 		if resourceFile.ends_with(".artivact.collection.zip"):
 			_merge_collection_info("res://", resourceFile)
 	
-#	resourceFiles = DirAccess.get_files_at("user://")
-#	for resourceFile in resourceFiles:
-#		if resourceFile.ends_with(".artivact.collection.zip"):
-#			_merge_collection_info("user://", resourceFile)
+	resourceFiles = DirAccess.get_files_at("user://")
+	for resourceFile in resourceFiles:
+		if resourceFile.ends_with(".artivact.collection.zip"):
+			_merge_collection_info("user://", resourceFile)
 
 	
 ####################################################################################################

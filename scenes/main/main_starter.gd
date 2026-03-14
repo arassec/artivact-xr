@@ -54,12 +54,12 @@ func _ready():
 	# Initialize Godot XR stuff:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	get_viewport().msaa_3d = Viewport.MSAA_4X
-	
+
 	# Apply settings:
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 	if musicVolume:
 		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
-	
+
 	var musicEnabled = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	if musicEnabled:
 		$AudioStreamPlayer.play()
@@ -69,13 +69,13 @@ func _ready():
 		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
 	else:
 		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
-		
+
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
 		TranslationServer.set_locale('en')
 	elif locale == 1:
 		TranslationServer.set_locale('de')
-
+		
 
 ####################################################################################################
 # Triggers an update of the selected collection info in the main UI panel. This is done here,
