@@ -108,6 +108,13 @@ func _load_environment() -> void:
 	if environmentSceneInstance:
 		environmentSceneInstance.visible = true
 
+	var controller = get_tree().get_root().find_child("RightHandModel", true, false)
+	if controller:
+		controller.visible = true
+	controller = get_tree().get_root().find_child("LeftHandModel", true, false)
+	if controller:
+		controller.visible = true
+		
 
 ####################################################################################################
 # Loads the background environment scene.
@@ -115,3 +122,10 @@ func _load_environment() -> void:
 func _remove_environment() -> void:
 	if environmentSceneInstance:
 		environmentSceneInstance.visible = false
+	
+	var controller = get_tree().get_root().find_child("RightHandModel", true, false)
+	if controller:
+		controller.visible = false
+	controller = get_tree().get_root().find_child("LeftHandModel", true, false)
+	if controller:
+		controller.visible = false

@@ -34,7 +34,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-	
+
 
 ####################################################################################################
 # Cleans up signal registrations after the scene closed.

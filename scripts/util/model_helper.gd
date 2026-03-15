@@ -15,20 +15,11 @@ static func disable_light(model: Node3D) -> void:
 static func scale_model(model: Node3D, targetSize: float) -> void:
 	var size = _get_size(model)
 		
-	var scaleX = true
-	var scaleY = false
-	var scaleZ = false
-	
 	var originalSize = size.x
 	if size.y > originalSize:
 		originalSize = size.y
-		scaleX = false
-		scaleY = true
 	if size.z > originalSize:
 		originalSize = size.z
-		scaleX = false
-		scaleY = false
-		scaleZ = true
 		
 	var scaleFactor = _calculate_scale_factor(targetSize, originalSize)
 

@@ -54,7 +54,7 @@ func get_formatted_filesize():
 
 
 func update_available():
-	return lastModified < (lastModifiedRemote / 1000)
+	return lastModified < (lastModifiedRemote / 1000.0)
 
 
 func can_be_deleted():

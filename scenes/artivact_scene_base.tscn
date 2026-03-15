@@ -7,13 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_k2kmd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wp5fa"]
-albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
+shading_mode = 0
+albedo_color = Color(0.43137255, 0.49411765, 0.52156866, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fowlw"]
 albedo_color = Color(0.960784, 0.960784, 0.960784, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm2t0"]
-albedo_color = Color(0.733333, 0.729412, 0.776471, 1)
+shading_mode = 0
+albedo_color = Color(0.43137255, 0.49411765, 0.52156866, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vr2bc"]
 
@@ -35,7 +37,7 @@ hand_material_override = SubResource("StandardMaterial3D_wp5fa")
 
 [node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="1" unique_id=762162110 instance=ExtResource("5_k2kmd")]
 y_offset = 0.0
-distance = 1.5
+distance = 1.25
 laser_material = SubResource("StandardMaterial3D_fowlw")
 
 [node name="RightHand" parent="XROrigin3D" index="2"]
@@ -46,7 +48,7 @@ hand_material_override = SubResource("StandardMaterial3D_pm2t0")
 
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" unique_id=1553004078 instance=ExtResource("5_k2kmd")]
 y_offset = 0.0
-distance = 1.5
+distance = 1.25
 laser_material = SubResource("StandardMaterial3D_vr2bc")
 target_radius = 0.01
 target_material = SubResource("StandardMaterial3D_nap2i")

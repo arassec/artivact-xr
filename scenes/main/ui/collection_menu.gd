@@ -103,7 +103,7 @@ func _on_quit_button_pressed() -> void:
 	SignalBus.trigger(SignalBus.SignalType.MAIN_EXIT_APPLICATION)
 
 
-func _download_collection(collectionId: String):
+func _download_collection(_collectionId: String):
 	find_child("StatusLabel").text = tr("MAIN_DOWNLOADING")
 	find_child("OperationInProgressCover").visible = true
 
