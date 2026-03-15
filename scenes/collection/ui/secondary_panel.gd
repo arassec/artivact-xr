@@ -29,7 +29,7 @@ func _input(event):
 		# Move our cursor
 		var mouse_motion : InputEventMouseMotion = event
 		$Cursor.position = mouse_motion.position - Vector2(20, 20)
-		
+
 
 ####################################################################################################
 # Called every frame to render the panel.

@@ -62,6 +62,7 @@ func _update_page_nav(pagesInput: Array[ArtivactMenuJson]):
 		var cardSceneInstance = chapterCardScene.instantiate()
 		cardSceneInstance.initialize(page, fontSize)
 		content.push_back(cardSceneInstance)
+		pass
 
 	find_child("PaginationContainer").set_content(content)
 	
@@ -91,6 +92,7 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 			var cardSceneInstance = sectionCardScene.instantiate()
 			cardSceneInstance.initialize(widget, fontSize)
 			content.push_back(cardSceneInstance)
+			pass
 
 	find_child("PaginationContainer").set_content(content)
 	
@@ -137,7 +139,7 @@ func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 		var widgetContentAnchor = find_child("WidgetContentAnchor")
 		widgetContentAnchor.visible = true
 		widgetContentAnchor.add_child(widgetContentSceneInstance)
-
+	
 
 func _update_breadcrumb() -> void:
 	if pages.size() == 1:

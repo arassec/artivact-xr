@@ -89,6 +89,7 @@ func _load_media(item: ArtivactItem) -> void:
 	# TODO: Model and image pagination!
 	if item && item.models.size() > 0:
 		_load_model(item.id, item.models[0])
+		pass
 	elif item && item.images.size() > 0:
 		_load_image(item.id, item.images[0])
 	else:

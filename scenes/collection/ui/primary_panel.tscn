@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm4ky1kxxrqnv"]
+[gd_scene format=3 uid="uid://dm4ky1kxxrqnv"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_v7tfw"]
 [ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="2_eucoa"]
@@ -11,7 +11,7 @@
 shader = ExtResource("3_r3koi")
 shader_parameter/color = Color(1, 1, 1, 1)
 
-[node name="PrimaryPanel" type="Control"]
+[node name="PrimaryPanel" type="Control" unique_id=873951331]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,7 @@ grow_vertical = 2
 theme = ExtResource("1_v7tfw")
 script = ExtResource("2_js6cv")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1763342199]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=86861369]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,49 +42,49 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=237782070]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="NavigationMenu" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="NavigationMenu" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1500456605]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu"]
+[node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=361867525]
 layout_mode = 2
 text = "COLL_QUIT"
 icon = ExtResource("3_v02yv")
 
-[node name="WidgetBackButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu"]
+[node name="WidgetBackButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=121137942]
 layout_mode = 2
 text = "COLL_BACK"
 icon = ExtResource("2_eucoa")
 
-[node name="WidgetContentBackButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu"]
+[node name="WidgetContentBackButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=800225286]
 layout_mode = 2
 text = "COLL_BACK"
 icon = ExtResource("2_eucoa")
 
-[node name="BreadcrumbLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu"]
+[node name="BreadcrumbLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=1893488171]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Breadcrumbs"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer" unique_id=2081336201]
 layout_mode = 2
 
-[node name="PaginationContainer" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("5_cu7do")]
+[node name="PaginationContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=534104644 instance=ExtResource("5_cu7do")]
 layout_mode = 2
 pageSize = 6
 columns = 3
 
-[node name="WidgetContentAnchor" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="WidgetContentAnchor" type="Control" parent="Panel/MarginContainer/VBoxContainer" unique_id=649552496]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Cursor" type="ColorRect" parent="."]
+[node name="Cursor" type="ColorRect" parent="." unique_id=1090120734]
 process_mode = 4
 material = SubResource("ShaderMaterial_js6cv")
 layout_mode = 0

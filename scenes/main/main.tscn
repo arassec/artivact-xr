@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://52w8ouyis4j0" path="res://scenes/main/main_starter.tscn" id="3_6q06x"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_b1x3f"]
-[ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="7_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://f14p1c74oohd" path="res://scenes/main/ui/collection_menu.tscn" id="10_a8run"]
 
 [sub_resource type="Environment" id="Environment_6q06x"]
@@ -19,14 +18,7 @@ environment = SubResource("Environment_6q06x")
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" unique_id=1553004078]
 collide_with_areas = true
 
-[node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=515665425 node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1, -0.5)
-visible = false
-layer_viewport = NodePath("../../DebugPanelSubViewport")
-alpha_blend = true
-quad_size = Vector2(0.25, 0.25)
-
-[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" unique_id=616404228 node_paths=PackedStringArray("layer_viewport")]
+[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=616404228 node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.75)
 layer_viewport = NodePath("../../CollectionMenuSubViewport")
 sort_order = -1
@@ -34,17 +26,9 @@ enable_hole_punch = true
 quad_size = Vector2(1.6, 0.9)
 script = ExtResource("3_b1x3f")
 
-[node name="MainStarter" parent="XROrigin3D" index="5" unique_id=377203162 instance=ExtResource("3_6q06x")]
+[node name="MainStarter" parent="XROrigin3D" index="4" unique_id=377203162 instance=ExtResource("3_6q06x")]
 
-[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="1" unique_id=2069186358]
-size = Vector2i(500, 500)
-render_target_update_mode = 4
-
-[node name="DebugPanel" parent="DebugPanelSubViewport" index="0" unique_id=97950523 instance=ExtResource("7_yyfjg")]
-offset_right = 0.0
-offset_bottom = 0.0
-
-[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="2" unique_id=2125607010]
+[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="1" unique_id=2125607010]
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 

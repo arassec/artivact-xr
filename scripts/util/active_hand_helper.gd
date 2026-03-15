@@ -31,6 +31,8 @@ func _on_left_hand_button_pressed(event_name: String) -> void:
 		$RightHand.visible = false
 		
 		active_controller = $LeftHand
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_TRIGGER_PRESSED, $LeftHand)
+
 		
 	if event_name == "grip_click" && active_controller == $LeftHand:
 		grip_clicked = true
@@ -52,6 +54,7 @@ func _on_right_hand_button_pressed(event_name: String) -> void:
 		$LeftHand.visible = false
 
 		active_controller = $RightHand
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_TRIGGER_PRESSED, $RightHand)
 
 	if event_name == "grip_click" && active_controller == $RightHand:
 		grip_clicked = true
@@ -62,9 +65,13 @@ func _on_left_hand_button_released(event_name: String) -> void:
 	if event_name == "grip_click" && active_controller == $LeftHand:
 		grip_clicked = false
 		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_RELEASED, $LeftHand)
+	elif event_name == "trigger_click" && active_controller == $LeftHand:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_TRIGGER_RELEASED, $LeftHand)
 
 
 func _on_right_hand_button_released(event_name: String) -> void:
 	if event_name == "grip_click" && active_controller == $RightHand:
 		grip_clicked = false
 		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_RELEASED, $RightHand)
+	elif event_name == "trigger_click" && active_controller == $RightHand:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_TRIGGER_RELEASED, $RightHand)

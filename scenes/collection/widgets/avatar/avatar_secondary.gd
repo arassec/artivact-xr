@@ -5,7 +5,7 @@ extends Control
 func initialize(widget: AvatarWidget):
 	if widget == null:
 		return
-		
+
 	var avatarSubtextLabel = find_child("AvatarSubtextLabel")
 	if avatarSubtextLabel != null:
 		avatarSubtextLabel.text = widget.avatarSubtext.translate()

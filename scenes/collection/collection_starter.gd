@@ -180,7 +180,7 @@ func _open_widget(widgetId):
 
 
 ####################################################################################################
-# TODO
+# TODO: The 'visible = false' is causing the app to crash when switching to the main menu!!!
 ####################################################################################################
 func _close_widget():
 	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false

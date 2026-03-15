@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4kqmp3ysj60r"]
+[gd_scene format=3 uid="uid://c4kqmp3ysj60r"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_1q5nw"]
 [ext_resource type="Script" uid="uid://dpmi2yknftruu" path="res://scenes/collection/widgets/item_search/item_search_secondary.gd" id="1_v6cgf"]
@@ -9,7 +9,7 @@
 shader = ExtResource("4_265cq")
 shader_parameter/color = Color(1, 1, 1, 1)
 
-[node name="ItemSearchSecondary" type="Control"]
+[node name="ItemSearchSecondary" type="Control" unique_id=961452498]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
@@ -17,7 +17,7 @@ offset_bottom = 720.0
 theme = ExtResource("1_1q5nw")
 script = ExtResource("1_v6cgf")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=2127286216]
 custom_minimum_size = Vector2(700, 500)
 layout_mode = 1
 anchors_preset = 15
@@ -26,14 +26,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PaginationContainer" parent="Panel" instance=ExtResource("3_1rhb3")]
+[node name="PaginationContainer" parent="Panel" unique_id=263380951 instance=ExtResource("3_1rhb3")]
 layout_mode = 1
 
-[node name="ItemsLabel" type="Label" parent="Panel/PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/Pager" index="1"]
+[node name="ItemsLabel" type="Label" parent="Panel/PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/Pager" index="1" unique_id=807637360]
 layout_mode = 2
 text = "COLL_ITEM_LABEL"
 
-[node name="Cursor" type="ColorRect" parent="."]
+[node name="Cursor" type="ColorRect" parent="." unique_id=739697741]
 process_mode = 4
 material = SubResource("ShaderMaterial_atasl")
 layout_mode = 0

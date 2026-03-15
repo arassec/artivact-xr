@@ -1,6 +1,6 @@
 extends Control
 
-var itemSearchDataScene: Resource = load("res://scenes/collection/widgets/item_search/item_search_data.tscn")
+var itemSearchDataScene: Resource = preload("res://scenes/collection/widgets/item_search/item_search_data.tscn")
 
 var widget: ItemSearchWidget
 
@@ -23,6 +23,7 @@ func initialize(widgetInput: ItemSearchWidget):
 		var artivactItem = ArtivactItem.new(CollectionStore.read_json_file(artivactItemJsonFile))
 		items.append(artivactItem)
 		
+		# TODO: Cleanup?!?
 		var itemSearchDataSceneInstance = itemSearchDataScene.instantiate()
 		itemSearchDataSceneInstance.initialize(artivactItem)
 		paginationContent.push_back(itemSearchDataSceneInstance)

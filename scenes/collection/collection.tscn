@@ -3,21 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_e2oop"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="2_a824d"]
 [ext_resource type="PackedScene" uid="uid://bsb13hpsnagd8" path="res://scenes/collection/collection_starter.tscn" id="3_cx0yf"]
-[ext_resource type="PackedScene" uid="uid://b63l8cn62f08l" path="res://scenes/common/ui/debug_panel.tscn" id="4_jq73y"]
 [ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/primary_panel.tscn" id="5_q47lq"]
 [ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/secondary_panel.tscn" id="6_eg380"]
 
 [node name="ArtivactSceneBase" unique_id=1931386276 instance=ExtResource("1_e2oop")]
 
-[node name="DebugPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=1848594544 node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.25, -0.5)
-visible = false
-layer_viewport = NodePath("../../DebugPanelSubViewport")
-sort_order = -1
-enable_hole_punch = true
-quad_size = Vector2(0.25, 0.25)
-
-[node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(0.86602527, 0, 0.50000024, 0, 1, 0, -0.50000024, 0, 0.86602527, -0.75, 1, -1.75)
 layer_viewport = NodePath("../../PrimaryPanelSubViewport")
 sort_order = -2
@@ -26,7 +17,7 @@ quad_size = Vector2(1.6, 0.9)
 script = ExtResource("2_a824d")
 controller = NodePath("../RightHand")
 
-[node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=516062467 node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" unique_id=516062467 node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0.75, 1, -1.75)
 layer_viewport = NodePath("../../SecondaryPanelSubViewport")
 sort_order = -2
@@ -35,18 +26,9 @@ quad_size = Vector2(1.6, 0.9)
 script = ExtResource("2_a824d")
 controller = NodePath("../RightHand")
 
-[node name="CollectionStarter" parent="XROrigin3D" index="6" unique_id=1038441025 instance=ExtResource("3_cx0yf")]
+[node name="CollectionStarter" parent="XROrigin3D" index="5" unique_id=1038441025 instance=ExtResource("3_cx0yf")]
 
-[node name="DebugPanelSubViewport" type="SubViewport" parent="." index="1" unique_id=2026051115]
-size = Vector2i(500, 500)
-render_target_update_mode = 4
-
-[node name="DebugPanel" parent="DebugPanelSubViewport" index="0" unique_id=1094597788 instance=ExtResource("4_jq73y")]
-custom_minimum_size = Vector2(500, 500)
-offset_right = 0.0
-offset_bottom = 0.0
-
-[node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="2" unique_id=461716119]
+[node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="1" unique_id=461716119]
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
@@ -54,7 +36,7 @@ render_target_update_mode = 4
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="SecondaryPanelSubViewport" type="SubViewport" parent="." index="3" unique_id=1025971154]
+[node name="SecondaryPanelSubViewport" type="SubViewport" parent="." index="2" unique_id=1025971154]
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
