@@ -95,7 +95,7 @@ jobs:
           github.event_name == 'push' && 
           github.ref_type == 'tag'
         run: |
-          echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
 
       # Replace version in godot project file (if building release)
       - name: Replace Version Number
@@ -111,12 +111,49 @@ jobs:
       # Generate a numeric version code from the current UTC date/time
       - name: Generate Version Code
         if: matrix.platform == 'android'
-        run: echo "VERSION_CODE=$(date -u +'%Y%m%d%H%M')" >> $GITHUB_ENV
+        shell: bash
+        run: |
+          VERSION_CODE="$(date -u +'%Y%m%d%H%M')"
+          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
+          echo "Generated VERSION_CODE=$VERSION_CODE"
 
       # Patch version/code in export_presets.cfg with the generated value
       - name: Patch Android Version Code
         if: matrix.platform == 'android'
-        run: sed -i "s/version\/code=.*/version\/code=${{ env.VERSION_CODE }}/" export_presets.cfg
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Using VERSION_CODE=$VERSION_CODE"
+
+          if [ ! -f export_presets.cfg ]; then
+            echo "ERROR: export_presets.cfg not found"
+            exit 1
+          fi
+
+          echo "--- export_presets.cfg version entries BEFORE patch ---"
+          grep -nE 'version/(code|name)=' export_presets.cfg || true
+
+          if ! grep -q 'version/code=' export_presets.cfg; then
+            echo "ERROR: No version/code entry found in export_presets.cfg"
+            exit 1
+          fi
+
+          perl -0pi -e 's/version\/code=\d+/version\/code='"$VERSION_CODE"'/g' export_presets.cfg
+
+          if [ "${GITHUB_REF_TYPE:-}" = "tag" ] && [ -n "${RELEASE_VERSION:-}" ]; then
+            if grep -q 'version/name=' export_presets.cfg; then
+              perl -0pi -e 's/version\/name="[^"]*"/version\/name="'"$RELEASE_VERSION"'"/g' export_presets.cfg
+            fi
+          fi
+
+          echo "--- export_presets.cfg version entries AFTER patch ---"
+          grep -nE 'version/(code|name)=' export_presets.cfg || true
+
+          if ! grep -q "version/code=$VERSION_CODE" export_presets.cfg; then
+            echo "ERROR: Failed to patch version/code in export_presets.cfg"
+            exit 1
+          fi
 
       # Import Godot Project
       - name: Initial Godot Import
@@ -148,6 +185,7 @@ jobs:
           GODOT_ANDROID_KEYSTORE_RELEASE_USER: ${{ secrets.AVXR_RELEASE_ALIAS }}
           GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.AVXR_RELEASE_PASS }}
         run: |
+          set -euo pipefail
           echo "$AVXR_KEYSTORE_BASE64" > ./artivact-xr-release.keystore.base64.txt
           openssl base64 -A -d -in ./artivact-xr-release.keystore.base64.txt -out ./artivact-xr-release.keystore
           godot --headless ${{ matrix.export-args }} --export-release "${{ matrix.export-preset }}"
@@ -165,11 +203,13 @@ jobs:
         if: >
           github.event_name == 'push' && 
           github.ref_type == 'tag'
+        shell: bash
         run: |
-          RELEASE_FILE=`echo ${{ matrix.export-file }} | cut -d "." -f 1`
+          set -euo pipefail
+          RELEASE_FILE="$(echo "${{ matrix.export-file }}" | cut -d "." -f 1)"
           RELEASE_FILE+="_v$RELEASE_VERSION.apk"
           echo "RELEASE_FILE: $RELEASE_FILE"
-          mv ${{ matrix.export-folder }}/${{ matrix.export-file }} ${{ matrix.export-folder }}/$RELEASE_FILE
+          mv "${{ matrix.export-folder }}/${{ matrix.export-file }}" "${{ matrix.export-folder }}/$RELEASE_FILE"
           ls ${{ matrix.export-folder }}/
           echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
 
@@ -207,4 +247,3 @@ jobs:
           appSecret: ${{ secrets.OVR_APP_SECRET }}
           apkPath: '${{ matrix.export-folder }}/${{ env.RELEASE_FILE }}'
           releaseChannel: 'ALPHA'
-
