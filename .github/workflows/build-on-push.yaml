@@ -54,7 +54,7 @@ jobs:
     steps:
       # Check out the repository
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # If targeting android then install JDK
       - name: Set up JDK 17
