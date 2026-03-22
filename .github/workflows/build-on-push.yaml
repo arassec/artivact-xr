@@ -14,9 +14,9 @@ on:
 # Environment variables
 env:
   # Configure Godot version. 
-  # The release is downloaded from Github. Example URL for Version '4.4.1':
-  # https://github.com/godotengine/godot-builds/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
-  GODOT_VERSION: 4.4.1
+  # The release is downloaded from Github. Example URL for Version '4.6.1':
+  # https://github.com/godotengine/godot-builds/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+  GODOT_VERSION: 4.6.1
 
 
 # CI jobs
