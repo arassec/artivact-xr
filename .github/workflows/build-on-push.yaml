@@ -21,10 +21,69 @@ env:
 
 # CI jobs
 jobs:
+  # Pre-job: Increment version codes in export_presets.cfg for release builds
+  bump-version:
+    name: Bump Android Version Codes
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    permissions:
+      contents: write
+    steps:
+      # Check out the default branch (not the tag) so we can push back
+      - name: Checkout Default Branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Increment every version/code=N entry by 1
+      - name: Increment version/code in export_presets.cfg
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f export_presets.cfg ]; then
+            echo "ERROR: export_presets.cfg not found"
+            exit 1
+          fi
+
+          echo "--- version/code entries BEFORE increment ---"
+          grep -nE 'version/code=' export_presets.cfg || true
+
+          if ! grep -q 'version/code=' export_presets.cfg; then
+            echo "ERROR: No version/code entry found in export_presets.cfg"
+            exit 1
+          fi
+
+          # NOTE: This same perl expression is also used in the build job's release patch step.
+          # If you update one, update the other to keep them in sync.
+          perl -pi -e 's/version\/code=(\d+)/"version\/code=" . ($1 + 1)/ge' export_presets.cfg
+
+          echo "--- version/code entries AFTER increment ---"
+          grep -nE 'version/code=' export_presets.cfg || true
+
+      # Commit and push the incremented values back to the default branch.
+      # [skip ci] prevents this push from triggering a new workflow run.
+      - name: Commit and push updated export_presets.cfg
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add export_presets.cfg
+          if git diff --cached --quiet; then
+            echo "No version/code changes to commit"
+          else
+            git commit -m "chore: bump Android version codes [skip ci]"
+            git push origin ${{ github.event.repository.default_branch }}
+          fi
+
   # Build job (Matrix build for all exports)
   build:
     name: Building for ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
+    needs: [bump-version]
+    # Run when bump-version succeeded (release) OR was skipped (snapshot/non-tag)
+    if: always() && !cancelled() && (needs.bump-version.result == 'success' || needs.bump-version.result == 'skipped')
     permissions:
       contents: write
     strategy:
@@ -108,23 +167,23 @@ jobs:
           search-text: '0.0.0'
           replacement-text: ${{ env.RELEASE_VERSION }}
 
-      # Generate a numeric version code from the current UTC date/time
+      # Generate a numeric version code from the current UTC date/time (snapshot builds only)
       - name: Generate Version Code
-        if: matrix.platform == 'android'
+        if: matrix.platform == 'android' && github.ref_type != 'tag'
         shell: bash
         run: |
           VERSION_CODE="$(date -u +'%Y%m%d%H%M')"
           echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
           echo "Generated VERSION_CODE=$VERSION_CODE"
 
-      # Patch version/code in export_presets.cfg with the generated value
+      # Patch version/code in export_presets.cfg
+      # - Release builds: increment the checked-in value by 1 (matches what bump-version pushed)
+      # - Snapshot builds: replace with the date-based value generated above
       - name: Patch Android Version Code
         if: matrix.platform == 'android'
         shell: bash
         run: |
           set -euo pipefail
-
-          echo "Using VERSION_CODE=$VERSION_CODE"
 
           if [ ! -f export_presets.cfg ]; then
             echo "ERROR: export_presets.cfg not found"
@@ -139,21 +198,26 @@ jobs:
             exit 1
           fi
 
-          perl -0pi -e 's/version\/code=\d+/version\/code='"$VERSION_CODE"'/g' export_presets.cfg
+          if [ "${GITHUB_REF_TYPE:-}" = "tag" ]; then
+            # Release build: increment each checked-in version/code by 1.
+            # NOTE: This uses the same perl expression as the bump-version pre-job (line 58).
+            # If you update one, update the other to keep them in sync.
+            perl -pi -e 's/version\/code=(\d+)/"version\/code=" . ($1 + 1)/ge' export_presets.cfg
 
-          if [ "${GITHUB_REF_TYPE:-}" = "tag" ] && [ -n "${RELEASE_VERSION:-}" ]; then
-            if grep -q 'version/name=' export_presets.cfg; then
-              perl -0pi -e 's/version\/name="[^"]*"/version\/name="'"$RELEASE_VERSION"'"/g' export_presets.cfg
+            if [ -n "${RELEASE_VERSION:-}" ]; then
+              if grep -q 'version/name=' export_presets.cfg; then
+                perl -0pi -e 's/version\/name="[^"]*"/version\/name="'"$RELEASE_VERSION"'"/g' export_presets.cfg
+              fi
             fi
+          else
+            # Snapshot build: use the date-based version code generated above.
+            # VERSION_CODE is always set here because 'Generate Version Code' runs
+            # for all non-tag Android builds (same conditions as this else branch).
+            perl -0pi -e 's/version\/code=\d+/version\/code='"$VERSION_CODE"'/g' export_presets.cfg
           fi
 
           echo "--- export_presets.cfg version entries AFTER patch ---"
           grep -nE 'version/(code|name)=' export_presets.cfg || true
-
-          if ! grep -q "version/code=$VERSION_CODE" export_presets.cfg; then
-            echo "ERROR: Failed to patch version/code in export_presets.cfg"
-            exit 1
-          fi
 
       # Import Godot Project
       - name: Initial Godot Import
