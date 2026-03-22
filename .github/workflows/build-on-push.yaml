@@ -108,6 +108,16 @@ jobs:
           search-text: '0.0.0'
           replacement-text: ${{ env.RELEASE_VERSION }}
 
+      # Generate a numeric version code from the current UTC date/time
+      - name: Generate Version Code
+        if: matrix.platform == 'android'
+        run: echo "VERSION_CODE=$(date -u +'%Y%m%d%H%M')" >> $GITHUB_ENV
+
+      # Patch version/code in export_presets.cfg with the generated value
+      - name: Patch Android Version Code
+        if: matrix.platform == 'android'
+        run: sed -i "s/version\/code=.*/version\/code=${{ env.VERSION_CODE }}/" export_presets.cfg
+
       # Import Godot Project
       - name: Initial Godot Import
         shell: bash
