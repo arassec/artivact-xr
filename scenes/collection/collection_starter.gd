@@ -183,7 +183,7 @@ func _open_widget(widgetId):
 # TODO: The 'visible = false' is causing the app to crash when switching to the main menu!!!
 ####################################################################################################
 func _close_widget():
-	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false
+	# get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
 
 
