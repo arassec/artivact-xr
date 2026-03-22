@@ -127,12 +127,13 @@ jobs:
           version_code = os.environ["ANDROID_VERSION_CODE"]
           export_presets = Path("export_presets.cfg")
           content = export_presets.read_text()
-          lines = content.splitlines()
+          lines = content.splitlines(keepends=True)
 
           preset_indices = {}
           current_index = None
           for line in lines:
-              preset_match = re.fullmatch(r"\[preset\.(\d+)\]", line)
+              stripped_line = line.strip()
+              preset_match = re.fullmatch(r"\[preset\.(\d+)\]", stripped_line)
               if preset_match is not None:
                   current_index = preset_match.group(1)
                   continue
@@ -140,7 +141,7 @@ jobs:
               if current_index is None:
                   continue
 
-              name_match = re.fullmatch(r'name="(.*)"', line)
+              name_match = re.fullmatch(r'name="(.*)"', stripped_line)
               if name_match is not None:
                   preset_indices[name_match.group(1)] = current_index
                   current_index = None
@@ -151,24 +152,27 @@ jobs:
 
           in_target_options = False
           for index, line in enumerate(lines):
-              if line == f"[preset.{preset_index}.options]":
+              stripped_line = line.strip()
+              if stripped_line == f"[preset.{preset_index}.options]":
                   in_target_options = True
                   continue
 
-              if in_target_options and line.startswith("[preset."):
+              if in_target_options and stripped_line.startswith("[preset."):
                   break
 
-              if in_target_options and line.startswith("version/code="):
-                  lines[index] = f"version/code={version_code}"
+              if in_target_options and stripped_line.startswith("version/code="):
+                  line_ending = line[len(line.rstrip("\r\n")):]
+                  leading_whitespace = line[: len(line) - len(line.lstrip())]
+                  lines[index] = (
+                      f"{leading_whitespace}version/code={version_code}{line_ending}"
+                  )
                   break
           else:
               raise SystemExit(
                   f"Unable to update version/code for export preset {preset!r}."
               )
 
-          export_presets.write_text(
-              "\n".join(lines) + ("\n" if content.endswith("\n") else "")
-          )
+          export_presets.write_text("".join(lines))
           PY
           grep -n "version/code" export_presets.cfg
 
