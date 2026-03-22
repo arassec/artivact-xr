@@ -108,6 +108,70 @@ jobs:
           search-text: '0.0.0'
           replacement-text: ${{ env.RELEASE_VERSION }}
 
+      # Generate and apply an Android version code for the active export preset
+      - name: Set Android Version Code
+        if: matrix.platform == 'android'
+        shell: bash
+        env:
+          EXPORT_PRESET: ${{ matrix.export-preset }}
+        run: |
+          ANDROID_VERSION_CODE="$(date -u +%Y%m%d%H%M)"
+          export ANDROID_VERSION_CODE
+          echo "ANDROID_VERSION_CODE=$ANDROID_VERSION_CODE" >> "$GITHUB_ENV"
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          import re
+
+          preset = os.environ["EXPORT_PRESET"]
+          version_code = os.environ["ANDROID_VERSION_CODE"]
+          export_presets = Path("export_presets.cfg")
+          content = export_presets.read_text()
+          lines = content.splitlines()
+
+          preset_indices = {}
+          current_index = None
+          for line in lines:
+              preset_match = re.fullmatch(r"\[preset\.(\d+)\]", line)
+              if preset_match is not None:
+                  current_index = preset_match.group(1)
+                  continue
+
+              if current_index is None:
+                  continue
+
+              name_match = re.fullmatch(r'name="(.*)"', line)
+              if name_match is not None:
+                  preset_indices[name_match.group(1)] = current_index
+                  current_index = None
+
+          preset_index = preset_indices.get(preset)
+          if preset_index is None:
+              raise SystemExit(f"Unable to find export preset named {preset!r}.")
+
+          in_target_options = False
+          for index, line in enumerate(lines):
+              if line == f"[preset.{preset_index}.options]":
+                  in_target_options = True
+                  continue
+
+              if in_target_options and line.startswith("[preset."):
+                  break
+
+              if in_target_options and line.startswith("version/code="):
+                  lines[index] = f"version/code={version_code}"
+                  break
+          else:
+              raise SystemExit(
+                  f"Unable to update version/code for export preset {preset!r}."
+              )
+
+          export_presets.write_text(
+              "\n".join(lines) + ("\n" if content.endswith("\n") else "")
+          )
+          PY
+          grep -n "version/code" export_presets.cfg
+
       # Import Godot Project
       - name: Initial Godot Import
         shell: bash
@@ -197,4 +261,3 @@ jobs:
           appSecret: ${{ secrets.OVR_APP_SECRET }}
           apkPath: '${{ matrix.export-folder }}/${{ env.RELEASE_FILE }}'
           releaseChannel: 'ALPHA'
-
