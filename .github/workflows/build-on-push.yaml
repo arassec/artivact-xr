@@ -21,12 +21,66 @@ env:
 
 # CI jobs
 jobs:
+  # Bump Android version code before building (branch pushes only)
+  bump-version:
+    name: Bump Android Version Code
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    if: github.ref_type == 'branch'
+    steps:
+      # Check out the repository
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # Increment every version/code entry in export_presets.cfg
+      - name: Increment Version Code
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f export_presets.cfg ]; then
+            echo "ERROR: export_presets.cfg not found"
+            exit 1
+          fi
+
+          if ! grep -q 'version/code=' export_presets.cfg; then
+            echo "ERROR: No version/code entry found in export_presets.cfg"
+            exit 1
+          fi
+
+          perl -pi -e 's/(version\/code=)(\d+)/$1.($2+1)/ge' export_presets.cfg
+
+          echo "--- Updated version/code entries ---"
+          grep 'version/code=' export_presets.cfg
+
+      # Commit and push the updated file (skip CI to avoid build loops)
+      - name: Commit and Push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add export_presets.cfg
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: bump android version code [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase origin "${{ github.ref_name }}" && git push && break
+            echo "Push attempt $i failed, retrying..."
+            sleep 5
+          done
+
   # Build job (Matrix build for all exports)
   build:
     name: Building for ${{ matrix.name }}
+    needs: [bump-version]
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
+    if: ${{ !failure() }}
     strategy:
       fail-fast: true
       matrix:
@@ -52,9 +106,11 @@ jobs:
             export-file: Artivact_XR_Pico.apk
 
     steps:
-      # Check out the repository
+      # Check out the repository (use ref to pick up the version bump commit on branch builds)
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
 
       # If targeting android then install JDK
       - name: Set up JDK 17
@@ -108,52 +164,22 @@ jobs:
           search-text: '0.0.0'
           replacement-text: ${{ env.RELEASE_VERSION }}
 
-      # Generate a numeric version code from the current UTC date/time
-      - name: Generate Version Code
-        if: matrix.platform == 'android'
-        shell: bash
-        run: |
-          VERSION_CODE="$(date -u +'%Y%m%d%H%M')"
-          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
-          echo "Generated VERSION_CODE=$VERSION_CODE"
-
-      # Patch version/code in export_presets.cfg with the generated value
-      - name: Patch Android Version Code
-        if: matrix.platform == 'android'
+      # Patch version name in export_presets.cfg for release builds
+      - name: Patch Android Version Name
+        if: >
+          matrix.platform == 'android' &&
+          github.event_name == 'push' &&
+          github.ref_type == 'tag'
         shell: bash
         run: |
           set -euo pipefail
 
-          echo "Using VERSION_CODE=$VERSION_CODE"
-
-          if [ ! -f export_presets.cfg ]; then
-            echo "ERROR: export_presets.cfg not found"
-            exit 1
+          if [ -n "${RELEASE_VERSION:-}" ] && grep -q 'version/name=' export_presets.cfg; then
+            perl -0pi -e 's/version\/name="[^"]*"/version\/name="'"$RELEASE_VERSION"'"/g' export_presets.cfg
           fi
 
-          echo "--- export_presets.cfg version entries BEFORE patch ---"
+          echo "--- export_presets.cfg version entries ---"
           grep -nE 'version/(code|name)=' export_presets.cfg || true
-
-          if ! grep -q 'version/code=' export_presets.cfg; then
-            echo "ERROR: No version/code entry found in export_presets.cfg"
-            exit 1
-          fi
-
-          perl -0pi -e 's/version\/code=\d+/version\/code='"$VERSION_CODE"'/g' export_presets.cfg
-
-          if [ "${GITHUB_REF_TYPE:-}" = "tag" ] && [ -n "${RELEASE_VERSION:-}" ]; then
-            if grep -q 'version/name=' export_presets.cfg; then
-              perl -0pi -e 's/version\/name="[^"]*"/version\/name="'"$RELEASE_VERSION"'"/g' export_presets.cfg
-            fi
-          fi
-
-          echo "--- export_presets.cfg version entries AFTER patch ---"
-          grep -nE 'version/(code|name)=' export_presets.cfg || true
-
-          if ! grep -q "version/code=$VERSION_CODE" export_presets.cfg; then
-            echo "ERROR: Failed to patch version/code in export_presets.cfg"
-            exit 1
-          fi
 
       # Import Godot Project
       - name: Initial Godot Import
