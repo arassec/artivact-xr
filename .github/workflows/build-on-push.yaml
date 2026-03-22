@@ -21,13 +21,13 @@ env:
 
 # CI jobs
 jobs:
-  # Bump Android version code before building (branch pushes only)
+  # Bump Android version code before release builds (tag pushes only)
   bump-version:
     name: Bump Android Version Code
     runs-on: ubuntu-22.04
     permissions:
       contents: write
-    if: github.ref_type == 'branch'
+    if: github.ref_type == 'tag'
     steps:
       # Check out the repository
       - name: Checkout
@@ -66,7 +66,7 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "chore: bump android version code [skip ci]"
+          git commit -m "chore: bump android version code for release"
           for i in 1 2 3; do
             git pull --rebase origin "${{ github.ref_name }}" && git push && break
             echo "Push attempt $i failed, retrying..."
