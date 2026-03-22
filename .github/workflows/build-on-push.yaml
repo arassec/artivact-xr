@@ -108,12 +108,20 @@ jobs:
           search-text: '0.0.0'
           replacement-text: ${{ env.RELEASE_VERSION }}
 
-      # Generate a numeric version code from the current UTC date/time
+      # Generate a numeric version code from the elapsed UTC minutes since 2026-01-01
       - name: Generate Version Code
         if: matrix.platform == 'android'
         shell: bash
         run: |
-          VERSION_CODE="$(date -u +'%Y%m%d%H%M')"
+          BASE_EPOCH="$(date -u -d '2026-01-01 00:00:00' +%s)"
+          CURRENT_EPOCH="$(date -u +%s)"
+          VERSION_CODE="$(((CURRENT_EPOCH - BASE_EPOCH) / 60))"
+
+          if [ "$VERSION_CODE" -lt 0 ]; then
+            echo "ERROR: VERSION_CODE must not be negative"
+            exit 1
+          fi
+
           echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
           echo "Generated VERSION_CODE=$VERSION_CODE"
 
