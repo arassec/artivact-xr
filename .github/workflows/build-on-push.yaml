@@ -126,7 +126,7 @@ jobs:
       # If targeting android then install Android SDK
       - name: Setup Android SDK
         if: matrix.platform == 'android'
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       # If targeting android then install Android SDK Packages
       - name: Install Android SDK Packages
