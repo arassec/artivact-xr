@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://52w8ouyis4j0" path="res://scenes/main/main_starter.tscn" id="3_6q06x"]
 [ext_resource type="PackedScene" uid="uid://bfbuoiwkg6q2j" path="res://scenes/main/ui/main_menu_rc.tscn" id="5_6q06x"]
+[ext_resource type="Script" uid="uid://cx3pqv8tmn6yd" path="res://scripts/ui/rc_finger_pointer.gd" id="6_fp3kx"]
 [ext_resource type="PackedScene" uid="uid://f14p1c74oohd" path="res://scenes/main/ui/collection_menu.tscn" id="10_a8run"]
 
 [sub_resource type="Environment" id="Environment_6q06x"]
@@ -15,7 +16,8 @@ ambient_light_energy = 15.0
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
 environment = SubResource("Environment_6q06x")
 
-[node name="RcFingerPointer" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="1" unique_id=1289119989 node_paths=PackedStringArray("viewport", "composition_layer")]
+[node name="RcFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="1" unique_id=1289119989 node_paths=PackedStringArray("viewport", "composition_layer")]
+script = ExtResource("6_fp3kx")
 viewport = NodePath("../../../../../../../CollectionMenuSubViewport")
 composition_layer = NodePath("../../../../../../CollectionMenuOpenXRCompositionLayerQuad")
 
