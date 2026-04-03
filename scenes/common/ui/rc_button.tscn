@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://blqrhu3mdcrwn"]
+
+[ext_resource type="Script" uid="uid://bgh6vdkoflxwv" path="res://scenes/common/ui/rc_button.gd" id="1_8vame"]
+[ext_resource type="PackedScene" uid="uid://cx30nammmdj6t" path="res://scenes/common/ui/assets/rc_btn_model.glb" id="1_hbnxh"]
+[ext_resource type="Script" uid="uid://dq042kibpfryy" path="res://addons/godot-xr-tools/interactables/interactable_area_button.gd" id="2_2furb"]
+[ext_resource type="AudioStream" uid="uid://tpkavyfdy5yd" path="res://assets/audio/click.wav" id="4_j8dc1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hbnxh"]
+size = Vector3(0.19, 0.09, 0.19)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8vame"]
+size = Vector3(0.2, 0.1, 0.2)
+
+[node name="RcButton" type="Node3D" unique_id=1627065872]
+script = ExtResource("1_8vame")
+toggleButton = null
+
+[node name="ButtonBase" type="StaticBody3D" parent="." unique_id=1171236161]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ButtonBase" unique_id=2060370076]
+shape = SubResource("BoxShape3D_hbnxh")
+
+[node name="rc_btn_model" parent="ButtonBase" unique_id=539811410 instance=ExtResource("1_hbnxh")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="ButtonBase/rc_btn_model" unique_id=1629668198]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.11, 0)
+axis = 1
+
+[node name="InteractableAreaButton" type="Area3D" parent="." unique_id=1632950042]
+collision_layer = 4194304
+collision_mask = 131072
+script = ExtResource("2_2furb")
+button = NodePath("../ButtonBase")
+displacement = Vector3(0, -0.05, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableAreaButton" unique_id=2145313896]
+shape = SubResource("BoxShape3D_8vame")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=2094072044]
+stream = ExtResource("4_j8dc1")
+max_db = 2.0
+
+[connection signal="button_pressed" from="InteractableAreaButton" to="." method="_on_button_pressed"]

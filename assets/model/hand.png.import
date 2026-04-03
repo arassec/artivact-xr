@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckk5u377vhy1s"
-path.s3tc="res://.godot/imported/cancel_64dp_F5F5F5.svg-309c884032e7d304618049b1ecea840f.s3tc.ctex"
-path.etc2="res://.godot/imported/cancel_64dp_F5F5F5.svg-309c884032e7d304618049b1ecea840f.etc2.ctex"
+uid="uid://wtqf78cjknag"
+path.s3tc="res://.godot/imported/hand.png-d1df4f79df90daddee2d990edb4ecd74.s3tc.ctex"
+path.etc2="res://.godot/imported/hand.png-d1df4f79df90daddee2d990edb4ecd74.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/ui/icons/cancel_64dp_F5F5F5.svg"
-dest_files=["res://.godot/imported/cancel_64dp_F5F5F5.svg-309c884032e7d304618049b1ecea840f.s3tc.ctex", "res://.godot/imported/cancel_64dp_F5F5F5.svg-309c884032e7d304618049b1ecea840f.etc2.ctex"]
+source_file="res://assets/model/hand.png"
+dest_files=["res://.godot/imported/hand.png-d1df4f79df90daddee2d990edb4ecd74.s3tc.ctex", "res://.godot/imported/hand.png-d1df4f79df90daddee2d990edb4ecd74.etc2.ctex"]
 
 [params]
 
@@ -40,6 +40,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

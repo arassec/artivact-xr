@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bfbuoiwkg6q2j"]
+
+[ext_resource type="Script" uid="uid://ch4cvkp18v5xp" path="res://scenes/main/ui/main_menu_rc.gd" id="1_7nfa4"]
+[ext_resource type="PackedScene" uid="uid://suxlnu0mgn30" path="res://scenes/common/ui/rc_board.tscn" id="2_xuali"]
+[ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="4_7nfa4"]
+[ext_resource type="PackedScene" uid="uid://blqrhu3mdcrwn" path="res://scenes/common/ui/rc_button.tscn" id="4_q4o1q"]
+[ext_resource type="Texture2D" uid="uid://cyufc7y5tlhpd" path="res://assets/ui/icons/visibility_64dp_F5F5F5.svg" id="6_o0y67"]
+[ext_resource type="Texture2D" uid="uid://dat8wv4v6xcha" path="res://assets/ui/icons/visibility_off_64dp_F5F5F5.svg" id="6_q4o1q"]
+
+[node name="MainMenuRc" type="Node3D" unique_id=1174045980]
+script = ExtResource("1_7nfa4")
+
+[node name="PickableObject" parent="." unique_id=1746555377 instance=ExtResource("2_xuali")]
+
+[node name="ExitButton" parent="PickableObject" unique_id=1627065872 instance=ExtResource("4_q4o1q")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.14784071, 0.020395964, 0)
+type = 6
+iconOne = ExtResource("4_7nfa4")
+
+[node name="PassthroughButton" parent="PickableObject" unique_id=149111176 instance=ExtResource("4_q4o1q")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.021333277, 0)
+toggleButton = true
+type = 5
+iconOne = ExtResource("6_o0y67")
+iconTwo = ExtResource("6_q4o1q")
