@@ -4,7 +4,7 @@ extends XRController3D
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var controller_tracker : XRControllerTracker = XRServer.get_tracker(tracker)
 	if controller_tracker:
 		var new_pose : String = "palm_pose"

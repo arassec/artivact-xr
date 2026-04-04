@@ -7,7 +7,7 @@ extends XRNode3D
 @export_enum("Left","Right") var hand : int = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var new_tracker : String
 
 	# Check if our hand tracker is usable
@@ -16,8 +16,6 @@ func _process(delta):
 	var hand_tracker : XRHandTracker = XRServer.get_tracker(new_tracker)
 	if hand_tracker and hand_tracker.has_tracking_data:
 		if tracker != new_tracker:
-			print("Switching to left hand tracker" if hand == 0 \
-				else "Switching to right hand tracker")
 			tracker = new_tracker
 			pose = "default"
 
@@ -28,8 +26,6 @@ func _process(delta):
 	var controller_tracker : XRControllerTracker = XRServer.get_tracker(new_tracker)
 	if controller_tracker:
 		if tracker != new_tracker:
-			print("Switching to left controller tracker" if hand == 0 \
-				else "Switching to right controller tracker")
 			tracker = new_tracker
 
 		var new_pose : String = "palm_pose"

@@ -37,17 +37,13 @@ func _ready() -> void:
 ####################################################################################################
 # Toggles between AR und VR.
 ####################################################################################################
-func _toggle_ar_vr() -> void:
-	if arMode:
-		arMode = false
-		SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, false)
-		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
-		_switch_to_vr()
-	else:
-		arMode = true
-		SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, true)
-		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): true})
+func _toggle_ar_vr(ar_mode: bool) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, ar_mode)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
+	if ar_mode:
 		_switch_to_ar()
+	else:
+		_switch_to_vr()
 
 
 ####################################################################################################

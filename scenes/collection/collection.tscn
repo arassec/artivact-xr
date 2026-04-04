@@ -3,21 +3,26 @@
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_e2oop"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="2_a824d"]
 [ext_resource type="PackedScene" uid="uid://bsb13hpsnagd8" path="res://scenes/collection/collection_starter.tscn" id="3_cx0yf"]
+[ext_resource type="Script" uid="uid://cx3pqv8tmn6yd" path="res://scripts/ui/rc_finger_pointer.gd" id="4_a824d"]
 [ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/primary_panel.tscn" id="5_q47lq"]
 [ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/secondary_panel.tscn" id="6_eg380"]
+[ext_resource type="PackedScene" uid="uid://dj5lfesx1a05q" path="res://scenes/common/ui/tablet.tscn" id="7_cx0yf"]
 
 [node name="ArtivactSceneBase" unique_id=1931386276 instance=ExtResource("1_e2oop")]
 
-[node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="TabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="1" unique_id=846219046 node_paths=PackedStringArray("viewport", "composition_layer")]
+script = ExtResource("4_a824d")
+viewport = NodePath("../../../../../../../PrimaryPanelSubViewport")
+composition_layer = NodePath("../../../../../../PrimaryPanelOpenXRCompositionLayerQuad")
+
+[node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(0.86602527, 0, 0.50000024, 0, 1, 0, -0.50000024, 0, 0.86602527, -0.75, 1, -1.75)
 layer_viewport = NodePath("../../PrimaryPanelSubViewport")
-sort_order = -2
+sort_order = -1
 enable_hole_punch = true
-quad_size = Vector2(1.6, 0.9)
-script = ExtResource("2_a824d")
-controller = NodePath("../RightHand")
+quad_size = Vector2(0.42, 0.248)
 
-[node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" unique_id=516062467 node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="6" unique_id=516062467 node_paths=PackedStringArray("layer_viewport", "controller")]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0.75, 1, -1.75)
 layer_viewport = NodePath("../../SecondaryPanelSubViewport")
 sort_order = -2
@@ -26,7 +31,7 @@ quad_size = Vector2(1.6, 0.9)
 script = ExtResource("2_a824d")
 controller = NodePath("../RightHand")
 
-[node name="CollectionStarter" parent="XROrigin3D" index="5" unique_id=1038441025 instance=ExtResource("3_cx0yf")]
+[node name="CollectionStarter" parent="XROrigin3D" index="7" unique_id=1038441025 instance=ExtResource("3_cx0yf")]
 
 [node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="1" unique_id=461716119]
 size = Vector2i(1280, 720)
@@ -41,3 +46,10 @@ size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
 [node name="SecondaryPanel" parent="SecondaryPanelSubViewport" index="0" unique_id=304912942 instance=ExtResource("6_eg380")]
+
+[node name="Tablet" parent="." index="3" unique_id=133861402 node_paths=PackedStringArray("composition_layer") instance=ExtResource("7_cx0yf")]
+transform = Transform3D(1, 0, 0, 0, 0.8201918, -0.5720886, 0, 0.5720886, 0.8201918, 0, 0.9741268, -0.6016414)
+composition_layer = NodePath("../XROrigin3D/PrimaryPanelOpenXRCompositionLayerQuad")
+
+[editable path="XROrigin3D/LeftHandTracked/LeftHandHumanoid2"]
+[editable path="XROrigin3D/RightHandTracked/RightHandHumanoid2"]

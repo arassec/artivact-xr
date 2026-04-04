@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://17p1j28hhhme" path="res://scenes/main/ui/collection_menu.gd" id="1_4a80r"]
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_lbtn3"]
 [ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="2_7v2gc"]
-[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="3_7v2gc"]
 [ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="4_jgyxj"]
 [ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_hah2j"]
 [ext_resource type="Texture2D" uid="uid://d2k2r4p6qbmoq" path="res://assets/ui/icons/settings_64dp_F5F5F5.svg" id="5_iug8l"]
@@ -17,10 +16,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_iug8l"]
 font = ExtResource("5_hah2j")
 font_size = 48
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbtn3"]
-shader = ExtResource("3_7v2gc")
-shader_parameter/color = Color(1, 1, 1, 1)
 
 [node name="CollectionMenu" type="Control" unique_id=1012258326]
 custom_minimum_size = Vector2(1920, 1080)
@@ -427,14 +422,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "MAIN_WELCOME_URL"
 horizontal_alignment = 1
-
-[node name="Cursor" type="ColorRect" parent="." unique_id=1224199437]
-process_mode = 4
-material = SubResource("ShaderMaterial_lbtn3")
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
 
 [connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]

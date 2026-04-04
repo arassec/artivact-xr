@@ -12,6 +12,7 @@
 albedo_color = Color(0.6, 0.6, 0.6, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7kcn"]
+shading_mode = 0
 albedo_color = Color(0.6, 0.6, 0.6, 1)
 
 [node name="ArtivactSceneBase" unique_id=1177148375 instance=ExtResource("1_tbcxv")]
@@ -76,6 +77,7 @@ bone_name = "RightIndexTip"
 bone_idx = 9
 
 [node name="Poke" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" index="0" unique_id=180902599 instance=ExtResource("6_epif5")]
+color = Color(0.31311598, 0.30411133, 0.76935476, 0.85882354)
 push_bodies = false
 
 [connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]

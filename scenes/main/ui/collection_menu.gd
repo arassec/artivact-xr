@@ -68,13 +68,6 @@ func _ready():
 		find_child("DeCheckButton").disabled = true
 
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		# Move our cursor
-		var mouse_motion : InputEventMouseMotion = event
-		$Cursor.position = mouse_motion.position - Vector2(20, 20)
-
-
 func _collection_infos_updated() -> void:
 	_clear_operation_in_progress()
 	
@@ -170,14 +163,12 @@ func _on_music_volume_h_slider_value_changed(value: float) -> void:
 
 
 func _on_passthrough_mode_button_pressed() -> void:
-	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, true)
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): true})
+	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, true)
 	find_child("PassthroughModeButton").visible = false
 	find_child("ImmersiveModeButton").visible = true
 
 
 func _on_immersive_mode_button_pressed() -> void:
-	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, false)
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
+	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, false)
 	find_child("PassthroughModeButton").visible = true
 	find_child("ImmersiveModeButton").visible = false

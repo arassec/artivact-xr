@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dhmnu170xn4g0"]
+
+[resource]
+resource_name = "TabletMaterial"
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.43137255, 0.49411765, 0.52156866, 1)
