@@ -113,7 +113,7 @@ func _load_model(itemId: String, model: String):
 	mediaModelNode = gltfDocument.generate_scene(gltfState)
 	
 	ModelHelper.disable_light(mediaModelNode)
-	ModelHelper.scale_model(mediaModelNode, 0.75)
+	ModelHelper.scale_model(mediaModelNode, 1.0)
 
 	mediaLoaded = true
 

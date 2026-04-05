@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://17p1j28hhhme" path="res://scenes/main/ui/collection_menu.gd" id="1_4a80r"]
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_lbtn3"]
 [ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="2_7v2gc"]
-[ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="4_jgyxj"]
 [ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_hah2j"]
 [ext_resource type="Texture2D" uid="uid://d2k2r4p6qbmoq" path="res://assets/ui/icons/settings_64dp_F5F5F5.svg" id="5_iug8l"]
 [ext_resource type="Texture2D" uid="uid://dat8wv4v6xcha" path="res://assets/ui/icons/visibility_off_64dp_F5F5F5.svg" id="5_uda07"]
 [ext_resource type="Texture2D" uid="uid://cyufc7y5tlhpd" path="res://assets/ui/icons/visibility_64dp_F5F5F5.svg" id="6_x77j7"]
 [ext_resource type="Texture2D" uid="uid://sj0qijnoqdmk" path="res://assets/ui/icons/info_64dp_F5F5F5.svg" id="7_x77j7"]
 [ext_resource type="Texture2D" uid="uid://b64ihktt2qa2t" path="res://assets/ui/logos/artivact-logo.png" id="10_0o3wp"]
+[ext_resource type="Texture2D" uid="uid://528tubo04gp2" path="res://assets/ui/icons/close_64dp_F5F5F5.png" id="10_deku2"]
 [ext_resource type="Texture2D" uid="uid://bhofvapa7prsg" path="res://assets/ui/logos/godot_logo.png" id="11_nlc0g"]
 [ext_resource type="Texture2D" uid="uid://biahjxigt6urq" path="res://assets/ui/logos/artivact-xr-logo.png" id="12_deku2"]
 
@@ -31,49 +31,80 @@ theme = ExtResource("1_lbtn3")
 script = ExtResource("1_4a80r")
 
 [node name="CollectionContainer" type="Panel" parent="." unique_id=1782172829]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CollectionContainer" unique_id=1231336151]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="CollectionPaginationContainer" parent="CollectionContainer" unique_id=647102466 instance=ExtResource("2_7v2gc")]
-layout_mode = 1
-
-[node name="NoCollectionsErrorLabel" type="Label" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="1" unique_id=570897159]
+[node name="VBoxContainer" type="VBoxContainer" parent="CollectionContainer/MarginContainer" unique_id=598086145]
 layout_mode = 2
-text = "MAIN_ERROR_NO_COLLECTIONS"
+theme_override_constants/separation = 25
 
-[node name="ApiUrlLabel" type="Label" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="2" unique_id=565687564]
+[node name="MainMenuContainer" type="HBoxContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=1138558171]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_constants/separation = 25
 
-[node name="QuitButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0" unique_id=669889831]
+[node name="HBoxContainer" type="HBoxContainer" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer" unique_id=1405616620]
 layout_mode = 2
-text = "MAIN_EXIT"
-icon = ExtResource("4_jgyxj")
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
 
-[node name="ImmersiveModeButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="0" unique_id=2038986404]
+[node name="ImmersiveModeButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=2038986404]
 layout_mode = 2
 icon = ExtResource("5_uda07")
 
-[node name="PassthroughModeButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="1" unique_id=794868062]
+[node name="PassthroughModeButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=794868062]
 layout_mode = 2
 icon = ExtResource("6_x77j7")
 
-[node name="AboutButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="2" unique_id=1949348545]
+[node name="AboutButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=1949348545]
 layout_mode = 2
 icon = ExtResource("7_x77j7")
 
-[node name="SettingsButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="3" unique_id=1894854420]
+[node name="SettingsButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=1894854420]
 layout_mode = 2
 icon = ExtResource("5_iug8l")
 
+[node name="QuitButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer" unique_id=669889831]
+layout_mode = 2
+text = "MAIN_EXIT"
+icon = ExtResource("10_deku2")
+
+[node name="MarginContainer" type="MarginContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=353689417]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="CollectionPaginationContainer" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=647102466 instance=ExtResource("2_7v2gc")]
+layout_mode = 2
+
+[node name="NoCollectionsErrorLabel" type="Label" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="1" unique_id=570897159]
+layout_mode = 2
+text = "MAIN_ERROR_NO_COLLECTIONS"
+
+[node name="ApiUrlLabel" type="Label" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="2" unique_id=565687564]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
 [node name="OperationInProgressCover" type="ColorRect" parent="." unique_id=92394191]
 visible = false
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -95,10 +126,9 @@ vertical_alignment = 1
 
 [node name="SettingsPanel" type="Panel" parent="." unique_id=1325508052]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -121,16 +151,16 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="SettingsBackButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu" unique_id=1267499846]
-layout_mode = 2
-text = "MAIN_SETTINGS_BACK"
-icon = ExtResource("4_jgyxj")
-
 [node name="SettingsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu" unique_id=1588128288]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MAIN_SETTINGS"
 horizontal_alignment = 1
+
+[node name="SettingsBackButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu" unique_id=1267499846]
+layout_mode = 2
+text = "MAIN_SETTINGS_BACK"
+icon = ExtResource("10_deku2")
 
 [node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1754546509]
 layout_mode = 2
@@ -168,7 +198,7 @@ layout_mode = 2
 text = "MAIN_SETTINGS_LOCALE_DE"
 
 [node name="LocaleSelectionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer" unique_id=1887389353]
-custom_minimum_size = Vector2(1000, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -236,8 +266,7 @@ autowrap_mode = 2
 
 [node name="AboutPanel" type="Panel" parent="." unique_id=552158884]
 visible = false
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -262,10 +291,9 @@ theme_override_constants/separation = 20
 [node name="AboutMenu" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer" unique_id=1643186813]
 layout_mode = 2
 
-[node name="AboutBackButton" type="Button" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=1259404017]
+[node name="VersionLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=2096540851]
 layout_mode = 2
-text = "MAIN_ABOUT_BACK"
-icon = ExtResource("4_jgyxj")
+text = "v?"
 
 [node name="AboutLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=1070918538]
 layout_mode = 2
@@ -273,9 +301,10 @@ size_flags_horizontal = 3
 text = "MAIN_ABOUT"
 horizontal_alignment = 1
 
-[node name="VersionLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=2096540851]
+[node name="AboutBackButton" type="Button" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=1259404017]
 layout_mode = 2
-text = "v?"
+text = "MAIN_ABOUT_BACK"
+icon = ExtResource("10_deku2")
 
 [node name="HSeparator" type="HSeparator" parent="AboutPanel/MarginContainer/VBoxContainer" unique_id=570755672]
 layout_mode = 2
@@ -332,8 +361,7 @@ expand_mode = 3
 
 [node name="WelcomePanel" type="Panel" parent="." unique_id=285327674]
 visible = false
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -358,16 +386,16 @@ theme_override_constants/separation = 20
 [node name="WelcomeMenu" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=2015940456]
 layout_mode = 2
 
-[node name="WelcomeBackButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu" unique_id=190820978]
-layout_mode = 2
-text = "MAIN_ABOUT_BACK"
-icon = ExtResource("4_jgyxj")
-
 [node name="WelcomeLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu" unique_id=1622337203]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MAIN_WELCOME"
 horizontal_alignment = 1
+
+[node name="WelcomeBackButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu" unique_id=190820978]
+layout_mode = 2
+text = "MAIN_ABOUT_BACK"
+icon = ExtResource("10_deku2")
 
 [node name="HSeparator" type="HSeparator" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=1544934565]
 layout_mode = 2
@@ -423,11 +451,11 @@ theme_override_font_sizes/font_size = 64
 text = "MAIN_WELCOME_URL"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/AboutButton" to="." method="_on_about_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/EnCheckButton" to="." method="_on_en_check_button_toggled"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/DeCheckButton" to="." method="_on_de_check_button_toggled"]
@@ -436,4 +464,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu/WelcomeBackButton" to="." method="_on_welcome_back_button_pressed"]
 
-[editable path="CollectionContainer/CollectionPaginationContainer"]
+[editable path="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer"]

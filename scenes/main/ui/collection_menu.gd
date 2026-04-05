@@ -89,7 +89,7 @@ func _collection_infos_updated() -> void:
 		cardSceneInstance.initialize(collectionInfo, fontSize)
 		content.push_back(cardSceneInstance)
 		
-	$CollectionContainer/CollectionPaginationContainer.set_content(content)
+	$CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer.set_content(content)
 
 
 func _on_quit_button_pressed() -> void:

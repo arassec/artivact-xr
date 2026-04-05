@@ -66,9 +66,9 @@ func _ready():
 
 	var rightHandActive = SettingsStore.get_value(SettingsStore.SettingType.ACTIVE_HAND)
 	if rightHandActive:
-		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
+		get_parent().find_child("TabletOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
 	else:
-		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
+		get_parent().find_child("TabletOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
 
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
