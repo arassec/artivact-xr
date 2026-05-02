@@ -80,11 +80,17 @@ skeleton = NodePath("")
 
 [node name="GrabPointHandLeft" parent="PickableObject" unique_id=1294466678 instance=ExtResource("3_47m75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20995677, 0.0083825365, -0.08332643)
+snap_hand = false
 hand_pose = SubResource("Resource_b3ja4")
 
 [node name="GrabPointHandRight" parent="PickableObject" unique_id=1498361526 instance=ExtResource("6_m46sv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20785049, 0.00832966, -0.07900794)
+snap_hand = false
 hand_pose = SubResource("Resource_yuf5t")
 
 [node name="CompositionAnchor" type="Node3D" parent="PickableObject" unique_id=1978837608]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.002, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1324701889]
+
+[connection signal="dropped" from="PickableObject" to="." method="_on_pickable_object_dropped"]

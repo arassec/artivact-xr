@@ -1,5 +1,5 @@
 keys,en,de
-MAIN_EXIT,Exit App,App Beenden
+MAIN_EXIT,Exit,Beenden
 MAIN_SYNCHRONIZE,Synchronize,Synchronisieren
 MAIN_SETTINGS,Settings,Einstellungen
 MAIN_PREVIOUS,Previous,Zurück
@@ -17,9 +17,11 @@ MAIN_SETTINGS_LOCALE,Localization,Lokalisierung
 MAIN_SETTINGS_LOCALE_SELECTION,Sets the application’s language. Your selected language might not be available in downloaded collections!,Konfiguriert die Anwendungssprache. Die gewählte Sprache ist ggf. In heruntergeladenen Sammlungen nicht verfügbar!
 MAIN_SETTINGS_LOCALE_EN,English,Englisch
 MAIN_SETTINGS_LOCALE_DE,German,Deutsch
-MAIN_SETTINGS_MUSIC,Music Settings,Musik
+MAIN_SETTINGS_SOUND,Music and Voice,Musik und Sprachausgabe
 MAIN_SETTINGS_PLAY_MUSIC,Enables or disables ambient music.,Aktiviert oder deaktiviert die Hintergrundmusik.
 MAIN_SETTINGS_MUSIC_VOLUME,Adjusts the ambient music’s volume.,Regelt die Lautstärke der Hintergrundmusik.
+MAIN_SETTINGS_PLAY_VOICE,Enables or disables voice output.,Aktiviert oder deaktiviert die Sprachausgabe.
+MAIN_SETTINGS_VOICE_VOLUME,Adjusts the voice output’s volume.,Regelt die Lautstärke der Sprachausgabe.
 MAIN_SETTINGS_CONTROLS,Controls Settings,Steuerung
 MAIN_SETTINGS_ACTIVE_HAND,The active hand used throughout the application will automatically be set by pressing the trigger button of the desired controller.,"Die aktive Hand, die zur Benutzung der Anwendung verwendet wird, kann durch drücken der Trigger-Taste ausgewählt werden."
 MAIN_ABOUT,About Artivact XR,Über Artivact XR

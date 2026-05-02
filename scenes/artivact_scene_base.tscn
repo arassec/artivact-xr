@@ -1,24 +1,24 @@
 [gd_scene format=3 uid="uid://c77u65qfcq80w"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_tbcxv"]
-[ext_resource type="Script" uid="uid://do1jeepxesdg5" path="res://scripts/util/hand_controller.gd" id="2_tkvr8"]
+[ext_resource type="Script" uid="uid://do1jeepxesdg5" path="res://scripts/util/hand_tracked_controller.gd" id="2_tkvr8"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_su8sa"]
 [ext_resource type="PackedScene" uid="uid://bt58s03wwg2yf" path="res://assets/model/LeftHandHumanoid.gltf" id="5_w7kcn"]
-[ext_resource type="PackedScene" uid="uid://bjcxf427un2wp" path="res://addons/godot-xr-tools/player/poke/poke.tscn" id="6_epif5"]
 [ext_resource type="Script" uid="uid://ckjntwe7qi42v" path="res://scripts/util/hand_tracked.gd" id="6_su8sa"]
 [ext_resource type="PackedScene" uid="uid://dppwkv8stx60y" path="res://assets/model/RightHandHumanoid.gltf" id="6_tkvr8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkvr8"]
-albedo_color = Color(0.6, 0.6, 0.6, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7kcn"]
 shading_mode = 0
-albedo_color = Color(0.6, 0.6, 0.6, 1)
+albedo_color = Color(0.73333335, 0.7294118, 0.7764706, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su8sa"]
+shading_mode = 0
+albedo_color = Color(0.73333335, 0.7294118, 0.7764706, 1)
 
 [node name="ArtivactSceneBase" unique_id=1177148375 instance=ExtResource("1_tbcxv")]
 
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 
 [node name="LeftHand" parent="XROrigin3D" index="1"]
 pose = &"palm_pose"
@@ -39,6 +39,7 @@ grab_distance = 0.05
 ranged_enable = false
 
 [node name="LeftHandTracked" type="XRNode3D" parent="XROrigin3D" index="3" unique_id=1515292575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.25)
 tracker = &"/user/hand_tracker/left"
 show_when_tracked = true
 script = ExtResource("6_su8sa")
@@ -55,9 +56,8 @@ transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266
 bone_name = "LeftIndexTip"
 bone_idx = 9
 
-[node name="Poke" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" index="0" unique_id=1215129021 instance=ExtResource("6_epif5")]
-
 [node name="RightHandTracked" type="XRNode3D" parent="XROrigin3D" index="4" unique_id=1459723928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.25)
 tracker = &"/user/hand_tracker/right"
 show_when_tracked = true
 script = ExtResource("6_su8sa")
@@ -66,7 +66,7 @@ hand = 1
 [node name="RightHandHumanoid2" parent="XROrigin3D/RightHandTracked" index="0" unique_id=2050139505 instance=ExtResource("6_tkvr8")]
 
 [node name="RightHandHumanoidMesh" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(2050139505, 1746320013) index="0" unique_id=19035335]
-surface_material_override/0 = SubResource("StandardMaterial3D_w7kcn")
+surface_material_override/0 = SubResource("StandardMaterial3D_su8sa")
 
 [node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(2050139505, 1746320013) index="1" unique_id=110013146]
 hand_tracker = &"/user/hand_tracker/right"
@@ -75,10 +75,6 @@ hand_tracker = &"/user/hand_tracker/right"
 transform = Transform3D(0.01903836, -0.39268863, -0.9194744, 0.99322706, 0.11285307, -0.027631793, 0.11461615, -0.91272074, 0.39217746, 0.011100034, 0.04294298, -0.17161338)
 bone_name = "RightIndexTip"
 bone_idx = 9
-
-[node name="Poke" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" index="0" unique_id=180902599 instance=ExtResource("6_epif5")]
-color = Color(0.31311598, 0.30411133, 0.76935476, 0.85882354)
-push_bodies = false
 
 [connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]
 [connection signal="button_released" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_released"]

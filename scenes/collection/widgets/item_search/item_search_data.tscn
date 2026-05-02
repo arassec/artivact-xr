@@ -21,7 +21,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
@@ -31,7 +30,7 @@ theme_override_constants/separation = 25
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2002988295]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "Item Title"
 horizontal_alignment = 1
 
@@ -39,4 +38,4 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 5
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24

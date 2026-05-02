@@ -129,6 +129,25 @@ func read_json_file(jsonFile: String) -> Dictionary:
 		result = { "values": json.data}
 
 	return result
+
+
+####################################################################################################
+# TODO
+####################################################################################################
+func play_audio_file(filepath: String, locale: String, player: AudioStreamPlayer) -> void:
+	if player.is_playing():
+		player.stop()
+
+	if locale:
+		filepath += "-" + locale
+	
+	var mp3Bytes = get_collection_zip_reader(selectedCollectionId).read_file(filepath + ".mp3")
+
+	if !mp3Bytes.is_empty():
+		var stream := AudioStreamMP3.new()
+		stream.data = mp3Bytes
+		player.stream = stream
+		player.play()
 	
 
 ####################################################################################################

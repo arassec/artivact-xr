@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_t5kjr"]
 [ext_resource type="Script" uid="uid://bljrg81qwctxr" path="res://scenes/collection/widgets/item_search/item_search_primary.gd" id="2_wqddn"]
+[ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="3_rjx38"]
 
 [node name="ItemSearchPrimary" type="Control" unique_id=1768741951]
 layout_mode = 3
@@ -25,36 +26,10 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=456304432]
+[node name="PaginationContainer" parent="MarginContainer" unique_id=1366288663 instance=ExtResource("3_rjx38")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=36674465]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 15
+[connection signal="before_clicked" from="MarginContainer/PaginationContainer" to="." method="_on_pagination_container_before_clicked"]
+[connection signal="next_clicked" from="MarginContainer/PaginationContainer" to="." method="_on_pagination_container_next_clicked"]
 
-[node name="HeadingContainer" type="PanelContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1776702344]
-layout_mode = 2
-size_flags_stretch_ratio = 2.0
-
-[node name="HeadingLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HeadingContainer" unique_id=1712801150]
-custom_minimum_size = Vector2(680, 62)
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Text Widget Title"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="ContentContainer" type="PanelContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1043351206]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 6.0
-
-[node name="ContentLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ContentContainer" unique_id=685371621]
-custom_minimum_size = Vector2(680, 0)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-autowrap_mode = 2
+[editable path="MarginContainer/PaginationContainer"]

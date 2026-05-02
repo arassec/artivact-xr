@@ -44,6 +44,9 @@ func _ready():
 	find_child("MusicEnabledCheckBox").button_pressed = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	find_child("MusicVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 
+	find_child("VoiceEnabledCheckBox").button_pressed = SettingsStore.get_value(SettingsStore.SettingType.VOICE_ENABLED)
+	find_child("VoiceVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.VOICE_VOLUME)
+
 	var firstStart = SettingsStore.get_value(SettingsStore.SettingType.FIRST_START)
 	var showWelcomePage = SettingsStore.get_value(SettingsStore.SettingType.SHOW_WELCOME_PAGE)
 	if firstStart:
@@ -172,3 +175,13 @@ func _on_immersive_mode_button_pressed() -> void:
 	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, false)
 	find_child("PassthroughModeButton").visible = true
 	find_child("ImmersiveModeButton").visible = false
+
+
+func _on_voice_enabled_check_box_toggled(toggled_on: bool) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.VOICE_ENABLED, toggled_on)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_ENABLED): toggled_on})
+
+
+func _on_voice_volume_h_slider_value_changed(value: float) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.VOICE_VOLUME, value)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_VOLUME): value})

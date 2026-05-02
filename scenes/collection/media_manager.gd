@@ -49,10 +49,10 @@ func _process(delta):
 		mediaModelNode.rotate(Vector3(0, 1, 0), 0.4 * delta)
 
 
+
 func _grab_item_model(controller: XRController3D) -> void:
 	if controller != null && mediaModelNode != null && !mediaLoaded && grabbingController == null:
 		grabbingController = controller
-		controller.find_child("FunctionPointer").visible = false
 		rotateModelHorizontally = false
 		remove_child(mediaModelNode)
 		mediaModelNode.scale *= 0.25
@@ -62,7 +62,6 @@ func _grab_item_model(controller: XRController3D) -> void:
 func _release_item_model(controller: XRController3D) -> void:
 	if controller != null && mediaModelNode != null && grabbingController == controller:
 		grabbingController = null
-		controller.find_child("FunctionPointer").visible = true
 		controller.remove_child(mediaModelNode)
 		mediaModelNode.scale *= 4
 		add_child(mediaModelNode)

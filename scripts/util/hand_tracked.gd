@@ -6,6 +6,24 @@ extends XRNode3D
 ## Hand for which to get our tracking data.
 @export_enum("Left","Right") var hand : int = 0
 
+var hand_tracker: XRHandTracker
+
+
+####################################################################################################
+# Registers for signals.
+####################################################################################################
+func _init():
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_hand)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_hand)
+
+
+####################################################################################################
+# Deregisters from signals.
+####################################################################################################
+func _exit_tree():
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_hand)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_hand)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	var new_tracker : String
@@ -35,3 +53,14 @@ func _process(_delta):
 
 		if pose != new_pose:
 			pose = new_pose
+@onready var left_hand_humanoid_2: Node3D = $LeftHandHumanoid2
+
+
+func _hide_hand(controller: XRController3D) -> void:
+	print("HIDE")
+	visible = false
+
+
+func _show_hand(controller: XRController3D) -> void:
+	print("SHOW")
+	visible = true

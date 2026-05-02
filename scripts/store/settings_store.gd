@@ -15,11 +15,15 @@ enum SettingType {
 	ACTIVE_HAND, # value of 'true' means 'right hand'
 	AR_MODE, # value of 'true' means 'AR', 'false' means 'VR'
 	FIRST_START,
-	LOCALE # 0 == en, 1 == de
+	LOCALE, # 0 == en, 1 == de
+	VOICE_ENABLED,
+	VOICE_VOLUME
 }
 
 var appSettings: Dictionary
 var userSettings: Dictionary
+
+var tabletTransform = null
 
 
 func _init():
@@ -50,6 +54,10 @@ func _init():
 			userSettings[str(SettingType.LOCALE)] = 1
 		else:
 			userSettings[str(SettingType.LOCALE)] = -1
+	if !userSettings.has(str(SettingType.VOICE_ENABLED)):
+		userSettings[str(SettingType.VOICE_ENABLED)] = true
+	if !userSettings.has(str(SettingType.VOICE_VOLUME)):
+		userSettings[str(SettingType.VOICE_VOLUME)] = 0.4
 
 	_save_user_settings()
 	
@@ -77,6 +85,14 @@ func get_value(setting: SettingType) -> Variant:
 	return null
 
 
+func get_locale() -> String:
+	if userSettings.has(str(SettingType.LOCALE)):
+		var configuredLocale = userSettings[str(SettingType.LOCALE)]
+		if configuredLocale == 1:
+			return "de"
+	return ""
+
+
 func _save_user_settings() -> void:
 	var file_access := FileAccess.open(userSettingsFile, FileAccess.WRITE)
 	if not file_access:
@@ -85,3 +101,11 @@ func _save_user_settings() -> void:
 
 	file_access.store_line(JSON.stringify(userSettings))
 	file_access.close()
+
+
+func set_tablet_transform(transform: Transform3D) -> void:
+	tabletTransform = transform
+
+
+func get_tablet_transform():
+	return tabletTransform

@@ -13,7 +13,7 @@ var downloadInProgress = false
 # Delay before the status of downloads is updated in milliseconds:
 var downloadStatusDelay = 10
 
-# Indicates that the component must be initialized. Used to e.g. place the main menu panel when
+# Indicates that the component must be initialized. Used to e.g. place the tablet when
 # the user is sitting.
 var initialize = true
 
@@ -75,7 +75,7 @@ func _ready():
 		TranslationServer.set_locale('en')
 	elif locale == 1:
 		TranslationServer.set_locale('de')
-		
+
 
 ####################################################################################################
 # Triggers an update of the selected collection info in the main UI panel. This is done here,
@@ -96,13 +96,6 @@ func _process(delta):
 		if downloadStatusDelay < 0:
 			downloadStatusDelay = 10
 			SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION_PROGRESS, $RemoteArtivactServer.get_progress(remoteCollectionFileSize))
-
-	if initialize:
-		initialize = false
-		var cam = get_parent().find_child("XRCamera3D")
-		var collectionMenu = get_parent().find_child("DebugPanelOpenXRCompositionLayerQuad")
-		if cam && collectionMenu:
-			collectionMenu.transform.origin.y = (cam.transform.origin.y - 0.35)
 
 
 ####################################################################################################
@@ -210,12 +203,6 @@ func _setting_changed(setting: Dictionary) -> void:
 	elif setting.has(str(SettingsStore.SettingType.MUSIC_VOLUME)):
 		var musicVolume = setting[str(SettingsStore.SettingType.MUSIC_VOLUME)]
 		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
-	elif setting.has(str(SettingsStore.SettingType.ACTIVE_HAND)):
-		var rightHandActive = setting[str(SettingsStore.SettingType.ACTIVE_HAND)]
-		if rightHandActive:
-			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
-		else:
-			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
 	elif setting.has(str(SettingsStore.SettingType.LOCALE)):
 		# If the locale changed -> reload collection infos:
 		CollectionStore.load_collection_infos()

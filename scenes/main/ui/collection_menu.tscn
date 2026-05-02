@@ -51,7 +51,7 @@ theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CollectionContainer/MarginContainer" unique_id=598086145]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 20
 
 [node name="MainMenuContainer" type="HBoxContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=1138558171]
 layout_mode = 2
@@ -82,6 +82,9 @@ icon = ExtResource("5_iug8l")
 layout_mode = 2
 text = "MAIN_EXIT"
 icon = ExtResource("10_deku2")
+
+[node name="HSeparator" type="HSeparator" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=850514695]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=353689417]
 layout_mode = 2
@@ -209,9 +212,9 @@ autowrap_mode = 2
 [node name="LocaleHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1648104250]
 layout_mode = 2
 
-[node name="MusicLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1181885257]
+[node name="SoundLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1181885257]
 layout_mode = 2
-text = "MAIN_SETTINGS_MUSIC"
+text = "MAIN_SETTINGS_SOUND"
 
 [node name="MusicEnabledHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=795994993]
 layout_mode = 2
@@ -244,25 +247,40 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_MUSIC_VOLUME"
 
-[node name="MusicHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=866552239]
-layout_mode = 2
-
-[node name="ControlsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1646959915]
-layout_mode = 2
-text = "MAIN_SETTINGS_CONTROLS"
-
-[node name="ActiveHandHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1060822362]
+[node name="VoiceEnabledHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1060822362]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="ActiveHandDescriptionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ActiveHandHBoxContainer" unique_id=2032932723]
-custom_minimum_size = Vector2(200, 0)
+[node name="VoiceEnabledCheckBox" type="CheckBox" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer" unique_id=1544983426]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="VoiceEnabledLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer" unique_id=21677652]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
+size_flags_stretch_ratio = 2.1
+text = "MAIN_SETTINGS_PLAY_VOICE"
+
+[node name="VoiceVolumeHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1261381066]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="VoiceVolumeHSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer" unique_id=604247579]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+
+[node name="VoiceVolumeLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer" unique_id=294106288]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-text = "MAIN_SETTINGS_ACTIVE_HAND"
-autowrap_mode = 2
+text = "MAIN_SETTINGS_VOICE_VOLUME"
+
+[node name="MusicHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=866552239]
+visible = false
+layout_mode = 2
 
 [node name="AboutPanel" type="Panel" parent="." unique_id=552158884]
 visible = false
@@ -461,6 +479,8 @@ horizontal_alignment = 1
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/DeCheckButton" to="." method="_on_de_check_button_toggled"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer/MusicEnabledCheckBox" to="." method="_on_music_enabled_check_box_toggled"]
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer/VoiceEnabledCheckBox" to="." method="_on_voice_enabled_check_box_toggled"]
+[connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer/VoiceVolumeHSlider" to="." method="_on_voice_volume_h_slider_value_changed"]
 [connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu/WelcomeBackButton" to="." method="_on_welcome_back_button_pressed"]
 
