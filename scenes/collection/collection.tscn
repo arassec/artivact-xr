@@ -11,22 +11,28 @@
 
 [node name="ArtivactSceneBase" unique_id=1931386276 instance=ExtResource("1_e2oop")]
 
-[node name="LeftTabletFingerPointer" type="Node3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1481069490) index="1" unique_id=354435966 node_paths=PackedStringArray("viewport", "composition_layer", "audio_player")]
+[node name="LeftHand" parent="XROrigin3D" index="1" node_paths=PackedStringArray("tablet")]
+tablet = NodePath("../Tablet")
+
+[node name="RightHand" parent="XROrigin3D" index="2" node_paths=PackedStringArray("tablet")]
+tablet = NodePath("../Tablet")
+
+[node name="LeftTabletFingerPointer" type="Node3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1481069490) index="0" unique_id=354435966 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
 transform = Transform3D(-0.9994227, -0.011696085, -0.031895116, 0.014952645, 0.6915824, -0.722143, 0.030504402, -0.722203, -0.6910082, 0.00033061393, 0.008717284, 0.020414375)
 script = ExtResource("4_a824d")
 hover_distance = 0.05
 click_distance = 0.01
 viewport = NodePath("../../../../../../../TabletSubViewport")
 composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
-audio_player = NodePath("../../../../../../../TabletClickAudioStreamPlayer")
+tablet = NodePath("../../../../../../Tablet")
 
-[node name="RightTabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="1" unique_id=846219046 node_paths=PackedStringArray("viewport", "composition_layer", "audio_player")]
+[node name="RightTabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="0" unique_id=846219046 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
 script = ExtResource("4_a824d")
 hover_distance = 0.05
 click_distance = 0.01
 viewport = NodePath("../../../../../../../TabletSubViewport")
 composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
-audio_player = NodePath("../../../../../../../TabletClickAudioStreamPlayer")
+tablet = NodePath("../../../../../../Tablet")
 
 [node name="TabletOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(0.86602527, 0, 0.50000024, 0, 1, 0, -0.50000024, 0, 0.86602527, -0.75, 1, -1.75)
@@ -44,7 +50,13 @@ quad_size = Vector2(1.6, 0.9)
 script = ExtResource("2_a824d")
 controller = NodePath("../RightHand")
 
-[node name="CollectionStarter" parent="XROrigin3D" index="7" unique_id=1038441025 instance=ExtResource("3_cx0yf")]
+[node name="CollectionStarter" parent="XROrigin3D" index="7" unique_id=1038441025 node_paths=PackedStringArray("tablet", "tablet_open_xr_composition_layer_quad") instance=ExtResource("3_cx0yf")]
+tablet = NodePath("../Tablet")
+tablet_open_xr_composition_layer_quad = NodePath("../TabletOpenXRCompositionLayerQuad")
+
+[node name="Tablet" parent="XROrigin3D" index="8" unique_id=133861402 node_paths=PackedStringArray("composition_layer") instance=ExtResource("7_cx0yf")]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0.95, -0.44)
+composition_layer = NodePath("../TabletOpenXRCompositionLayerQuad")
 
 [node name="TabletSubViewport" type="SubViewport" parent="." index="1" unique_id=461716119]
 size = Vector2i(1280, 720)
@@ -60,11 +72,7 @@ render_target_update_mode = 4
 
 [node name="BeamerContent" parent="BeamerSubViewport" index="0" unique_id=304912942 instance=ExtResource("6_eg380")]
 
-[node name="Tablet" parent="." index="3" unique_id=133861402 node_paths=PackedStringArray("composition_layer") instance=ExtResource("7_cx0yf")]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0.95, -0.44)
-composition_layer = NodePath("../XROrigin3D/TabletOpenXRCompositionLayerQuad")
-
-[node name="TabletClickAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="4" unique_id=199398461]
+[node name="TabletClickAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3" unique_id=199398461]
 stream = ExtResource("8_cx0yf")
 volume_db = -25.0
 

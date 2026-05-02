@@ -7,11 +7,27 @@
 [ext_resource type="Script" uid="uid://ckjntwe7qi42v" path="res://scripts/util/hand_tracked.gd" id="6_su8sa"]
 [ext_resource type="PackedScene" uid="uid://dppwkv8stx60y" path="res://assets/model/RightHandHumanoid.gltf" id="6_tkvr8"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epif5"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.001
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkvr8"]
+next_pass = SubResource("StandardMaterial3D_epif5")
 shading_mode = 0
 albedo_color = Color(0.73333335, 0.7294118, 0.7764706, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7kcn"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.001
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su8sa"]
+next_pass = SubResource("StandardMaterial3D_w7kcn")
 shading_mode = 0
 albedo_color = Color(0.73333335, 0.7294118, 0.7764706, 1)
 
@@ -38,11 +54,12 @@ script = ExtResource("2_tkvr8")
 grab_distance = 0.05
 ranged_enable = false
 
-[node name="LeftHandTracked" type="XRNode3D" parent="XROrigin3D" index="3" unique_id=1515292575]
+[node name="LeftHandTracked" type="XRNode3D" parent="XROrigin3D" index="3" unique_id=1515292575 node_paths=PackedStringArray("hand_mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.25)
 tracker = &"/user/hand_tracker/left"
 show_when_tracked = true
 script = ExtResource("6_su8sa")
+hand_mesh = NodePath("LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/LeftHandHumanoidMesh")
 
 [node name="LeftHandHumanoid2" parent="XROrigin3D/LeftHandTracked" index="0" unique_id=1838627276 instance=ExtResource("5_w7kcn")]
 
@@ -56,12 +73,13 @@ transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266
 bone_name = "LeftIndexTip"
 bone_idx = 9
 
-[node name="RightHandTracked" type="XRNode3D" parent="XROrigin3D" index="4" unique_id=1459723928]
+[node name="RightHandTracked" type="XRNode3D" parent="XROrigin3D" index="4" unique_id=1459723928 node_paths=PackedStringArray("hand_mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.25)
 tracker = &"/user/hand_tracker/right"
 show_when_tracked = true
 script = ExtResource("6_su8sa")
 hand = 1
+hand_mesh = NodePath("RightHandHumanoid2/RightHandHumanoid/Skeleton3D/RightHandHumanoidMesh")
 
 [node name="RightHandHumanoid2" parent="XROrigin3D/RightHandTracked" index="0" unique_id=2050139505 instance=ExtResource("6_tkvr8")]
 

@@ -23,7 +23,8 @@ enum SettingType {
 var appSettings: Dictionary
 var userSettings: Dictionary
 
-var tabletTransform = null
+var tabletTransform: Transform3D
+var tabletPickedUp: bool = false
 
 
 func _init():
@@ -102,6 +103,14 @@ func _save_user_settings() -> void:
 	file_access.store_line(JSON.stringify(userSettings))
 	file_access.close()
 
+
+func set_tablet_picked_up(pickedUp: bool) -> void:
+	tabletPickedUp = pickedUp
+
+
+func is_tablet_picked_up() -> bool:
+	return tabletPickedUp
+	
 
 func set_tablet_transform(transform: Transform3D) -> void:
 	tabletTransform = transform

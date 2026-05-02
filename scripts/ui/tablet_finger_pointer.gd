@@ -18,8 +18,8 @@ const NO_INTERSECTION := Vector2(-1.0, -1.0)
 ## The composition layer whose surface is used for hit-testing.
 @export var composition_layer: OpenXRCompositionLayerQuad
 
-## The player to play the 'click' sound when clicking.
-@export var audio_player: AudioStreamPlayer
+## The tablet to play the 'click' sound when interacting.
+@export var tablet: Tablet
 
 
 var _was_clicking: bool = false
@@ -34,6 +34,9 @@ func _process(delta: float) -> void:
 	if not viewport or not composition_layer:
 		return
 
+	if not composition_layer.visible:
+		return
+		
 	var finger_pos: Vector3 = global_position
 	var layer_normal: Vector3 = composition_layer.global_transform.basis.z
 
@@ -69,8 +72,8 @@ func _process(delta: float) -> void:
 			release_event.position = viewport_pos
 			viewport.push_input(release_event)
 			
-			if audio_player:
-				audio_player.play()
+			if tablet:
+				tablet.play_click()
 
 			_click_cooldown_remaining = click_cooldown
 

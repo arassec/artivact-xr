@@ -13,8 +13,7 @@ var downloadInProgress = false
 # Delay before the status of downloads is updated in milliseconds:
 var downloadStatusDelay = 10
 
-# Indicates that the component must be initialized. Used to e.g. place the tablet when
-# the user is sitting.
+# Indicates that the component must be initialized. 
 var initialize = true
 
 # Filesize of a remote collection. Will be set before Downoad and used to calculate the progress.
@@ -34,7 +33,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-
+	
 
 ####################################################################################################
 # Cleans up signal registrations after the scene closed.
@@ -45,7 +44,7 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-
+	
 
 ####################################################################################################
 # Sets display configurations, e.g. 4xMSAA.
@@ -54,7 +53,7 @@ func _ready():
 	# Initialize Godot XR stuff:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	get_viewport().msaa_3d = Viewport.MSAA_4X
-
+	
 	# Apply settings:
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 	if musicVolume:
@@ -63,12 +62,6 @@ func _ready():
 	var musicEnabled = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	if musicEnabled:
 		$AudioStreamPlayer.play()
-
-	var rightHandActive = SettingsStore.get_value(SettingsStore.SettingType.ACTIVE_HAND)
-	if rightHandActive:
-		get_parent().find_child("TabletOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
-	else:
-		get_parent().find_child("TabletOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
 
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:

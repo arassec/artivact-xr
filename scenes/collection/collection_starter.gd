@@ -21,7 +21,11 @@ var backgroundSceneInstance
 
 var curWidgetIndex = 0
 
-var voiceEnabled: bool = true
+var voiceEnabled: bool = false
+
+@export var tablet: Tablet
+@export var tablet_open_xr_composition_layer_quad: OpenXRCompositionLayerQuad
+
 
 ####################################################################################################
 # Registers for signals.
@@ -32,6 +36,8 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.register(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_tablet)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_tablet)
 
 	_load_pages()
 
@@ -44,6 +50,8 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.deregister(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_tablet)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_tablet)
 
 
 ####################################################################################################
@@ -94,7 +102,7 @@ func _ready():
 	if voiceVolume:
 		$AudioStreamPlayer.volume_db = linear_to_db(voiceVolume)
 	
-	var voiceEnabled = SettingsStore.get_value(SettingsStore.SettingType.VOICE_ENABLED)
+	voiceEnabled = SettingsStore.get_value(SettingsStore.SettingType.VOICE_ENABLED)
 
 	if voiceEnabled:
 		CollectionStore.play_audio_file(CollectionStore.get_selected_collection(), SettingsStore.get_locale(), $AudioStreamPlayer)
@@ -108,10 +116,6 @@ func _ready():
 func _process(_delta) -> void:
 	if initialize:
 		initialize = false
-		var cam = get_parent().find_child("XRCamera3D")
-		var debugPanel = get_parent().find_child("DebugPanelOpenXRCompositionLayerQuad")
-		if cam && debugPanel:
-			debugPanel.transform.origin.y = (cam.transform.origin.y - 0.35)
 
 		# Fake a text widget to display the collection's general content description on the scondary panel:
 		if artivactContentJson.title && artivactContentJson.content:
@@ -152,7 +156,8 @@ func _open_page(menuId):
 
 
 ####################################################################################################
-# TODO
+# Called when a new Widget is opened. The widget scenes are prepared and the widget's audio is 
+# played (if any).
 ####################################################################################################
 func _open_widget(widgetId):
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
@@ -180,6 +185,7 @@ func _open_widget(widgetId):
 					widgetSceneData.secondaryPanelScene = "uid://bn16unntpl8nj"
 
 				var widgetAudioFile = PathUtil.get_file_path(ComponentType.WIDGET, widgetId, "content-audio")
+
 				if voiceEnabled:
 					CollectionStore.play_audio_file(widgetAudioFile, SettingsStore.get_locale(), $AudioStreamPlayer)
 				
@@ -193,6 +199,8 @@ func _open_widget(widgetId):
 ####################################################################################################
 func _close_widget():
 	# get_parent().find_child("BeamerOpenXRCompositionLayerQuad").visible = false
+	if $AudioStreamPlayer.is_playing():
+		$AudioStreamPlayer.stop()
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
 
 
@@ -209,3 +217,23 @@ func _quit_collection():
 		return
 	# Request loading the next scene
 	scene_base.exit_to_main_menu()
+
+
+####################################################################################################
+# Hides the tablet.
+####################################################################################################
+func _hide_tablet(_controller: XRController3D) -> void:
+	if tablet:
+		tablet.visible = false
+	if tablet_open_xr_composition_layer_quad:
+		tablet_open_xr_composition_layer_quad.visible = false
+
+
+####################################################################################################
+# Shows the tablet.
+####################################################################################################
+func _show_tablet(_controller: XRController3D) -> void:
+	if tablet:
+		tablet.visible = true
+	if tablet_open_xr_composition_layer_quad:
+		tablet_open_xr_composition_layer_quad.visible = true
