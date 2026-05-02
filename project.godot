@@ -37,7 +37,7 @@ window/size/viewport_height=540
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 
@@ -61,6 +61,21 @@ import/blender/enabled=false
 
 locale/translations=PackedStringArray("res://assets/ui/i18n/labels.de.translation", "res://assets/ui/i18n/labels.en.translation")
 
+[layer_names]
+
+3d_physics/layer_1="Static World"
+3d_physics/layer_2="Dynamic World"
+3d_physics/layer_3="Pickable Objects"
+3d_physics/layer_4="Wall Walking"
+3d_physics/layer_5="Grappling Target"
+3d_physics/layer_17="Held Objects"
+3d_physics/layer_18="Player Hands"
+3d_physics/layer_19="Grab Handles"
+3d_physics/layer_20="Player Body"
+3d_physics/layer_21="Pointable Objects"
+3d_physics/layer_22="Hand Pose Areas"
+3d_physics/layer_23="UI Objects"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
@@ -77,6 +92,10 @@ openxr/foveation_level=3
 openxr/foveation_dynamic=true
 openxr/startup_alert=false
 openxr/extensions/debug_utils=4
+openxr/extensions/hand_tracking=true
+openxr/extensions/hand_tracking_unobstructed_data_source=true
+openxr/extensions/hand_tracking_controller_data_source=true
+openxr/extensions/hand_interaction_profile=true
 shaders/enabled=true
 openxr/extensions/meta/passthrough=true
 openxr/extensions/meta/color_space/starting_color_space=3

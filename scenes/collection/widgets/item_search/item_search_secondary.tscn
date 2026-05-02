@@ -2,12 +2,6 @@
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_1q5nw"]
 [ext_resource type="Script" uid="uid://dpmi2yknftruu" path="res://scenes/collection/widgets/item_search/item_search_secondary.gd" id="1_v6cgf"]
-[ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="3_1rhb3"]
-[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="4_265cq"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_atasl"]
-shader = ExtResource("4_265cq")
-shader_parameter/color = Color(1, 1, 1, 1)
 
 [node name="ItemSearchSecondary" type="Control" unique_id=961452498]
 layout_mode = 3
@@ -26,22 +20,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PaginationContainer" parent="Panel" unique_id=263380951 instance=ExtResource("3_1rhb3")]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1608470950]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
 
-[node name="ItemsLabel" type="Label" parent="Panel/PaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/Pager" index="1" unique_id=807637360]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=111604413]
 layout_mode = 2
-text = "COLL_ITEM_LABEL"
+theme_override_constants/separation = 20
 
-[node name="Cursor" type="ColorRect" parent="." unique_id=739697741]
-process_mode = 4
-material = SubResource("ShaderMaterial_atasl")
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
+[node name="HeadingContainer" type="PanelContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=929687916]
+layout_mode = 2
 
-[connection signal="before_clicked" from="Panel/PaginationContainer" to="." method="_on_pagination_container_before_clicked"]
-[connection signal="next_clicked" from="Panel/PaginationContainer" to="." method="_on_pagination_container_next_clicked"]
+[node name="HeadingLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/HeadingContainer" unique_id=2056658649]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Widget Title"
+horizontal_alignment = 1
 
-[editable path="Panel/PaginationContainer"]
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer" unique_id=1857937479]
+layout_mode = 2
+
+[node name="ContentContainer" type="PanelContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=737984978]
+layout_mode = 2
+
+[node name="ContentLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/ContentContainer" unique_id=1738766740]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+autowrap_mode = 2

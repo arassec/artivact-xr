@@ -3,41 +3,78 @@
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_e2oop"]
 [ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="2_a824d"]
 [ext_resource type="PackedScene" uid="uid://bsb13hpsnagd8" path="res://scenes/collection/collection_starter.tscn" id="3_cx0yf"]
-[ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/primary_panel.tscn" id="5_q47lq"]
-[ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/secondary_panel.tscn" id="6_eg380"]
+[ext_resource type="Script" uid="uid://cx3pqv8tmn6yd" path="res://scripts/ui/tablet_finger_pointer.gd" id="4_a824d"]
+[ext_resource type="PackedScene" uid="uid://dm4ky1kxxrqnv" path="res://scenes/collection/ui/tablet_content.tscn" id="5_q47lq"]
+[ext_resource type="PackedScene" uid="uid://ccqhhhkn4hrfj" path="res://scenes/collection/ui/beamer_content.tscn" id="6_eg380"]
+[ext_resource type="PackedScene" uid="uid://dj5lfesx1a05q" path="res://scenes/common/ui/tablet.tscn" id="7_cx0yf"]
+[ext_resource type="AudioStream" uid="uid://tpkavyfdy5yd" path="res://assets/audio/click.wav" id="8_cx0yf"]
 
 [node name="ArtivactSceneBase" unique_id=1931386276 instance=ExtResource("1_e2oop")]
 
-[node name="PrimaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport", "controller")]
+[node name="LeftHand" parent="XROrigin3D" index="1" node_paths=PackedStringArray("tablet")]
+tablet = NodePath("../Tablet")
+
+[node name="RightHand" parent="XROrigin3D" index="2" node_paths=PackedStringArray("tablet")]
+tablet = NodePath("../Tablet")
+
+[node name="LeftTabletFingerPointer" type="Node3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1481069490) index="0" unique_id=354435966 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
+transform = Transform3D(-0.9994227, -0.011696085, -0.031895116, 0.014952645, 0.6915824, -0.722143, 0.030504402, -0.722203, -0.6910082, 0.00033061393, 0.008717284, 0.020414375)
+script = ExtResource("4_a824d")
+hover_distance = 0.05
+click_distance = 0.01
+viewport = NodePath("../../../../../../../TabletSubViewport")
+composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
+tablet = NodePath("../../../../../../Tablet")
+
+[node name="RightTabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="0" unique_id=846219046 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
+script = ExtResource("4_a824d")
+hover_distance = 0.05
+click_distance = 0.01
+viewport = NodePath("../../../../../../../TabletSubViewport")
+composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
+tablet = NodePath("../../../../../../Tablet")
+
+[node name="TabletOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(0.86602527, 0, 0.50000024, 0, 1, 0, -0.50000024, 0, 0.86602527, -0.75, 1, -1.75)
-layer_viewport = NodePath("../../PrimaryPanelSubViewport")
+layer_viewport = NodePath("../../TabletSubViewport")
+sort_order = -1
+enable_hole_punch = true
+quad_size = Vector2(0.42, 0.248)
+
+[node name="BeamerOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="6" unique_id=516062467 node_paths=PackedStringArray("layer_viewport", "controller")]
+transform = Transform3D(0.9999996, 0, 0, 0, 1, 0, 0, 0, 0.9999996, 0, 1.5, -2.5)
+layer_viewport = NodePath("../../BeamerSubViewport")
 sort_order = -2
 enable_hole_punch = true
 quad_size = Vector2(1.6, 0.9)
 script = ExtResource("2_a824d")
 controller = NodePath("../RightHand")
 
-[node name="SecondaryPanelOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="4" unique_id=516062467 node_paths=PackedStringArray("layer_viewport", "controller")]
-transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0.75, 1, -1.75)
-layer_viewport = NodePath("../../SecondaryPanelSubViewport")
-sort_order = -2
-enable_hole_punch = true
-quad_size = Vector2(1.6, 0.9)
-script = ExtResource("2_a824d")
-controller = NodePath("../RightHand")
+[node name="CollectionStarter" parent="XROrigin3D" index="7" unique_id=1038441025 node_paths=PackedStringArray("tablet", "tablet_open_xr_composition_layer_quad") instance=ExtResource("3_cx0yf")]
+tablet = NodePath("../Tablet")
+tablet_open_xr_composition_layer_quad = NodePath("../TabletOpenXRCompositionLayerQuad")
 
-[node name="CollectionStarter" parent="XROrigin3D" index="5" unique_id=1038441025 instance=ExtResource("3_cx0yf")]
+[node name="Tablet" parent="XROrigin3D" index="8" unique_id=133861402 node_paths=PackedStringArray("composition_layer") instance=ExtResource("7_cx0yf")]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0.95, -0.44)
+composition_layer = NodePath("../TabletOpenXRCompositionLayerQuad")
 
-[node name="PrimaryPanelSubViewport" type="SubViewport" parent="." index="1" unique_id=461716119]
+[node name="TabletSubViewport" type="SubViewport" parent="." index="1" unique_id=461716119]
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="PrimaryPanel" parent="PrimaryPanelSubViewport" index="0" unique_id=351943078 instance=ExtResource("5_q47lq")]
+[node name="TabletContent" parent="TabletSubViewport" index="0" unique_id=351943078 instance=ExtResource("5_q47lq")]
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="SecondaryPanelSubViewport" type="SubViewport" parent="." index="2" unique_id=1025971154]
+[node name="BeamerSubViewport" type="SubViewport" parent="." index="2" unique_id=1025971154]
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="SecondaryPanel" parent="SecondaryPanelSubViewport" index="0" unique_id=304912942 instance=ExtResource("6_eg380")]
+[node name="BeamerContent" parent="BeamerSubViewport" index="0" unique_id=304912942 instance=ExtResource("6_eg380")]
+
+[node name="TabletClickAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3" unique_id=199398461]
+stream = ExtResource("8_cx0yf")
+volume_db = -25.0
+
+[editable path="XROrigin3D/LeftHandTracked/LeftHandHumanoid2"]
+[editable path="XROrigin3D/RightHandTracked/RightHandHumanoid2"]

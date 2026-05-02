@@ -39,14 +39,22 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, _update_widget_content)
 
 
-####################################################################################################
-# Move the cursor on input events.
-####################################################################################################
-func _input(event):
-	if event is InputEventMouseMotion:
-		# Move our cursor
-		var mouse_motion : InputEventMouseMotion = event
-		$Cursor.position = mouse_motion.position - Vector2(20, 20)
+func _ready():
+	var arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
+	if arMode:
+		var passthrough_button = find_child("PassthroughModeButton")
+		if passthrough_button:
+			passthrough_button.visible = false
+		var immersive_button = find_child("ImmersiveModeButton")
+		if immersive_button:
+			immersive_button.visible = true
+	else:
+		var passthrough_button = find_child("PassthroughModeButton")
+		if passthrough_button:
+			passthrough_button.visible = true
+		var immersive_button = find_child("ImmersiveModeButton")
+		if immersive_button:
+			immersive_button.visible = false
 
 
 ####################################################################################################
@@ -69,7 +77,7 @@ func _update_page_nav(pagesInput: Array[ArtivactMenuJson]):
 	find_child("QuitButton").visible = true
 	find_child("WidgetBackButton").visible = false
 	find_child("WidgetContentBackButton").visible = false
-	find_child("BreadcrumbLabel").visible = false
+	find_child("BreadcrumbLabel").visible = true
 
 	find_child("PaginationContainer").visible = true
 	find_child("WidgetContentAnchor").visible = false
@@ -130,15 +138,15 @@ func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 		var widgetScene: Resource = load(widgetSceneData.primaryPanelScene)
 		widgetContentSceneInstance = widgetScene.instantiate()
 		widgetContentSceneInstance.initialize(widgetSceneData.widget)
-		
+				
 		find_child("QuitButton").visible = false
 		find_child("WidgetBackButton").visible = false
 		find_child("WidgetContentBackButton").visible = true
 		find_child("PaginationContainer").visible = false
 		
 		var widgetContentAnchor = find_child("WidgetContentAnchor")
-		widgetContentAnchor.visible = true
 		widgetContentAnchor.add_child(widgetContentSceneInstance)
+		widgetContentAnchor.visible = true
 	
 
 func _update_breadcrumb() -> void:
@@ -148,7 +156,7 @@ func _update_breadcrumb() -> void:
 			pageBreadcrumb = pageTitleWidget.navigationTitle.translate()
 	var breadcrumbLabel = find_child("BreadcrumbLabel")
 	if pageBreadcrumb == '' && widgetBreadcrumb == '':
-		breadcrumbLabel.visible = false
+		breadcrumbLabel.text = ""
 	else:
 		breadcrumbLabel.visible = true
 		if pageBreadcrumb != '' && widgetBreadcrumb != '':

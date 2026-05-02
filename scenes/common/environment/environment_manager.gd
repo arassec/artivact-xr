@@ -5,6 +5,7 @@ extends Node3D
 @onready var environment: Environment = $WorldEnvironment.environment
 
 var environmentSceneInstance
+var arMode: bool
 
 
 ####################################################################################################
@@ -12,21 +13,21 @@ var environmentSceneInstance
 ####################################################################################################
 func _init():
 	# Register for relevant signals:
-	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
+	SignalBus.register(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, _toggle_ar_vr)
 	
 
 ####################################################################################################
 # Cleans up signal registrations after the scene closed.
 ####################################################################################################
 func _exit_tree():
-	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
+	SignalBus.deregister(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, _toggle_ar_vr)
 			
 
 ####################################################################################################
-# Cleans up signal registrations after the scene closed.
+# Initializes the environment.
 ####################################################################################################
 func _ready() -> void:
-	var arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
+	arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
 	if arMode:
 		_switch_to_ar()
 	else:
@@ -34,15 +35,15 @@ func _ready() -> void:
 
 
 ####################################################################################################
-# Reacts on setting changes.
+# Toggles between AR und VR.
 ####################################################################################################
-func _setting_changed(setting: Dictionary) -> void:
-	if setting.has(str(SettingsStore.SettingType.AR_MODE)):
-		var arMode = setting[str(SettingsStore.SettingType.AR_MODE)]
-		if arMode:
-			_switch_to_ar()
-		else:
-			_switch_to_vr()
+func _toggle_ar_vr(ar_mode: bool) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, ar_mode)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
+	if ar_mode:
+		_switch_to_ar()
+	else:
+		_switch_to_vr()
 
 
 ####################################################################################################
@@ -63,9 +64,9 @@ func _switch_to_ar() -> bool:
 		else:
 			return false
 
-		environment.background_mode = Environment.BG_COLOR
-		environment.background_color = Color(0.0, 0.0, 0.0, 0.0)
-		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	environment.background_mode = Environment.BG_COLOR
+	environment.background_color = Color(0.0, 0.0, 0.0, 0.0)
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 
 	_remove_environment()
 
@@ -87,8 +88,9 @@ func _switch_to_vr() -> bool:
 				return false
 
 		viewport.transparent_bg = false
-		environment.background_mode = Environment.BG_SKY
-		environment.ambient_light_source = Environment.AMBIENT_SOURCE_BG
+		
+	environment.background_mode = Environment.BG_SKY
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_BG
 
 	_load_environment()
 

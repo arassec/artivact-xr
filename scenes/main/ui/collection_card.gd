@@ -52,7 +52,7 @@ func _input(event):
 				SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION, collectionInfo.id)
 			elif collectionInfo.fileSize > 0:
 				SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_OPEN_COLLECTION, collectionInfo.id)
-
+				
 
 func _on_mouse_entered() -> void:
 	if handleHovering:

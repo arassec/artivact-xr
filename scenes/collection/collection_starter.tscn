@@ -14,5 +14,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.5)
 [node name="EnvironmentManager" parent="." unique_id=414801709 instance=ExtResource("3_wu437")]
 initializeXrMode = false
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1766531311]
+[node name="AmbientMusicStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1766531311]
 stream = ExtResource("2_ftfx0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1328738967]

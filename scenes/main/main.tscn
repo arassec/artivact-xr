@@ -2,7 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c77u65qfcq80w" path="res://scenes/artivact_scene_base.tscn" id="1_8d5xv"]
 [ext_resource type="PackedScene" uid="uid://52w8ouyis4j0" path="res://scenes/main/main_starter.tscn" id="3_6q06x"]
-[ext_resource type="Script" uid="uid://dbgb4rwhm08kt" path="res://scripts/ui/open_xr_composition_layer_interaction_quad.gd" id="3_b1x3f"]
+[ext_resource type="Script" uid="uid://cx3pqv8tmn6yd" path="res://scripts/ui/tablet_finger_pointer.gd" id="6_fp3kx"]
+[ext_resource type="PackedScene" uid="uid://dj5lfesx1a05q" path="res://scenes/common/ui/tablet.tscn" id="6_ow5a4"]
 [ext_resource type="PackedScene" uid="uid://f14p1c74oohd" path="res://scenes/main/ui/collection_menu.tscn" id="10_a8run"]
 
 [sub_resource type="Environment" id="Environment_6q06x"]
@@ -15,23 +16,43 @@ ambient_light_energy = 15.0
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
 environment = SubResource("Environment_6q06x")
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" unique_id=1553004078]
-collide_with_areas = true
+[node name="LeftTabletFingerPointer" type="Node3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1481069490) index="0" unique_id=253897413 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
+transform = Transform3D(-0.9994227, -0.011696085, -0.031895116, 0.014952645, 0.6915824, -0.722143, 0.030504402, -0.722203, -0.6910082, 0.00033061393, 0.008717284, 0.020414375)
+script = ExtResource("6_fp3kx")
+hover_distance = 0.05
+click_distance = 0.01
+viewport = NodePath("../../../../../../../TabletSubViewport")
+composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
+tablet = NodePath("../../../../../../Tablet")
 
-[node name="CollectionMenuOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="3" unique_id=616404228 node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.75)
-layer_viewport = NodePath("../../CollectionMenuSubViewport")
+[node name="RightTabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="0" unique_id=1289119989 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
+script = ExtResource("6_fp3kx")
+hover_distance = 0.05
+click_distance = 0.01
+viewport = NodePath("../../../../../../../TabletSubViewport")
+composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
+tablet = NodePath("../../../../../../Tablet")
+
+[node name="TabletOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=616404228 node_paths=PackedStringArray("layer_viewport")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.1378198, -0.4330455)
+layer_viewport = NodePath("../../TabletSubViewport")
 sort_order = -1
 enable_hole_punch = true
-quad_size = Vector2(1.6, 0.9)
-script = ExtResource("3_b1x3f")
+quad_size = Vector2(0.42, 0.248)
 
-[node name="MainStarter" parent="XROrigin3D" index="4" unique_id=377203162 instance=ExtResource("3_6q06x")]
+[node name="MainStarter" parent="XROrigin3D" index="6" unique_id=377203162 instance=ExtResource("3_6q06x")]
 
-[node name="CollectionMenuSubViewport" type="SubViewport" parent="." index="1" unique_id=2125607010]
+[node name="Tablet" parent="XROrigin3D" index="7" unique_id=133861402 node_paths=PackedStringArray("composition_layer") instance=ExtResource("6_ow5a4")]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0.95, -0.44)
+composition_layer = NodePath("../TabletOpenXRCompositionLayerQuad")
+
+[node name="TabletSubViewport" type="SubViewport" parent="." index="1" unique_id=2125607010]
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="CollectionMenu" parent="CollectionMenuSubViewport" index="0" unique_id=462407793 instance=ExtResource("10_a8run")]
+[node name="CollectionMenu" parent="TabletSubViewport" index="0" unique_id=462407793 instance=ExtResource("10_a8run")]
 offset_right = 0.0
 offset_bottom = 0.0
+
+[editable path="XROrigin3D/LeftHandTracked/LeftHandHumanoid2"]
+[editable path="XROrigin3D/RightHandTracked/RightHandHumanoid2"]

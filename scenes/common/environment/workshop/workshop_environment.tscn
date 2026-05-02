@@ -6,10 +6,11 @@
 [node name="WorkshopEnvironment" type="Node3D" unique_id=280878854]
 
 [node name="WorkshopModel" parent="." unique_id=1241899199 instance=ExtResource("1_nc6q1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0056729317, -0.0019518137, -1.0874462)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.0056729317, -0.0019518137, -1.0874462)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=889471429]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4022187, 1.0588068, -2.57961)
+visible = false
 light_energy = 0.5
 light_indirect_energy = 2.0
 light_bake_mode = 1
@@ -18,6 +19,7 @@ omni_range = 0.85
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1713995109]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6079003, 0.46651107, -2.3291707)
+visible = false
 light_energy = 0.5
 light_indirect_energy = 5.0
 light_bake_mode = 1
@@ -26,6 +28,7 @@ omni_range = 1.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=279587109]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07954657, 2.188952, -0.90315896)
+visible = false
 light_color = Color(0.9363192, 0.95037335, 0.9543939, 1)
 light_energy = 1.5
 light_indirect_energy = 25.0

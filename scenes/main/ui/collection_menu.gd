@@ -44,6 +44,9 @@ func _ready():
 	find_child("MusicEnabledCheckBox").button_pressed = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	find_child("MusicVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 
+	find_child("VoiceEnabledCheckBox").button_pressed = SettingsStore.get_value(SettingsStore.SettingType.VOICE_ENABLED)
+	find_child("VoiceVolumeHSlider").value = SettingsStore.get_value(SettingsStore.SettingType.VOICE_VOLUME)
+
 	var firstStart = SettingsStore.get_value(SettingsStore.SettingType.FIRST_START)
 	var showWelcomePage = SettingsStore.get_value(SettingsStore.SettingType.SHOW_WELCOME_PAGE)
 	if firstStart:
@@ -68,13 +71,6 @@ func _ready():
 		find_child("DeCheckButton").disabled = true
 
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		# Move our cursor
-		var mouse_motion : InputEventMouseMotion = event
-		$Cursor.position = mouse_motion.position - Vector2(20, 20)
-
-
 func _collection_infos_updated() -> void:
 	_clear_operation_in_progress()
 	
@@ -96,7 +92,7 @@ func _collection_infos_updated() -> void:
 		cardSceneInstance.initialize(collectionInfo, fontSize)
 		content.push_back(cardSceneInstance)
 		
-	$CollectionContainer/CollectionPaginationContainer.set_content(content)
+	$CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer.set_content(content)
 
 
 func _on_quit_button_pressed() -> void:
@@ -170,14 +166,22 @@ func _on_music_volume_h_slider_value_changed(value: float) -> void:
 
 
 func _on_passthrough_mode_button_pressed() -> void:
-	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, true)
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): true})
+	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, true)
 	find_child("PassthroughModeButton").visible = false
 	find_child("ImmersiveModeButton").visible = true
 
 
 func _on_immersive_mode_button_pressed() -> void:
-	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, false)
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
+	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, false)
 	find_child("PassthroughModeButton").visible = true
 	find_child("ImmersiveModeButton").visible = false
+
+
+func _on_voice_enabled_check_box_toggled(toggled_on: bool) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.VOICE_ENABLED, toggled_on)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_ENABLED): toggled_on})
+
+
+func _on_voice_volume_h_slider_value_changed(value: float) -> void:
+	SettingsStore.set_value(SettingsStore.SettingType.VOICE_VOLUME, value)
+	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_VOLUME): value})

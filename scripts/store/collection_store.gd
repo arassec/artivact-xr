@@ -30,6 +30,9 @@ var selectedCollectionId: String
 # PageTitleWidget of the current collection, if any.
 var currentCollectionPageTitleWidget: PageTitleWidget = null
 
+# Contains all audio files that have already been played.
+var playedAudioFiles: Array[String] = []
+
 
 func _process(_delta) -> void:
 	if loadCollectionInfosThread != null:
@@ -74,6 +77,7 @@ func get_artivact_properties_configuration_json(collectionId: String) -> Artivac
 
 func set_selected_collection(collectionId: String) -> void:
 	selectedCollectionId = collectionId
+	playedAudioFiles.clear()
 
 
 func get_selected_collection() -> String:
@@ -129,6 +133,26 @@ func read_json_file(jsonFile: String) -> Dictionary:
 		result = { "values": json.data}
 
 	return result
+
+
+####################################################################################################
+# TODO
+####################################################################################################
+func play_audio_file(filepath: String, locale: String, player: AudioStreamPlayer) -> void:
+	if player.is_playing():
+		player.stop()
+
+	if locale:
+		filepath += "-" + locale
+	
+	var mp3Bytes = get_collection_zip_reader(selectedCollectionId).read_file(filepath + ".mp3")
+
+	if !mp3Bytes.is_empty() and !playedAudioFiles.has(filepath):
+		playedAudioFiles.append(filepath)
+		var stream := AudioStreamMP3.new()
+		stream.data = mp3Bytes
+		player.stream = stream
+		player.play()
 	
 
 ####################################################################################################

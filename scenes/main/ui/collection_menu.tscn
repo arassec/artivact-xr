@@ -1,16 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://f14p1c74oohd"]
+[gd_scene format=3 uid="uid://f14p1c74oohd"]
 
 [ext_resource type="Script" uid="uid://17p1j28hhhme" path="res://scenes/main/ui/collection_menu.gd" id="1_4a80r"]
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_lbtn3"]
 [ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="2_7v2gc"]
-[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="3_7v2gc"]
-[ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="4_jgyxj"]
 [ext_resource type="FontFile" uid="uid://5ijwptfyl2hd" path="res://assets/ui/fonts/Roboto-Regular.ttf" id="5_hah2j"]
 [ext_resource type="Texture2D" uid="uid://d2k2r4p6qbmoq" path="res://assets/ui/icons/settings_64dp_F5F5F5.svg" id="5_iug8l"]
 [ext_resource type="Texture2D" uid="uid://dat8wv4v6xcha" path="res://assets/ui/icons/visibility_off_64dp_F5F5F5.svg" id="5_uda07"]
 [ext_resource type="Texture2D" uid="uid://cyufc7y5tlhpd" path="res://assets/ui/icons/visibility_64dp_F5F5F5.svg" id="6_x77j7"]
 [ext_resource type="Texture2D" uid="uid://sj0qijnoqdmk" path="res://assets/ui/icons/info_64dp_F5F5F5.svg" id="7_x77j7"]
 [ext_resource type="Texture2D" uid="uid://b64ihktt2qa2t" path="res://assets/ui/logos/artivact-logo.png" id="10_0o3wp"]
+[ext_resource type="Texture2D" uid="uid://528tubo04gp2" path="res://assets/ui/icons/close_64dp_F5F5F5.png" id="10_deku2"]
 [ext_resource type="Texture2D" uid="uid://bhofvapa7prsg" path="res://assets/ui/logos/godot_logo.png" id="11_nlc0g"]
 [ext_resource type="Texture2D" uid="uid://biahjxigt6urq" path="res://assets/ui/logos/artivact-xr-logo.png" id="12_deku2"]
 
@@ -18,11 +17,7 @@
 font = ExtResource("5_hah2j")
 font_size = 48
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbtn3"]
-shader = ExtResource("3_7v2gc")
-shader_parameter/color = Color(1, 1, 1, 1)
-
-[node name="CollectionMenu" type="Control"]
+[node name="CollectionMenu" type="Control" unique_id=1012258326]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 15
@@ -35,57 +30,91 @@ grow_vertical = 2
 theme = ExtResource("1_lbtn3")
 script = ExtResource("1_4a80r")
 
-[node name="CollectionContainer" type="Panel" parent="."]
+[node name="CollectionContainer" type="Panel" parent="." unique_id=1782172829]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CollectionContainer" unique_id=1231336151]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="CollectionPaginationContainer" parent="CollectionContainer" instance=ExtResource("2_7v2gc")]
-layout_mode = 1
-
-[node name="NoCollectionsErrorLabel" type="Label" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CollectionContainer/MarginContainer" unique_id=598086145]
 layout_mode = 2
-text = "MAIN_ERROR_NO_COLLECTIONS"
+theme_override_constants/separation = 20
 
-[node name="ApiUrlLabel" type="Label" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="2"]
+[node name="MainMenuContainer" type="HBoxContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=1138558171]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_constants/separation = 25
 
-[node name="QuitButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer" unique_id=1405616620]
 layout_mode = 2
-text = "MAIN_EXIT"
-icon = ExtResource("4_jgyxj")
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
 
-[node name="ImmersiveModeButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="0"]
+[node name="ImmersiveModeButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=2038986404]
 layout_mode = 2
 icon = ExtResource("5_uda07")
 
-[node name="PassthroughModeButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="1"]
+[node name="PassthroughModeButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=794868062]
 layout_mode = 2
 icon = ExtResource("6_x77j7")
 
-[node name="AboutButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="2"]
+[node name="AboutButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=1949348545]
 layout_mode = 2
 icon = ExtResource("7_x77j7")
 
-[node name="SettingsButton" type="Button" parent="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor" index="3"]
+[node name="SettingsButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=1894854420]
 layout_mode = 2
 icon = ExtResource("5_iug8l")
 
-[node name="OperationInProgressCover" type="ColorRect" parent="."]
+[node name="QuitButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer" unique_id=669889831]
+layout_mode = 2
+text = "MAIN_EXIT"
+icon = ExtResource("10_deku2")
+
+[node name="HSeparator" type="HSeparator" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=850514695]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=353689417]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="CollectionPaginationContainer" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=647102466 instance=ExtResource("2_7v2gc")]
+layout_mode = 2
+
+[node name="NoCollectionsErrorLabel" type="Label" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="1" unique_id=570897159]
+layout_mode = 2
+text = "MAIN_ERROR_NO_COLLECTIONS"
+
+[node name="ApiUrlLabel" type="Label" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" index="2" unique_id=565687564]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="OperationInProgressCover" type="ColorRect" parent="." unique_id=92394191]
 visible = false
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
 
-[node name="StatusLabel" type="Label" parent="OperationInProgressCover"]
+[node name="StatusLabel" type="Label" parent="OperationInProgressCover" unique_id=1173694167]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,16 +127,15 @@ label_settings = SubResource("LabelSettings_iug8l")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SettingsPanel" type="Panel" parent="."]
+[node name="SettingsPanel" type="Panel" parent="." unique_id=1325508052]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel" unique_id=438098855]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,62 +146,62 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer" unique_id=335286912]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="SettingsMenu" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+[node name="SettingsMenu" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1860769948]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="SettingsBackButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu"]
-layout_mode = 2
-text = "MAIN_SETTINGS_BACK"
-icon = ExtResource("4_jgyxj")
-
-[node name="SettingsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu"]
+[node name="SettingsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu" unique_id=1588128288]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MAIN_SETTINGS"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+[node name="SettingsBackButton" type="Button" parent="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu" unique_id=1267499846]
+layout_mode = 2
+text = "MAIN_SETTINGS_BACK"
+icon = ExtResource("10_deku2")
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=1754546509]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel/MarginContainer/VBoxContainer" unique_id=633212889]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer" unique_id=433056408]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="LocaleLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="LocaleLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=154975902]
 layout_mode = 2
 text = "MAIN_SETTINGS_LOCALE"
 
-[node name="LocaleSelectionHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="LocaleSelectionHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=511180495]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer" unique_id=1207798804]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
 
-[node name="EnCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer"]
+[node name="EnCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer" unique_id=1527591531]
 layout_mode = 2
 text = "MAIN_SETTINGS_LOCALE_EN"
 
-[node name="DeCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer"]
+[node name="DeCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer" unique_id=480369881]
 layout_mode = 2
 text = "MAIN_SETTINGS_LOCALE_DE"
 
-[node name="LocaleSelectionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer"]
-custom_minimum_size = Vector2(1000, 0)
+[node name="LocaleSelectionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer" unique_id=1887389353]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -181,74 +209,88 @@ size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_LOCALE_SELECTION"
 autowrap_mode = 2
 
-[node name="LocaleHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="LocaleHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1648104250]
 layout_mode = 2
 
-[node name="MusicLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SoundLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1181885257]
 layout_mode = 2
-text = "MAIN_SETTINGS_MUSIC"
+text = "MAIN_SETTINGS_SOUND"
 
-[node name="MusicEnabledHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MusicEnabledHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=795994993]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="MusicEnabledCheckBox" type="CheckBox" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer"]
+[node name="MusicEnabledCheckBox" type="CheckBox" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer" unique_id=1138075791]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="MusicEnabledLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer"]
+[node name="MusicEnabledLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer" unique_id=2141748670]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.1
 text = "MAIN_SETTINGS_PLAY_MUSIC"
 
-[node name="MusicVolumeHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MusicVolumeHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1503077065]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="MusicVolumeHSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer"]
+[node name="MusicVolumeHSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer" unique_id=557663491]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 
-[node name="MusicVolumeLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer"]
+[node name="MusicVolumeLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer" unique_id=648056557]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_MUSIC_VOLUME"
 
-[node name="MusicHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="ControlsLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "MAIN_SETTINGS_CONTROLS"
-
-[node name="ActiveHandHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="VoiceEnabledHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1060822362]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="ActiveHandDescriptionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ActiveHandHBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+[node name="VoiceEnabledCheckBox" type="CheckBox" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer" unique_id=1544983426]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="VoiceEnabledLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer" unique_id=21677652]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
-size_flags_stretch_ratio = 2.0
-text = "MAIN_SETTINGS_ACTIVE_HAND"
-autowrap_mode = 2
+size_flags_stretch_ratio = 2.1
+text = "MAIN_SETTINGS_PLAY_VOICE"
 
-[node name="AboutPanel" type="Panel" parent="."]
+[node name="VoiceVolumeHBoxContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1261381066]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="VoiceVolumeHSlider" type="HSlider" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer" unique_id=604247579]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+
+[node name="VoiceVolumeLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer" unique_id=294106288]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "MAIN_SETTINGS_VOICE_VOLUME"
+
+[node name="MusicHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=866552239]
 visible = false
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
+
+[node name="AboutPanel" type="Panel" parent="." unique_id=552158884]
+visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="AboutPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="AboutPanel" unique_id=652501227]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -260,32 +302,32 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel/MarginContainer" unique_id=1363823342]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="AboutMenu" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer"]
+[node name="AboutMenu" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer" unique_id=1643186813]
 layout_mode = 2
 
-[node name="AboutBackButton" type="Button" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu"]
+[node name="VersionLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=2096540851]
 layout_mode = 2
-text = "MAIN_ABOUT_BACK"
-icon = ExtResource("4_jgyxj")
+text = "v?"
 
-[node name="AboutLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu"]
+[node name="AboutLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=1070918538]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MAIN_ABOUT"
 horizontal_alignment = 1
 
-[node name="VersionLabel" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu"]
+[node name="AboutBackButton" type="Button" parent="AboutPanel/MarginContainer/VBoxContainer/AboutMenu" unique_id=1259404017]
 layout_mode = 2
-text = "v?"
+text = "MAIN_ABOUT_BACK"
+icon = ExtResource("10_deku2")
 
-[node name="HSeparator" type="HSeparator" parent="AboutPanel/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="AboutPanel/MarginContainer/VBoxContainer" unique_id=570755672]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="AboutPanel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="AboutPanel/MarginContainer/VBoxContainer" unique_id=1523669499]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 25
@@ -293,21 +335,21 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer" unique_id=113613191]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1419403855]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 25
 
-[node name="ArtivactLogoTextureRect" type="TextureRect" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ArtivactLogoTextureRect" type="TextureRect" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1776575889]
 layout_mode = 2
 texture = ExtResource("10_0o3wp")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=349222066]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -316,12 +358,12 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN_ABOUT_ARTIVACT"
 autowrap_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1576982872]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 25
 
-[node name="Label" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1482432058]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -330,21 +372,20 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN_ABOUT_GODOT"
 autowrap_mode = 2
 
-[node name="GodotLogoTextureRect" type="TextureRect" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="GodotLogoTextureRect" type="TextureRect" parent="AboutPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1109823057]
 layout_mode = 2
 texture = ExtResource("11_nlc0g")
 expand_mode = 3
 
-[node name="WelcomePanel" type="Panel" parent="."]
+[node name="WelcomePanel" type="Panel" parent="." unique_id=285327674]
 visible = false
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel" unique_id=1312155221]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,28 +397,28 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer" unique_id=792890553]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="WelcomeMenu" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer"]
+[node name="WelcomeMenu" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=2015940456]
 layout_mode = 2
 
-[node name="WelcomeBackButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu"]
-layout_mode = 2
-text = "MAIN_ABOUT_BACK"
-icon = ExtResource("4_jgyxj")
-
-[node name="WelcomeLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu"]
+[node name="WelcomeLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu" unique_id=1622337203]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MAIN_WELCOME"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="WelcomePanel/MarginContainer/VBoxContainer"]
+[node name="WelcomeBackButton" type="Button" parent="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu" unique_id=190820978]
+layout_mode = 2
+text = "MAIN_ABOUT_BACK"
+icon = ExtResource("10_deku2")
+
+[node name="HSeparator" type="HSeparator" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=1544934565]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=1069799171]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 25
@@ -385,21 +426,21 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer" unique_id=1730112888]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=2114812927]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 25
 
-[node name="ArtivactXRLogoTextureRect" type="TextureRect" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ArtivactXRLogoTextureRect" type="TextureRect" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=193834629]
 layout_mode = 2
 texture = ExtResource("12_deku2")
 expand_mode = 2
 
-[node name="PrimaryLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PrimaryLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1285189754]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -408,12 +449,12 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN_WELCOME_PRIMARY"
 autowrap_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1324229275]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 75
 
-[node name="SecondaryLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="SecondaryLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1091990993]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -422,31 +463,25 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN_WELCOME_SECONDARY"
 autowrap_mode = 2
 
-[node name="UrlLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="UrlLabel" type="Label" parent="WelcomePanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1006762932]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "MAIN_WELCOME_URL"
 horizontal_alignment = 1
 
-[node name="Cursor" type="ColorRect" parent="."]
-process_mode = 4
-material = SubResource("ShaderMaterial_lbtn3")
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/LeftActionsAnchor/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/AboutButton" to="." method="_on_about_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/CollectionPaginationContainer/ContentMargin/ContentContainer/ActionBarContainer/RightActionsAnchor/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/MarginContainer/VBoxContainer/SettingsMenu/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/EnCheckButton" to="." method="_on_en_check_button_toggled"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/LocaleSelectionHBoxContainer/HBoxContainer/DeCheckButton" to="." method="_on_de_check_button_toggled"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicEnabledHBoxContainer/MusicEnabledCheckBox" to="." method="_on_music_enabled_check_box_toggled"]
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer/VoiceEnabledCheckBox" to="." method="_on_voice_enabled_check_box_toggled"]
+[connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer/VoiceVolumeHSlider" to="." method="_on_voice_volume_h_slider_value_changed"]
 [connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu/WelcomeBackButton" to="." method="_on_welcome_back_button_pressed"]
 
-[editable path="CollectionContainer/CollectionPaginationContainer"]
+[editable path="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer/CollectionPaginationContainer"]

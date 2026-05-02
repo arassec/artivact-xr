@@ -1,59 +1,103 @@
 [gd_scene format=3 uid="uid://c77u65qfcq80w"]
 
 [ext_resource type="PackedScene" uid="uid://qbmx03iibuuu" path="res://addons/godot-xr-tools/staging/scene_base.tscn" id="1_tbcxv"]
-[ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="2_fowlw"]
-[ext_resource type="Script" uid="uid://bam1phd43eed6" path="res://scripts/util/active_hand_helper.gd" id="2_wp5fa"]
-[ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="3_821sg"]
-[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_k2kmd"]
+[ext_resource type="Script" uid="uid://do1jeepxesdg5" path="res://scripts/util/hand_tracked_controller.gd" id="2_tkvr8"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_su8sa"]
+[ext_resource type="PackedScene" uid="uid://bt58s03wwg2yf" path="res://assets/model/LeftHandHumanoid.gltf" id="5_w7kcn"]
+[ext_resource type="Script" uid="uid://ckjntwe7qi42v" path="res://scripts/util/hand_tracked.gd" id="6_su8sa"]
+[ext_resource type="PackedScene" uid="uid://dppwkv8stx60y" path="res://assets/model/RightHandHumanoid.gltf" id="6_tkvr8"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wp5fa"]
-albedo_color = Color(0.43137255, 0.49411765, 0.52156866, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fowlw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epif5"]
+cull_mode = 1
 shading_mode = 0
-albedo_color = Color(0.960784, 0.960784, 0.960784, 1)
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.001
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm2t0"]
-albedo_color = Color(0.43137255, 0.49411765, 0.52156866, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vr2bc"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkvr8"]
+next_pass = SubResource("StandardMaterial3D_epif5")
 shading_mode = 0
+albedo_color = Color(0.73333335, 0.7294118, 0.7764706, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nap2i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7kcn"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su8sa"]
+next_pass = SubResource("StandardMaterial3D_w7kcn")
+shading_mode = 0
+albedo_color = Color(0.73333335, 0.7294118, 0.7764706, 1)
 
 [node name="ArtivactSceneBase" unique_id=1177148375 instance=ExtResource("1_tbcxv")]
 
-[node name="XROrigin3D" parent="." index="0"]
-script = ExtResource("2_wp5fa")
-
 [node name="XRCamera3D" parent="XROrigin3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 
 [node name="LeftHand" parent="XROrigin3D" index="1"]
-visible = false
+pose = &"palm_pose"
+show_when_tracked = true
+script = ExtResource("2_tkvr8")
 
-[node name="LeftHandModel" parent="XROrigin3D/LeftHand" index="0" unique_id=429646995 instance=ExtResource("2_fowlw")]
-hand_material_override = SubResource("StandardMaterial3D_wp5fa")
-
-[node name="FunctionPointer" parent="XROrigin3D/LeftHand" index="1" unique_id=762162110 instance=ExtResource("5_k2kmd")]
-y_offset = 0.0
-distance = 1.25
-laser_material = SubResource("StandardMaterial3D_fowlw")
+[node name="FunctionPickup" parent="XROrigin3D/LeftHand" index="0" unique_id=1848327600 instance=ExtResource("4_su8sa")]
+grab_distance = 0.05
+ranged_enable = false
 
 [node name="RightHand" parent="XROrigin3D" index="2"]
-visible = false
+pose = &"palm_pose"
+show_when_tracked = true
+script = ExtResource("2_tkvr8")
 
-[node name="RightHandModel" parent="XROrigin3D/RightHand" index="0" unique_id=792580930 instance=ExtResource("3_821sg")]
-hand_material_override = SubResource("StandardMaterial3D_pm2t0")
+[node name="FunctionPickup" parent="XROrigin3D/RightHand" index="0" unique_id=681896117 instance=ExtResource("4_su8sa")]
+grab_distance = 0.05
+ranged_enable = false
 
-[node name="FunctionPointer" parent="XROrigin3D/RightHand" index="1" unique_id=1553004078 instance=ExtResource("5_k2kmd")]
-y_offset = 0.0
-distance = 1.25
-laser_material = SubResource("StandardMaterial3D_vr2bc")
-target_radius = 0.01
-target_material = SubResource("StandardMaterial3D_nap2i")
+[node name="LeftHandTracked" type="XRNode3D" parent="XROrigin3D" index="3" unique_id=1515292575 node_paths=PackedStringArray("hand_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.25)
+tracker = &"/user/hand_tracker/left"
+show_when_tracked = true
+script = ExtResource("6_su8sa")
+hand_mesh = NodePath("LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/LeftHandHumanoidMesh")
+
+[node name="LeftHandHumanoid2" parent="XROrigin3D/LeftHandTracked" index="0" unique_id=1838627276 instance=ExtResource("5_w7kcn")]
+
+[node name="LeftHandHumanoidMesh" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1838627276, 1594116051) index="0" unique_id=1229316231]
+surface_material_override/0 = SubResource("StandardMaterial3D_tkvr8")
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1838627276, 1594116051) index="1" unique_id=771060895]
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1838627276, 1594116051) index="2" unique_id=1481069490]
+transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266, -0.03211129, -0.11638325, -0.91271573, 0.39166808, -0.01110013, 0.04294307, -0.17161417)
+bone_name = "LeftIndexTip"
+bone_idx = 9
+
+[node name="RightHandTracked" type="XRNode3D" parent="XROrigin3D" index="4" unique_id=1459723928 node_paths=PackedStringArray("hand_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.25)
+tracker = &"/user/hand_tracker/right"
+show_when_tracked = true
+script = ExtResource("6_su8sa")
+hand = 1
+hand_mesh = NodePath("RightHandHumanoid2/RightHandHumanoid/Skeleton3D/RightHandHumanoidMesh")
+
+[node name="RightHandHumanoid2" parent="XROrigin3D/RightHandTracked" index="0" unique_id=2050139505 instance=ExtResource("6_tkvr8")]
+
+[node name="RightHandHumanoidMesh" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(2050139505, 1746320013) index="0" unique_id=19035335]
+surface_material_override/0 = SubResource("StandardMaterial3D_su8sa")
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(2050139505, 1746320013) index="1" unique_id=110013146]
+hand_tracker = &"/user/hand_tracker/right"
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(2050139505, 1746320013) index="2" unique_id=1408086663]
+transform = Transform3D(0.01903836, -0.39268863, -0.9194744, 0.99322706, 0.11285307, -0.027631793, 0.11461615, -0.91272074, 0.39217746, 0.011100034, 0.04294298, -0.17161338)
+bone_name = "RightIndexTip"
+bone_idx = 9
 
 [connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]
 [connection signal="button_released" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_released"]
 [connection signal="button_pressed" from="XROrigin3D/RightHand" to="XROrigin3D" method="_on_right_hand_button_pressed"]
 [connection signal="button_released" from="XROrigin3D/RightHand" to="XROrigin3D" method="_on_right_hand_button_released"]
+
+[editable path="XROrigin3D/LeftHandTracked/LeftHandHumanoid2"]
+[editable path="XROrigin3D/RightHandTracked/RightHandHumanoid2"]

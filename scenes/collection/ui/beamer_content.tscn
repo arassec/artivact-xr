@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://ccqhhhkn4hrfj"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_wmkm4"]
-[ext_resource type="Script" uid="uid://cifwph4kfos14" path="res://scenes/collection/ui/secondary_panel.gd" id="2_oukm8"]
-[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="4_7hdid"]
+[ext_resource type="Script" uid="uid://cifwph4kfos14" path="res://scenes/collection/ui/beamer_content.gd" id="2_oukm8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_js6cv"]
-shader = ExtResource("4_7hdid")
-shader_parameter/color = Color(1, 1, 1, 1)
-
-[node name="SecondaryPanel" type="Control" unique_id=2138260241]
+[node name="BeamerContent" type="Control" unique_id=2138260241]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 0
@@ -34,11 +29,3 @@ theme_override_font_sizes/font_size = 64
 text = "MAIN_LOADING"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Cursor" type="ColorRect" parent="." unique_id=670324414]
-process_mode = 4
-material = SubResource("ShaderMaterial_js6cv")
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2

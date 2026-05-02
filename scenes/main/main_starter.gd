@@ -13,8 +13,7 @@ var downloadInProgress = false
 # Delay before the status of downloads is updated in milliseconds:
 var downloadStatusDelay = 10
 
-# Indicates that the component must be initialized. Used to e.g. place the main menu panel when
-# the user is sitting.
+# Indicates that the component must be initialized. 
 var initialize = true
 
 # Filesize of a remote collection. Will be set before Downoad and used to calculate the progress.
@@ -34,7 +33,7 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
 	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-
+	
 
 ####################################################################################################
 # Cleans up signal registrations after the scene closed.
@@ -45,7 +44,7 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.MAIN_OPEN_COLLECTION, _open_collection)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_DELETE_COLLECTION, _delete_collection)
 	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-
+	
 
 ####################################################################################################
 # Sets display configurations, e.g. 4xMSAA.
@@ -54,7 +53,7 @@ func _ready():
 	# Initialize Godot XR stuff:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	get_viewport().msaa_3d = Viewport.MSAA_4X
-
+	
 	# Apply settings:
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 	if musicVolume:
@@ -64,18 +63,12 @@ func _ready():
 	if musicEnabled:
 		$AudioStreamPlayer.play()
 
-	var rightHandActive = SettingsStore.get_value(SettingsStore.SettingType.ACTIVE_HAND)
-	if rightHandActive:
-		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
-	else:
-		get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
-
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
 		TranslationServer.set_locale('en')
 	elif locale == 1:
 		TranslationServer.set_locale('de')
-		
+
 
 ####################################################################################################
 # Triggers an update of the selected collection info in the main UI panel. This is done here,
@@ -96,13 +89,6 @@ func _process(delta):
 		if downloadStatusDelay < 0:
 			downloadStatusDelay = 10
 			SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_DOWNLOAD_COLLECTION_PROGRESS, $RemoteArtivactServer.get_progress(remoteCollectionFileSize))
-
-	if initialize:
-		initialize = false
-		var cam = get_parent().find_child("XRCamera3D")
-		var collectionMenu = get_parent().find_child("DebugPanelOpenXRCompositionLayerQuad")
-		if cam && collectionMenu:
-			collectionMenu.transform.origin.y = (cam.transform.origin.y - 0.35)
 
 
 ####################################################################################################
@@ -210,12 +196,6 @@ func _setting_changed(setting: Dictionary) -> void:
 	elif setting.has(str(SettingsStore.SettingType.MUSIC_VOLUME)):
 		var musicVolume = setting[str(SettingsStore.SettingType.MUSIC_VOLUME)]
 		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
-	elif setting.has(str(SettingsStore.SettingType.ACTIVE_HAND)):
-		var rightHandActive = setting[str(SettingsStore.SettingType.ACTIVE_HAND)]
-		if rightHandActive:
-			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
-		else:
-			get_parent().find_child("CollectionMenuOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
 	elif setting.has(str(SettingsStore.SettingType.LOCALE)):
 		# If the locale changed -> reload collection infos:
 		CollectionStore.load_collection_infos()

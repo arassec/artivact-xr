@@ -21,6 +21,12 @@ var backgroundSceneInstance
 
 var curWidgetIndex = 0
 
+var voiceEnabled: bool = false
+
+@export var tablet: Tablet
+@export var tablet_open_xr_composition_layer_quad: OpenXRCompositionLayerQuad
+
+
 ####################################################################################################
 # Registers for signals.
 ####################################################################################################
@@ -30,9 +36,8 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.register(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
-	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
-	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_tablet)
+	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_tablet)
 
 	_load_pages()
 
@@ -45,9 +50,8 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.deregister(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
-	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
-	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _grip_pressed)
-	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _grip_released)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_tablet)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_tablet)
 
 
 ####################################################################################################
@@ -88,11 +92,20 @@ func _load_page(id: String):
 func _ready():
 	var musicVolume = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_VOLUME)
 	if musicVolume:
-		$AudioStreamPlayer.volume_db = linear_to_db(musicVolume)
+		$AmbientMusicStreamPlayer.volume_db = linear_to_db(musicVolume)
 	
 	var musicEnabled = SettingsStore.get_value(SettingsStore.SettingType.MUSIC_ENABLED)
 	if musicEnabled:
-		$AudioStreamPlayer.play()
+		$AmbientMusicStreamPlayer.play()
+
+	var voiceVolume = SettingsStore.get_value(SettingsStore.SettingType.VOICE_VOLUME)
+	if voiceVolume:
+		$AudioStreamPlayer.volume_db = linear_to_db(voiceVolume)
+	
+	voiceEnabled = SettingsStore.get_value(SettingsStore.SettingType.VOICE_ENABLED)
+
+	if voiceEnabled:
+		CollectionStore.play_audio_file(CollectionStore.get_selected_collection(), SettingsStore.get_locale(), $AudioStreamPlayer)
 
 	SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_PAGE_NAV, menus)
 
@@ -103,10 +116,6 @@ func _ready():
 func _process(_delta) -> void:
 	if initialize:
 		initialize = false
-		var cam = get_parent().find_child("XRCamera3D")
-		var debugPanel = get_parent().find_child("DebugPanelOpenXRCompositionLayerQuad")
-		if cam && debugPanel:
-			debugPanel.transform.origin.y = (cam.transform.origin.y - 0.35)
 
 		# Fake a text widget to display the collection's general content description on the scondary panel:
 		if artivactContentJson.title && artivactContentJson.content:
@@ -126,7 +135,7 @@ func _process(_delta) -> void:
 			widgetSceneData.secondaryPanelScene = "uid://28gvkovxs7vo"
 			SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, widgetSceneData)
 		else:
-			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false
+			get_parent().find_child("BeamerOpenXRCompositionLayerQuad").visible = false
 
 
 ####################################################################################################
@@ -147,7 +156,8 @@ func _open_page(menuId):
 
 
 ####################################################################################################
-# TODO
+# Called when a new Widget is opened. The widget scenes are prepared and the widget's audio is 
+# played (if any).
 ####################################################################################################
 func _open_widget(widgetId):
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
@@ -155,7 +165,7 @@ func _open_widget(widgetId):
 	if selectedPage != null:
 		for widget in selectedPage.widgets:
 			if widget.id == widgetId:
-				get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = true
+				get_parent().find_child("BeamerOpenXRCompositionLayerQuad").visible = true
 
 				var widgetSceneData: WidgetSceneData = WidgetSceneData.new()
 
@@ -174,6 +184,11 @@ func _open_widget(widgetId):
 					widgetSceneData.primaryPanelScene = "uid://c2adlrcgfnenx"
 					widgetSceneData.secondaryPanelScene = "uid://bn16unntpl8nj"
 
+				var widgetAudioFile = PathUtil.get_file_path(ComponentType.WIDGET, widgetId, "content-audio")
+
+				if voiceEnabled:
+					CollectionStore.play_audio_file(widgetAudioFile, SettingsStore.get_locale(), $AudioStreamPlayer)
+				
 				SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, widgetSceneData)
 
 				return
@@ -183,7 +198,9 @@ func _open_widget(widgetId):
 # TODO: The 'visible = false' is causing the app to crash when switching to the main menu!!!
 ####################################################################################################
 func _close_widget():
-	# get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").visible = false
+	# get_parent().find_child("BeamerOpenXRCompositionLayerQuad").visible = false
+	if $AudioStreamPlayer.is_playing():
+		$AudioStreamPlayer.stop()
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
 
 
@@ -191,6 +208,9 @@ func _close_widget():
 # Quits the collection and transits to Artivact XR's main scene.
 ####################################################################################################
 func _quit_collection():
+	if $AudioStreamPlayer.is_playing():
+		$AudioStreamPlayer.stop()
+		
 	# Find the XRToolsSceneBase ancestor of the current node
 	var scene_base : XRToolsSceneBase = XRTools.find_xr_ancestor(self, "*", "XRToolsSceneBase")
 	if not scene_base:
@@ -200,24 +220,20 @@ func _quit_collection():
 
 
 ####################################################################################################
-# Reacts on setting changes.
+# Hides the tablet.
 ####################################################################################################
-func _setting_changed(setting: Dictionary) -> void:
-	if setting.has(str(SettingsStore.SettingType.ACTIVE_HAND)):
-		var rightHandActive = setting[str(SettingsStore.SettingType.ACTIVE_HAND)]
-		if rightHandActive:
-			get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
-			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("RightHand")
-		else:
-			get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
-			get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = get_parent().find_child("LeftHand")
+func _hide_tablet(_controller: XRController3D) -> void:
+	if tablet:
+		tablet.visible = false
+	if tablet_open_xr_composition_layer_quad:
+		tablet_open_xr_composition_layer_quad.visible = false
 
 
-func _grip_pressed(controller: XRController3D) -> void:
-	get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = null
-	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = null
-	
-	
-func _grip_released(controller: XRController3D) -> void:
-	get_parent().find_child("PrimaryPanelOpenXRCompositionLayerQuad").controller = controller
-	get_parent().find_child("SecondaryPanelOpenXRCompositionLayerQuad").controller = controller
+####################################################################################################
+# Shows the tablet.
+####################################################################################################
+func _show_tablet(_controller: XRController3D) -> void:
+	if tablet:
+		tablet.visible = true
+	if tablet_open_xr_composition_layer_quad:
+		tablet_open_xr_composition_layer_quad.visible = true
