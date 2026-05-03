@@ -5,7 +5,7 @@ extends Node3D
 @onready var environment: Environment = $WorldEnvironment.environment
 
 var environmentSceneInstance
-var arMode: bool
+var environmentSetting: SettingsStore.EnvironmentType
 
 
 ####################################################################################################
@@ -13,34 +13,38 @@ var arMode: bool
 ####################################################################################################
 func _init():
 	# Register for relevant signals:
-	SignalBus.register(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, _toggle_ar_vr)
+	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 	
 
 ####################################################################################################
 # Cleans up signal registrations after the scene closed.
 ####################################################################################################
 func _exit_tree():
-	SignalBus.deregister(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, _toggle_ar_vr)
+	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
 			
 
 ####################################################################################################
 # Initializes the environment.
 ####################################################################################################
 func _ready() -> void:
-	arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
-	if arMode:
-		_switch_to_ar()
-	else:
-		_switch_to_vr()
+	environmentSetting = SettingsStore.get_value(SettingsStore.SettingType.ENVIRONMENT)
+	_switch_environment(environmentSetting)
+
+
+####################################################################################################
+# Reacts on setting changes.
+####################################################################################################
+func _setting_changed(setting: Dictionary) -> void:
+	if setting.has(str(SettingsStore.SettingType.ENVIRONMENT)):
+		environmentSetting = SettingsStore.get_value(SettingsStore.SettingType.ENVIRONMENT)
+		_switch_environment(environmentSetting)
 
 
 ####################################################################################################
 # Toggles between AR und VR.
 ####################################################################################################
-func _toggle_ar_vr(ar_mode: bool) -> void:
-	SettingsStore.set_value(SettingsStore.SettingType.AR_MODE, ar_mode)
-	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.AR_MODE): false})
-	if ar_mode:
+func _switch_environment(environmentInput: SettingsStore.EnvironmentType) -> void:
+	if environmentInput == SettingsStore.EnvironmentType.PASSTHROUGH:
 		_switch_to_ar()
 	else:
 		_switch_to_vr()
@@ -102,6 +106,8 @@ func _switch_to_vr() -> bool:
 ####################################################################################################
 func _load_environment() -> void:
 	if !environmentSceneInstance:
+		# Here environmentScene should be checked. But for now, "Workshop" is currently the only 
+		# environment besides passthrough, and the default anyway:
 		var environmentScene = load("res://scenes/common/environment/workshop/workshop_environment.tscn")
 		if environmentScene != null:
 			environmentSceneInstance = environmentScene.instantiate()

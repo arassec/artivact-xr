@@ -8,10 +8,13 @@ extends XRNode3D
 
 @export var hand_mesh: MeshInstance3D
 
+
+
 ####################################################################################################
 # Registers for signals.
 ####################################################################################################
 func _init():
+	# Register for relevant signals:
 	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_hand)
 	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_hand)
 
@@ -23,7 +26,10 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_hand)
 	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_hand)
 
+
+####################################################################################################
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+####################################################################################################
 func _process(_delta):
 	var new_tracker : String
 
@@ -54,11 +60,17 @@ func _process(_delta):
 			pose = new_pose
 
 
+####################################################################################################
+# Hides the hand mesh.
+####################################################################################################
 func _hide_hand(_controller: XRController3D) -> void:
 	if hand_mesh:
 		hand_mesh.visible = false
 
 
+####################################################################################################
+# Makes the hand mesh visible.
+####################################################################################################
 func _show_hand(_controller: XRController3D) -> void:
 	if hand_mesh:
 		hand_mesh.visible = true

@@ -62,20 +62,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
 
-[node name="ImmersiveModeButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=2038986404]
-layout_mode = 2
-icon = ExtResource("5_uda07")
-
-[node name="PassthroughModeButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=794868062]
-layout_mode = 2
-icon = ExtResource("6_x77j7")
-
 [node name="AboutButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=1949348545]
 layout_mode = 2
+text = "MAIN_ABOUT"
 icon = ExtResource("7_x77j7")
 
 [node name="SettingsButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer" unique_id=1894854420]
 layout_mode = 2
+text = "MAIN_SETTINGS"
 icon = ExtResource("5_iug8l")
 
 [node name="QuitButton" type="Button" parent="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer" unique_id=669889831]
@@ -177,7 +171,7 @@ theme_override_constants/margin_bottom = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer" unique_id=433056408]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 30
 
 [node name="LocaleLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=154975902]
 layout_mode = 2
@@ -278,9 +272,51 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "MAIN_SETTINGS_VOICE_VOLUME"
 
-[node name="MusicHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=866552239]
-visible = false
+[node name="SoundHSeparator" type="HSeparator" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=866552239]
 layout_mode = 2
+
+[node name="EnvironmentLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1517436095]
+layout_mode = 2
+text = "MAIN_SETTINGS_ENVIRONMENT"
+
+[node name="EnvironmentOptionButton" type="OptionButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1782881924]
+layout_mode = 2
+theme = ExtResource("1_lbtn3")
+item_count = 2
+popup/item_0/text = "MAIN_SETTINGS_ENVIRONMENT_PASSTHROUGH"
+popup/item_0/icon = ExtResource("6_x77j7")
+popup/item_0/id = 0
+popup/item_0/separator = true
+popup/item_1/text = "MAIN_SETTINGS_ENVIRONMENT_WORKSHOP"
+popup/item_1/icon = ExtResource("5_uda07")
+popup/item_1/id = 1
+
+[node name="EnvironmentContainer" type="HBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=399203433]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentContainer" unique_id=146823943]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+
+[node name="PassthroughCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentContainer/VBoxContainer" unique_id=91739008]
+layout_mode = 2
+text = "MAIN_SETTINGS_ENVIRONMENT_PASSTHROUGH"
+
+[node name="WorkshopCheckButton" type="CheckButton" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentContainer/VBoxContainer" unique_id=1264967548]
+layout_mode = 2
+text = "MAIN_SETTINGS_ENVIRONMENT_WORKSHOP"
+
+[node name="EnvironmentSelectionLabel" type="Label" parent="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentContainer" unique_id=570216763]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.0
+text = "MAIN_SETTINGS_ENVIRONMENT_SELECTION"
+autowrap_mode = 2
 
 [node name="AboutPanel" type="Panel" parent="." unique_id=552158884]
 visible = false
@@ -469,8 +505,6 @@ theme_override_font_sizes/font_size = 64
 text = "MAIN_WELCOME_URL"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/ImmersiveModeButton" to="." method="_on_immersive_mode_button_pressed"]
-[connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/PassthroughModeButton" to="." method="_on_passthrough_mode_button_pressed"]
 [connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
 [connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/QuitButton" to="." method="_on_quit_button_pressed"]
@@ -481,6 +515,9 @@ horizontal_alignment = 1
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolumeHBoxContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
 [connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceEnabledHBoxContainer/VoiceEnabledCheckBox" to="." method="_on_voice_enabled_check_box_toggled"]
 [connection signal="value_changed" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceVolumeHBoxContainer/VoiceVolumeHSlider" to="." method="_on_voice_volume_h_slider_value_changed"]
+[connection signal="item_selected" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentOptionButton" to="." method="_on_environment_option_button_item_selected"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentContainer/VBoxContainer/PassthroughCheckButton" to="." method="_on_passthrough_check_button_toggled"]
+[connection signal="toggled" from="SettingsPanel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnvironmentContainer/VBoxContainer/WorkshopCheckButton" to="." method="_on_workshop_check_button_toggled"]
 [connection signal="pressed" from="AboutPanel/MarginContainer/VBoxContainer/AboutMenu/AboutBackButton" to="." method="_on_about_back_button_pressed"]
 [connection signal="pressed" from="WelcomePanel/MarginContainer/VBoxContainer/WelcomeMenu/WelcomeBackButton" to="." method="_on_welcome_back_button_pressed"]
 

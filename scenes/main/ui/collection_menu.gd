@@ -28,13 +28,11 @@ func _ready():
 	# Set API-URL in "NoContentAvailable"-Panel:
 	find_child("ApiUrlLabel").text = str('( ', SettingsStore.get_value(SettingsStore.SettingType.API_URL), ' )')
 	
-	var arMode = SettingsStore.get_value(SettingsStore.SettingType.AR_MODE)
-	if arMode:
-		find_child("PassthroughModeButton").visible = false
-		find_child("ImmersiveModeButton").visible = true
-	else:
-		find_child("PassthroughModeButton").visible = true
-		find_child("ImmersiveModeButton").visible = false
+	var environment = SettingsStore.get_value(SettingsStore.SettingType.ENVIRONMENT)
+	if environment == SettingsStore.EnvironmentType.PASSTHROUGH:
+		_toggle_buttons("PassthroughCheckButton", ["WorkshopCheckButton"])
+	elif environment == SettingsStore.EnvironmentType.WORKSHOP:
+		_toggle_buttons("WorkshopCheckButton", ["PassthroughCheckButton"])
 
 	if !initialized:
 		initialized = true
@@ -60,15 +58,9 @@ func _ready():
 
 	var locale = SettingsStore.get_value(SettingsStore.SettingType.LOCALE)
 	if locale == 0:
-		find_child("EnCheckButton").button_pressed = true
-		find_child("EnCheckButton").disabled = true
-		find_child("DeCheckButton").button_pressed = false
-		find_child("DeCheckButton").disabled = false
+		_toggle_buttons("EnCheckButton", ["DeCheckButton"])
 	elif locale == 1:
-		find_child("EnCheckButton").button_pressed = false
-		find_child("EnCheckButton").disabled = false
-		find_child("DeCheckButton").button_pressed = true
-		find_child("DeCheckButton").disabled = true
+		_toggle_buttons("DeCheckButton", ["EnCheckButton"])
 
 
 func _collection_infos_updated() -> void:
@@ -137,10 +129,7 @@ func _on_en_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 0)
 		TranslationServer.set_locale('en')
-		find_child("EnCheckButton").button_pressed = true
-		find_child("EnCheckButton").disabled = true
-		find_child("DeCheckButton").button_pressed = false
-		find_child("DeCheckButton").disabled = false
+		_toggle_buttons("EnCheckButton", ["DeCheckButton"])
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.LOCALE): 0})
 
 
@@ -148,10 +137,7 @@ func _on_de_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 1)
 		TranslationServer.set_locale('de')
-		find_child("EnCheckButton").button_pressed = false
-		find_child("EnCheckButton").disabled = false
-		find_child("DeCheckButton").button_pressed = true
-		find_child("DeCheckButton").disabled = true
+		_toggle_buttons("DeCheckButton", ["EnCheckButton"])
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.LOCALE): 1})
 
 
@@ -165,18 +151,6 @@ func _on_music_volume_h_slider_value_changed(value: float) -> void:
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.MUSIC_VOLUME): value})
 
 
-func _on_passthrough_mode_button_pressed() -> void:
-	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, true)
-	find_child("PassthroughModeButton").visible = false
-	find_child("ImmersiveModeButton").visible = true
-
-
-func _on_immersive_mode_button_pressed() -> void:
-	SignalBus.trigger_with_payload(SignalBus.SignalType.COMMON_TOGGLE_AR_VR, false)
-	find_child("PassthroughModeButton").visible = true
-	find_child("ImmersiveModeButton").visible = false
-
-
 func _on_voice_enabled_check_box_toggled(toggled_on: bool) -> void:
 	SettingsStore.set_value(SettingsStore.SettingType.VOICE_ENABLED, toggled_on)
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_ENABLED): toggled_on})
@@ -185,3 +159,29 @@ func _on_voice_enabled_check_box_toggled(toggled_on: bool) -> void:
 func _on_voice_volume_h_slider_value_changed(value: float) -> void:
 	SettingsStore.set_value(SettingsStore.SettingType.VOICE_VOLUME, value)
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_VOLUME): value})
+
+
+func _on_passthrough_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		_toggle_buttons("PassthroughCheckButton", ["WorkshopCheckButton"])
+		SettingsStore.set_value(SettingsStore.SettingType.ENVIRONMENT, SettingsStore.EnvironmentType.PASSTHROUGH)
+		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ENVIRONMENT): SettingsStore.EnvironmentType.PASSTHROUGH})
+
+
+func _on_workshop_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		_toggle_buttons("WorkshopCheckButton", ["PassthroughCheckButton"])
+		SettingsStore.set_value(SettingsStore.SettingType.ENVIRONMENT, SettingsStore.EnvironmentType.WORKSHOP)
+		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ENVIRONMENT): SettingsStore.EnvironmentType.WORKSHOP})
+
+
+func _toggle_buttons(activeButton: String, inactiveButtons: Array[String] = []) -> void:
+	var active = find_child(activeButton)
+	if active:
+		active.button_pressed = true
+		active.disabled = true
+	for inactiveButton in inactiveButtons:
+		var inactive = find_child(inactiveButton)
+		if inactive:
+			inactive.button_pressed = false
+			inactive.disabled = false	

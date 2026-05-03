@@ -3,6 +3,11 @@ extends Node
 var appSettingsFile = "res://artivact-app-settings.json"
 var userSettingsFile = "user://artivact-user-settings.json"
 
+enum EnvironmentType {
+	PASSTHROUGH,
+	WORKSHOP
+}
+
 enum SettingType {
 	# APP SETTINGS:
 	API_URL,
@@ -12,12 +17,13 @@ enum SettingType {
 	# USER SETTINGS:
 	MUSIC_ENABLED = 100,
 	MUSIC_VOLUME,
-	ACTIVE_HAND, # value of 'true' means 'right hand'
-	AR_MODE, # value of 'true' means 'AR', 'false' means 'VR'
+	ACTIVE_HAND, # DEPRECATED: value of 'true' means 'right hand'
+	AR_MODE, # DEPRECATED: value of 'true' means 'AR', 'false' means 'VR'
 	FIRST_START,
 	LOCALE, # 0 == en, 1 == de
 	VOICE_ENABLED,
-	VOICE_VOLUME
+	VOICE_VOLUME,
+	ENVIRONMENT
 }
 
 var appSettings: Dictionary
@@ -42,10 +48,6 @@ func _init():
 		userSettings[str(SettingType.MUSIC_ENABLED)] = true
 	if !userSettings.has(str(SettingType.MUSIC_VOLUME)):
 		userSettings[str(SettingType.MUSIC_VOLUME)] = 0.2
-	if !userSettings.has(str(SettingType.ACTIVE_HAND)):
-		userSettings[str(SettingType.ACTIVE_HAND)] = true
-	if !userSettings.has(str(SettingType.AR_MODE)):
-		userSettings[str(SettingType.AR_MODE)] = false
 	if !userSettings.has(str(SettingType.FIRST_START)):
 		userSettings[str(SettingType.FIRST_START)] = true
 	if !userSettings.has(str(SettingType.LOCALE)):
@@ -59,6 +61,8 @@ func _init():
 		userSettings[str(SettingType.VOICE_ENABLED)] = true
 	if !userSettings.has(str(SettingType.VOICE_VOLUME)):
 		userSettings[str(SettingType.VOICE_VOLUME)] = 0.4
+	if !userSettings.has(str(SettingType.ENVIRONMENT)):
+		userSettings[str(SettingType.ENVIRONMENT)] = EnvironmentType.WORKSHOP
 
 	_save_user_settings()
 	
