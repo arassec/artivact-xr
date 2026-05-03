@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhofvapa7prsg"
-path.s3tc="res://.godot/imported/godot_logo.png-7d568e70d9612082d86599f6cf9a1f16.s3tc.ctex"
-path.etc2="res://.godot/imported/godot_logo.png-7d568e70d9612082d86599f6cf9a1f16.etc2.ctex"
+uid="uid://dkbj08x7lk3xu"
+path.s3tc="res://.godot/imported/godot_logo_gray.png-dec4053f49be30f83eda33155ea5a50d.s3tc.ctex"
+path.etc2="res://.godot/imported/godot_logo_gray.png-dec4053f49be30f83eda33155ea5a50d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/ui/logos/godot_logo.png"
-dest_files=["res://.godot/imported/godot_logo.png-7d568e70d9612082d86599f6cf9a1f16.s3tc.ctex", "res://.godot/imported/godot_logo.png-7d568e70d9612082d86599f6cf9a1f16.etc2.ctex"]
+source_file="res://assets/ui/logos/godot_logo_gray.png"
+dest_files=["res://.godot/imported/godot_logo_gray.png-dec4053f49be30f83eda33155ea5a50d.s3tc.ctex", "res://.godot/imported/godot_logo_gray.png-dec4053f49be30f83eda33155ea5a50d.etc2.ctex"]
 
 [params]
 

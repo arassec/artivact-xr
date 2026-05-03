@@ -34,7 +34,7 @@ composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad
 tablet = NodePath("../../../../../../Tablet")
 
 [node name="TabletOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport")]
-transform = Transform3D(0.86602527, 0, 0.50000024, 0, 1, 0, -0.50000024, 0, 0.86602527, -0.75, 1, -1.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
 layer_viewport = NodePath("../../TabletSubViewport")
 sort_order = -1
 enable_hole_punch = true
@@ -54,7 +54,7 @@ tablet = NodePath("../Tablet")
 tablet_open_xr_composition_layer_quad = NodePath("../TabletOpenXRCompositionLayerQuad")
 
 [node name="Tablet" parent="XROrigin3D" index="8" unique_id=133861402 node_paths=PackedStringArray("composition_layer") instance=ExtResource("7_cx0yf")]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0.95, -0.44)
+transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 1, -0.5)
 composition_layer = NodePath("../TabletOpenXRCompositionLayerQuad")
 
 [node name="TabletSubViewport" type="SubViewport" parent="." index="1" unique_id=461716119]
