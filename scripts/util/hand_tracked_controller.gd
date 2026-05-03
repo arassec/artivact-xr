@@ -27,6 +27,16 @@ func _process(_delta):
 	var threshold : float = 0.9 if was_pickup_pressed else 0.99
 	pickup_pressed = pickup_value > threshold
 	
+
+	# First check, if the palm is looking upwards, to avoid accidental grips:
+	var basis := global_transform.basis
+	var palm_normal := -basis.z.normalized()
+	var value := palm_normal.dot(Vector3.RIGHT)
+	if !was_pickup_pressed && tracker == "left_hand" && value > -0.8:
+		return
+	if !was_pickup_pressed && tracker == "right_hand" && value < 0.8:
+		return
+	
 	if SettingsStore.is_tablet_picked_up():
 		return
 	

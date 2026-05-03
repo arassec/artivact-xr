@@ -40,6 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 pose = &"palm_pose"
 show_when_tracked = true
 script = ExtResource("2_tkvr8")
+left_controller = true
 
 [node name="FunctionPickup" parent="XROrigin3D/LeftHand" index="0" unique_id=1848327600 instance=ExtResource("4_su8sa")]
 grab_distance = 0.05
@@ -49,6 +50,7 @@ ranged_enable = false
 pose = &"palm_pose"
 show_when_tracked = true
 script = ExtResource("2_tkvr8")
+right_controller = true
 
 [node name="FunctionPickup" parent="XROrigin3D/RightHand" index="0" unique_id=681896117 instance=ExtResource("4_su8sa")]
 grab_distance = 0.05
