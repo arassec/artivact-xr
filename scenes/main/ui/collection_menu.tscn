@@ -83,10 +83,6 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="CollectionContainer/MarginContainer/VBoxContainer" unique_id=353689417]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
 
 [node name="CollectionPaginationContainer" parent="CollectionContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=647102466 instance=ExtResource("2_7v2gc")]
 layout_mode = 2

@@ -51,6 +51,7 @@ size_flags_horizontal = 3
 
 [node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=361867525]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "COLL_QUIT"
 icon = ExtResource("3_v02yv")
 

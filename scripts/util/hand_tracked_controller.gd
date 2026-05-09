@@ -20,25 +20,30 @@ func _process(_delta):
 		if pose != new_pose:
 			pose = new_pose
 
-	# Detect grip with hand tracking enabled:
-	var pickup_pressed = false
-
-	var pickup_value : float = get_float("grip")
-	var threshold : float = 0.9 if was_pickup_pressed else 0.99
-	pickup_pressed = pickup_value > threshold
-	
+	### Detect hand-tracked gripping ###########################
 
 	# First check, if the palm is looking upwards, to avoid accidental grips:
 	var basis := global_transform.basis
 	var palm_normal := -basis.z.normalized()
 	var value := palm_normal.dot(Vector3.RIGHT)
-	if !was_pickup_pressed && tracker == "left_hand" && value > -0.8:
+	if !was_pickup_pressed && tracker == "left_hand" \
+			&& HandTrackingUtil.get_tracking_type_for_hand(true) == HandTrackingUtil.TrackingType.HAND \
+			&& value > -0.65:
 		return
-	if !was_pickup_pressed && tracker == "right_hand" && value < 0.8:
+	if !was_pickup_pressed && tracker == "right_hand"  \
+			&& HandTrackingUtil.get_tracking_type_for_hand(false) == HandTrackingUtil.TrackingType.HAND \
+			&& value < 0.65:
 		return
 	
+	# If the tablet is picked up, we don't want any other object to be grabbed:
 	if SettingsStore.is_tablet_picked_up():
 		return
+		
+	# Detect grip with hand tracking enabled:
+	var pickup_pressed = false
+	var pickup_value : float = get_float("grip")
+	var threshold : float = 0.9 if was_pickup_pressed else 0.99
+	pickup_pressed = pickup_value > threshold
 	
 	if was_pickup_pressed and not pickup_pressed:
 		SignalBus.trigger_with_payload(SignalBus.SignalType.CTRL_GRIP_RELEASED, self)

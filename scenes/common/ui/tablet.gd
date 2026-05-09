@@ -34,6 +34,7 @@ func _ready() -> void:
 
 	if SettingsStore.get_tablet_transform():
 		$PickableObject.global_transform = SettingsStore.get_tablet_transform()
+		# The tablet has been moved before and does not have to be repositioned again!
 		initialize = false
 		
 
@@ -48,12 +49,12 @@ func _process(_delta: float) -> void:
 			SettingsStore.set_tablet_transform($PickableObject.global_transform)
 			
 		# Rotate the grab points if controllers are used:
-		var left_mode = get_input_mode_for_hand(true)
-		if left_mode == "controller":
+		var left_mode = HandTrackingUtil.get_tracking_type_for_hand(true)
+		if left_mode == HandTrackingUtil.TrackingType.CONTROLLER:
 			find_child("GrabPointHandLeft").rotate_x(deg_to_rad(-44))
 			
-		var right_mode = get_input_mode_for_hand(false)
-		if right_mode == "controller":
+		var right_mode = HandTrackingUtil.get_tracking_type_for_hand(false)
+		if right_mode == HandTrackingUtil.TrackingType.CONTROLLER:
 			find_child("GrabPointHandRight").rotate_x(deg_to_rad(-44))
 
 	# Copy the XRCompositionLayer's transform to the tablet's to keep them in sync:
@@ -93,22 +94,3 @@ func _on_pickable_object_dropped(_pickable: Variant) -> void:
 
 func _on_pickable_object_grabbed(_pickable: Variant, _by: Variant) -> void:
 	SettingsStore.set_tablet_picked_up(true)
-
-
-func get_input_mode_for_hand(is_left: bool) -> String:
-	var tracker_path := "/user/hand_tracker/left" if is_left else "/user/hand_tracker/right"
-	var hand_tracker: XRHandTracker = XRServer.get_tracker(tracker_path)
-
-	if hand_tracker == null:
-		return "no_hand_tracking_support"
-
-	if not hand_tracker.has_tracking_data:
-		return "controller_or_not_tracked"
-
-	match hand_tracker.hand_tracking_source:
-		XRHandTracker.HAND_TRACKING_SOURCE_UNOBSTRUCTED:
-			return "hand_tracking" 
-		XRHandTracker.HAND_TRACKING_SOURCE_CONTROLLER:
-			return "controller"  
-		_:
-			return "unknown"
