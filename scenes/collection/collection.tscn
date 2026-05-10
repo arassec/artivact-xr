@@ -16,22 +16,19 @@ tablet = NodePath("../Tablet")
 [node name="RightHand" parent="XROrigin3D" index="2" node_paths=PackedStringArray("tablet")]
 tablet = NodePath("../Tablet")
 
-[node name="LeftTabletFingerPointer" type="Node3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1481069490) index="0" unique_id=354435966 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
+[node name="BoneAttachment3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1838627276, 1594116051) index="2" unique_id=1481069490]
+transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266, -0.03211129, -0.11638325, -0.91271573, 0.39166808, -0.01110013, 0.04294307, -0.17161417)
+
+[node name="LeftTabletFingerPointer" type="Node3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" index="0" unique_id=354435966 node_paths=PackedStringArray("viewport", "composition_layer")]
 transform = Transform3D(-0.9994227, -0.011696085, -0.031895116, 0.014952645, 0.6915824, -0.722143, 0.030504402, -0.722203, -0.6910082, 0.00033061393, 0.008717284, 0.020414375)
 script = ExtResource("4_a824d")
-hover_distance = 0.05
-click_distance = 0.01
 viewport = NodePath("../../../../../../../TabletSubViewport")
 composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
-tablet = NodePath("../../../../../../Tablet")
 
-[node name="RightTabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="0" unique_id=846219046 node_paths=PackedStringArray("viewport", "composition_layer", "tablet")]
+[node name="RightTabletFingerPointer" type="Node3D" parent="XROrigin3D/RightHandTracked/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" parent_id_path=PackedInt32Array(1408086663) index="0" unique_id=846219046 node_paths=PackedStringArray("viewport", "composition_layer")]
 script = ExtResource("4_a824d")
-hover_distance = 0.05
-click_distance = 0.01
 viewport = NodePath("../../../../../../../TabletSubViewport")
 composition_layer = NodePath("../../../../../../TabletOpenXRCompositionLayerQuad")
-tablet = NodePath("../../../../../../Tablet")
 
 [node name="TabletOpenXRCompositionLayerQuad" type="OpenXRCompositionLayerQuad" parent="XROrigin3D" index="5" unique_id=1798299919 node_paths=PackedStringArray("layer_viewport")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)

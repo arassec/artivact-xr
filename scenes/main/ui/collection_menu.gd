@@ -51,6 +51,10 @@ func _ready():
 		SettingsStore.set_value(SettingsStore.SettingType.FIRST_START, false)
 		if showWelcomePage:
 			$WelcomePanel.visible = true
+			if TranslationServer.get_locale().begins_with("de"):
+				$WelcomePlayerDe.play()
+			else:
+				$WelcomePlayer.play()
 
 	var showAboutPage = SettingsStore.get_value(SettingsStore.SettingType.SHOW_ABOUT_PAGE)
 	if !showAboutPage:
@@ -88,10 +92,12 @@ func _collection_infos_updated() -> void:
 
 
 func _on_quit_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	SignalBus.trigger(SignalBus.SignalType.MAIN_EXIT_APPLICATION)
 
 
 func _download_collection(_collectionId: String):
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	find_child("StatusLabel").text = tr("MAIN_DOWNLOADING")
 	find_child("OperationInProgressCover").visible = true
 
@@ -106,26 +112,32 @@ func _clear_operation_in_progress():
 
 
 func _on_settings_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	$SettingsPanel.visible = true
 
 
 func _on_settings_back_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	$SettingsPanel.visible = false
 	
 
 func _on_about_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	$AboutPanel.visible = true
 
 
 func _on_about_back_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	$AboutPanel.visible = false
 
 
 func _on_welcome_back_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	$WelcomePanel.visible = false
 
 
 func _on_en_check_button_toggled(toggled_on: bool) -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	if toggled_on:
 		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 0)
 		TranslationServer.set_locale('en')
@@ -134,6 +146,7 @@ func _on_en_check_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_de_check_button_toggled(toggled_on: bool) -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	if toggled_on:
 		SettingsStore.set_value(SettingsStore.SettingType.LOCALE, 1)
 		TranslationServer.set_locale('de')
@@ -142,6 +155,7 @@ func _on_de_check_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_music_enabled_check_box_toggled(toggled_on: bool) -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	SettingsStore.set_value(SettingsStore.SettingType.MUSIC_ENABLED, toggled_on)
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.MUSIC_ENABLED): toggled_on})
 
@@ -152,6 +166,7 @@ func _on_music_volume_h_slider_value_changed(value: float) -> void:
 
 
 func _on_voice_enabled_check_box_toggled(toggled_on: bool) -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	SettingsStore.set_value(SettingsStore.SettingType.VOICE_ENABLED, toggled_on)
 	SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.VOICE_ENABLED): toggled_on})
 
@@ -163,6 +178,7 @@ func _on_voice_volume_h_slider_value_changed(value: float) -> void:
 
 func _on_passthrough_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 		_toggle_buttons("PassthroughCheckButton", ["WorkshopCheckButton"])
 		SettingsStore.set_value(SettingsStore.SettingType.ENVIRONMENT, SettingsStore.EnvironmentType.PASSTHROUGH)
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ENVIRONMENT): SettingsStore.EnvironmentType.PASSTHROUGH})
@@ -170,6 +186,7 @@ func _on_passthrough_check_button_toggled(toggled_on: bool) -> void:
 
 func _on_workshop_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 		_toggle_buttons("WorkshopCheckButton", ["PassthroughCheckButton"])
 		SettingsStore.set_value(SettingsStore.SettingType.ENVIRONMENT, SettingsStore.EnvironmentType.WORKSHOP)
 		SignalBus.trigger_with_payload(SignalBus.SignalType.MAIN_SETTING_CHANGED, {str(SettingsStore.SettingType.ENVIRONMENT): SettingsStore.EnvironmentType.WORKSHOP})

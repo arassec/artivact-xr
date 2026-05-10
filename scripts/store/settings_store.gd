@@ -95,6 +95,10 @@ func get_locale() -> String:
 		var configuredLocale = userSettings[str(SettingType.LOCALE)]
 		if configuredLocale == 1:
 			return "de"
+		elif TranslationServer.get_locale().begins_with("de"):
+			return "de"
+	elif TranslationServer.get_locale().begins_with("de"):
+		return "de"
 	return ""
 
 

@@ -73,11 +73,13 @@ func _update_page_label() -> void:
 
 func _on_before_button_pressed() -> void:
 	if curPage > 0:
+		SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 		_update_page(curPage -1)
 		before_clicked.emit()
 
 
 func _on_next_button_pressed() -> void:
 	if curPage + 1 < totalPages:
+		SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 		_update_page(curPage + 1)
 		next_clicked.emit()

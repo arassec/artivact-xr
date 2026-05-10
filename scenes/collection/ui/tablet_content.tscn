@@ -3,6 +3,8 @@
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_v7tfw"]
 [ext_resource type="Texture2D" uid="uid://bogqsjk5uwarf" path="res://assets/ui/icons/arrow_back_64dp_F5F5F5.svg" id="2_eucoa"]
 [ext_resource type="Script" uid="uid://qknmgb8iguly" path="res://scenes/collection/ui/tablet_content.gd" id="2_js6cv"]
+[ext_resource type="Texture2D" uid="uid://5ff2fix61gy0" path="res://assets/ui/icons/play_circle_64dp_F5F5F5.svg" id="3_8h7yh"]
+[ext_resource type="Texture2D" uid="uid://blpq4c5i6rmsa" path="res://assets/audio/pause_circle_64dp_F5F5F5.svg" id="3_j4d3r"]
 [ext_resource type="Texture2D" uid="uid://528tubo04gp2" path="res://assets/ui/icons/close_64dp_F5F5F5.png" id="3_v02yv"]
 [ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="5_cu7do"]
 
@@ -45,7 +47,19 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="BreadcrumbLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=1893488171]
+[node name="PauseVoiceButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=1513636276]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "COLL_PAUSE_VOICE"
+icon = ExtResource("3_j4d3r")
+
+[node name="ResumeVoiceButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=1024882220]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "COLL_RESUME_VOICE"
+icon = ExtResource("3_8h7yh")
+
+[node name="Spacer" type="Label" parent="Panel/MarginContainer/VBoxContainer/NavigationMenu" unique_id=1893488171]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -78,6 +92,8 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/NavigationMenu/PauseVoiceButton" to="." method="_on_pause_voice_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/NavigationMenu/ResumeVoiceButton" to="." method="_on_resume_voice_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/NavigationMenu/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/NavigationMenu/WidgetBackButton" to="." method="_on_widget_back_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/NavigationMenu/WidgetContentBackButton" to="." method="_on_widget_content_back_button_pressed"]

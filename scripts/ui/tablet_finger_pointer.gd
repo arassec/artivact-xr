@@ -4,13 +4,13 @@ extends Node3D
 const NO_INTERSECTION := Vector2(-1.0, -1.0)
 
 ## Maximum distance (in metres) at which hover (MouseMotion) events are sent.
-@export var hover_distance: float = 0.08
+@export var hover_distance: float = 0.05
 
 ## Distance (in metres) at which a click (MouseButton) event is triggered.
-@export var click_distance: float = 0.02
+@export var click_distance: float = 0.01
 
 ## Minimum time in seconds between two simulated clicks.
-@export var click_cooldown: float = 0.75
+@export var click_cooldown: float = 0.5
 
 ## The SubViewport that receives the synthesised mouse events.
 @export var viewport: SubViewport
@@ -18,9 +18,7 @@ const NO_INTERSECTION := Vector2(-1.0, -1.0)
 ## The composition layer whose surface is used for hit-testing.
 @export var composition_layer: OpenXRCompositionLayerQuad
 
-## The tablet to play the 'click' sound when interacting.
-@export var tablet: Tablet
-
+@onready var debug_ray: MeshInstance3D = $DebugRay
 
 var _was_clicking: bool = false
 var _last_intersect: Vector2 = NO_INTERSECTION
@@ -47,7 +45,7 @@ func _process(delta: float) -> void:
 	if signed_dist <= 0.0 or signed_dist > hover_distance:
 		_clear_state()
 		return
-
+	
 	var intersect: Vector2 = composition_layer.intersects_ray(finger_pos, -layer_normal)
 
 	if intersect == NO_INTERSECTION:
@@ -72,9 +70,6 @@ func _process(delta: float) -> void:
 			release_event.position = viewport_pos
 			viewport.push_input(release_event)
 			
-			if tablet:
-				tablet.play_click()
-
 			_click_cooldown_remaining = click_cooldown
 
 		_was_clicking = true
@@ -104,3 +99,4 @@ func _intersect_to_viewport_pos(intersect: Vector2) -> Vector2i:
 	if viewport and intersect != NO_INTERSECTION:
 		return Vector2i(intersect * Vector2(viewport.size))
 	return Vector2i(-1, -1)
+	

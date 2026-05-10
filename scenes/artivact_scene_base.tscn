@@ -40,7 +40,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 pose = &"palm_pose"
 show_when_tracked = true
 script = ExtResource("2_tkvr8")
-left_controller = true
 
 [node name="FunctionPickup" parent="XROrigin3D/LeftHand" index="0" unique_id=1848327600 instance=ExtResource("4_su8sa")]
 grab_distance = 0.05
@@ -50,7 +49,6 @@ ranged_enable = false
 pose = &"palm_pose"
 show_when_tracked = true
 script = ExtResource("2_tkvr8")
-right_controller = true
 
 [node name="FunctionPickup" parent="XROrigin3D/RightHand" index="0" unique_id=681896117 instance=ExtResource("4_su8sa")]
 grab_distance = 0.05
@@ -71,7 +69,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tkvr8")
 [node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1838627276, 1594116051) index="1" unique_id=771060895]
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="XROrigin3D/LeftHandTracked/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1838627276, 1594116051) index="2" unique_id=1481069490]
-transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266, -0.03211129, -0.11638325, -0.91271573, 0.39166808, -0.01110013, 0.04294307, -0.17161417)
+transform = Transform3D(0.018895995, 0.3927223, 0.9194628, -0.9931842, 0.11315905, -0.027921638, -0.115011014, -0.9126682, 0.39218408, -0.01110013, 0.04294307, -0.17161417)
 bone_name = "LeftIndexTip"
 bone_idx = 9
 

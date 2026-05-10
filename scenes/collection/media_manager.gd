@@ -51,6 +51,7 @@ func _process(delta):
 
 func _grab_item_model(controller: XRController3D) -> void:
 	if controller != null && mediaModelNode != null && !mediaLoaded && grabbingController == null:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_MODEL_GRIPPED, true)
 		grabbingController = controller
 		rotateModelHorizontally = false
 		remove_child(mediaModelNode)
@@ -64,6 +65,7 @@ func _grab_item_model(controller: XRController3D) -> void:
 
 func _release_item_model(controller: XRController3D) -> void:
 	if controller != null && mediaModelNode != null && grabbingController == controller:
+		SignalBus.trigger_with_payload(SignalBus.SignalType.COLL_MODEL_GRIPPED, false)
 		grabbingController = null
 		controller.remove_child(mediaModelNode)
 		mediaModelNode.scale *= 4

@@ -46,21 +46,31 @@ Many thanks to all contributors of this engine for their great work!","Die Godot
 
 Vielen Dank an alle, die zu dieser Engine beigetragen haben!"
 MAIN_WELCOME,Welcome to Artivact XR,Willkommen bei Artivact XR
-MAIN_WELCOME_PRIMARY,"Artivact and Artivact XR are free, open-source tools for collection management, presentation and virtual item creation. Both applications can easily be configured and adapted to personal needs, and thus be used as base for your own publications.
+MAIN_WELCOME_PRIMARY,"With this application, you can experience virtual exhibitions and collections.
 
-The provided example collections showcase the feature set of Artivact and Artivact XR. If not otherwise specified, all assets are published under the CC BY-SA 4.0 license.
+Use your index finger to operate the control tablet in front of you. 
 
-The applications themselves are published under the MIT license.","Artivact und Artivact XR sind Open-Source Tools zur Verwaltung von Sammlungen, deren virtualisierung und Präsentation. Beide Anwendungen können einfach konfiguriert und angepasst, und so als Basis für eigene Veröffentlichungen genutzt werden.
+The tablet can be grabbed and moved by its edges. When using controllers, use the grip button for this; when using hand tracking, simply grab the tablet directly.","Mit dieser Anwendung können Sie virtuelle Ausstellungen und Sammlungen erleben. 
 
-Die hier gezeigten Beispielsammlungen demonstrieren die Funktionen von Artivact und Artivact XR. Wenn nicht anders angegeben stehen sämtliche Mediendatein unter der CC BY-SA 4.0 Lizenz.
+Nutzen sie den Zeigefinger, um das Steuerungstablet vor Ihnen zu bedienen. 
 
-Die Anwendungen selber werden unter der MIT Lizenz veröffentlicht."
+Das Tablet lässt sich an den Rändern greifen und verschieben. Bei Nutzung von Controllern nutzen Sie dafür die Grip-Taste, bei Handsteuerung greifen Sie einfach nach dem Tablet."
 MAIN_WELCOME_URL,www.artivact.io,www.artivact.io
-MAIN_WELCOME_SECONDARY,"You can find out more about the project, the official documentation and contact information for support at:","Mehr Infos zum Projekt, die offizielle Dokumentation und Kontaktinformationen für Fragen oder Unterstützung finden sich unter:"
+MAIN_WELCOME_SECONDARY,"You can also grab virtual exhibits in the collections. 
+
+To do this, hold your hand a short distance away from the tablet, turn your palm upward, and make a fist.
+
+You can find out more at","Virtuelle Ausstellungsstücke in den Sammlungen können Sie ebenfalls greifen. 
+
+Halten Sie dazu die Hand ein Stück vom Tablet entfernt, drehen Sie die Handfläche nach oben und machen Sie eine Faust.
+
+Weitere Informationen finden Sie unter"
 COLL_QUIT,Quit,Verlassen
 COLL_BACK,Back,Zurück
 COLL_ITEM_LABEL,Collection Item,Sammlungsobjekt
 COLL_ITEM_DESCRIPTION,Description,Beschreibung
+COLL_PAUSE_VOICE,Pause Voice,Sprachausgabe pausieren
+COLL_RESUME_VOICE,Resume Voice,Sprachausgabe fortsetzen
 PAGE_TITLE,Title,Titel
 TEXT,Text,Text
 ITEM_SEARCH,Items,Ausstellungsstücke

@@ -10,10 +10,10 @@ var selectedPage: String
 var widgets: Array[Widget] = []
 var selectedWidget: String
 
-var pageBreadcrumb: String = ''
-var widgetBreadcrumb: String = ''
-
 var widgetContentSceneInstance
+
+@onready var pause_voice_button: Button = $Panel/MarginContainer/VBoxContainer/NavigationMenu/PauseVoiceButton
+@onready var resume_voice_button: Button = $Panel/MarginContainer/VBoxContainer/NavigationMenu/ResumeVoiceButton
 
 
 ####################################################################################################
@@ -23,8 +23,6 @@ func _init():
 	# Register for relevant signals:
 	SignalBus.register(SignalBus.SignalType.COLL_UPDATE_PAGE_NAV, _update_page_nav)
 	SignalBus.register(SignalBus.SignalType.COLL_UPDATE_WIDGET_NAV, _update_widget_nav)
-	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _page_selected)
-	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _widget_selected)
 	SignalBus.register(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, _update_widget_content)
 
 
@@ -34,8 +32,6 @@ func _init():
 func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_UPDATE_PAGE_NAV, _update_page_nav)
 	SignalBus.deregister(SignalBus.SignalType.COLL_UPDATE_WIDGET_NAV, _update_widget_nav)
-	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _page_selected)
-	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _widget_selected)
 	SignalBus.deregister(SignalBus.SignalType.COLL_UPDATE_WIDGET_CONTENT, _update_widget_content)
 
 
@@ -55,6 +51,14 @@ func _ready():
 		var immersive_button = find_child("ImmersiveModeButton")
 		if immersive_button:
 			immersive_button.visible = false
+
+	var voiceEnabled = SettingsStore.get_value(SettingsStore.SettingType.VOICE_ENABLED)
+	if voiceEnabled:
+		pause_voice_button.visible = true
+		resume_voice_button.visible = false
+	else:
+		pause_voice_button.visible = false
+		resume_voice_button.visible = false
 
 
 ####################################################################################################
@@ -77,7 +81,7 @@ func _update_page_nav(pagesInput: Array[ArtivactMenuJson]):
 	find_child("QuitButton").visible = true
 	find_child("WidgetBackButton").visible = false
 	find_child("WidgetContentBackButton").visible = false
-	find_child("BreadcrumbLabel").visible = true
+	find_child("Spacer").visible = true
 
 	find_child("PaginationContainer").visible = true
 	find_child("WidgetContentAnchor").visible = false
@@ -117,22 +121,6 @@ func _update_widget_nav(widgetsInput: Array[Widget]):
 	find_child("WidgetContentAnchor").visible = false
 
 
-func _page_selected(menuId: String) -> void:
-	if pages.size() == 1:
-		return
-	for page in pages:
-		if page.id == menuId:
-			pageBreadcrumb = page.translate()
-			_update_breadcrumb()
-
-
-func _widget_selected(widgetId: String) -> void:
-	for widget in widgets:
-		if widget.id == widgetId:
-			widgetBreadcrumb = widget.label()
-			_update_breadcrumb()
-
-
 func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 	if widgetSceneData.primaryPanelScene:
 		var widgetScene: Resource = load(widgetSceneData.primaryPanelScene)
@@ -149,33 +137,14 @@ func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 		widgetContentAnchor.visible = true
 	
 
-func _update_breadcrumb() -> void:
-	if pages.size() == 1:
-		var pageTitleWidget = CollectionStore.get_page_title_widget()
-		if pageTitleWidget != null && pageTitleWidget.navigationTitle != null:
-			pageBreadcrumb = pageTitleWidget.navigationTitle.translate()
-	var breadcrumbLabel = find_child("BreadcrumbLabel")
-	if pageBreadcrumb == '' && widgetBreadcrumb == '':
-		breadcrumbLabel.text = ""
-	else:
-		breadcrumbLabel.visible = true
-		if pageBreadcrumb != '' && widgetBreadcrumb != '':
-			breadcrumbLabel.text = str(pageBreadcrumb, " / ", widgetBreadcrumb)
-		elif pageBreadcrumb != '':
-			breadcrumbLabel.text = pageBreadcrumb
-		elif widgetBreadcrumb != '':
-			breadcrumbLabel.text = widgetBreadcrumb
-
-
 func _on_widget_back_button_pressed() -> void:
-	pageBreadcrumb = ''
-	widgetBreadcrumb = ''
-	_update_breadcrumb()
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	_update_page_nav(pages)
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_WIDGET)
 
 
 func _on_widget_content_back_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	find_child("WidgetContentAnchor").remove_child(widgetContentSceneInstance)
 	widgetContentSceneInstance.queue_free()
 	_update_widget_nav(widgets)
@@ -183,6 +152,7 @@ func _on_widget_content_back_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.CTRL_PLAY_CLICK)
 	SignalBus.trigger(SignalBus.SignalType.COLL_QUIT_COLLECTION)
 
 
@@ -193,3 +163,15 @@ func _compute_font_size(content) -> int:
 	elif content.size() >= 9:
 		fontSize = 24
 	return fontSize
+
+
+func _on_pause_voice_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.COLL_PAUSE_VOICE)
+	pause_voice_button.visible = false
+	resume_voice_button.visible = true
+
+
+func _on_resume_voice_button_pressed() -> void:
+	SignalBus.trigger(SignalBus.SignalType.COLL_RESUME_VOICE)
+	pause_voice_button.visible = true
+	resume_voice_button.visible = false

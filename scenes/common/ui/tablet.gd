@@ -13,6 +13,7 @@ var initialize := true
 func _init():
 	# Register for relevant signals:
 	SignalBus.register(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
+	SignalBus.register(SignalBus.SignalType.CTRL_PLAY_CLICK, _play_click)
 	
 
 ####################################################################################################
@@ -20,6 +21,7 @@ func _init():
 ####################################################################################################
 func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.MAIN_SETTING_CHANGED, _setting_changed)
+	SignalBus.deregister(SignalBus.SignalType.CTRL_PLAY_CLICK, _play_click)
 
 
 ####################################################################################################
@@ -79,7 +81,7 @@ func _toggle_tablet_base_visible(visible: bool) -> void:
 	$PickableObject/Tablet.visible = visible
 
 
-func play_click() -> void:
+func _play_click() -> void:
 	$AudioStreamPlayer.play()
 	
 

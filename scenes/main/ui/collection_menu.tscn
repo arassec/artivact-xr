@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://528tubo04gp2" path="res://assets/ui/icons/close_64dp_F5F5F5.png" id="10_deku2"]
 [ext_resource type="Texture2D" uid="uid://bhofvapa7prsg" path="res://assets/ui/logos/godot_logo.png" id="11_nlc0g"]
 [ext_resource type="Texture2D" uid="uid://biahjxigt6urq" path="res://assets/ui/logos/artivact-xr-logo.png" id="12_deku2"]
+[ext_resource type="AudioStream" uid="uid://esh6i2hj6lnu" path="res://assets/audio/intro.mp3" id="13_deku2"]
+[ext_resource type="AudioStream" uid="uid://brhivswq2777p" path="res://assets/audio/intro_de.mp3" id="14_tq0ou"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iug8l"]
 font = ExtResource("5_hah2j")
@@ -431,6 +433,8 @@ theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel/MarginContainer" unique_id=792890553]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 20
 
 [node name="WelcomeMenu" type="HBoxContainer" parent="WelcomePanel/MarginContainer/VBoxContainer" unique_id=2015940456]
@@ -500,6 +504,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "MAIN_WELCOME_URL"
 horizontal_alignment = 1
+
+[node name="WelcomePlayer" type="AudioStreamPlayer" parent="." unique_id=1863444152]
+stream = ExtResource("13_deku2")
+
+[node name="WelcomePlayerDe" type="AudioStreamPlayer" parent="." unique_id=95805500]
+stream = ExtResource("14_tq0ou")
 
 [connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
 [connection signal="pressed" from="CollectionContainer/MarginContainer/VBoxContainer/MainMenuContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

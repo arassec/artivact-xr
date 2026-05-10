@@ -36,8 +36,9 @@ func _init():
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.register(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.register(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
-	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_tablet)
-	SignalBus.register(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_tablet)
+	SignalBus.register(SignalBus.SignalType.COLL_RESUME_VOICE, _resume_voice)
+	SignalBus.register(SignalBus.SignalType.COLL_PAUSE_VOICE, _pause_voice)
+	SignalBus.register(SignalBus.SignalType.COLL_MODEL_GRIPPED, _model_gripped)
 
 	_load_pages()
 
@@ -50,8 +51,9 @@ func _exit_tree():
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_PAGE, _open_page)
 	SignalBus.deregister(SignalBus.SignalType.COLL_OPEN_WIDGET, _open_widget)
 	SignalBus.deregister(SignalBus.SignalType.COLL_CLOSE_WIDGET, _close_widget)
-	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_PRESSED, _hide_tablet)
-	SignalBus.deregister(SignalBus.SignalType.CTRL_GRIP_RELEASED, _show_tablet)
+	SignalBus.deregister(SignalBus.SignalType.COLL_RESUME_VOICE, _resume_voice)
+	SignalBus.deregister(SignalBus.SignalType.COLL_PAUSE_VOICE, _pause_voice)
+	SignalBus.deregister(SignalBus.SignalType.COLL_MODEL_GRIPPED, _model_gripped)
 
 
 ####################################################################################################
@@ -199,8 +201,7 @@ func _open_widget(widgetId):
 ####################################################################################################
 func _close_widget():
 	# get_parent().find_child("BeamerOpenXRCompositionLayerQuad").visible = false
-	if $AudioStreamPlayer.is_playing():
-		$AudioStreamPlayer.stop()
+	$AudioStreamPlayer.stop()
 	SignalBus.trigger(SignalBus.SignalType.COLL_CLOSE_ITEM_MEDIA)
 
 
@@ -208,8 +209,7 @@ func _close_widget():
 # Quits the collection and transits to Artivact XR's main scene.
 ####################################################################################################
 func _quit_collection():
-	if $AudioStreamPlayer.is_playing():
-		$AudioStreamPlayer.stop()
+	$AudioStreamPlayer.stop()
 		
 	# Find the XRToolsSceneBase ancestor of the current node
 	var scene_base : XRToolsSceneBase = XRTools.find_xr_ancestor(self, "*", "XRToolsSceneBase")
@@ -220,20 +220,30 @@ func _quit_collection():
 
 
 ####################################################################################################
-# Hides the tablet.
+# Resumes the voice audio.
 ####################################################################################################
-func _hide_tablet(_controller: XRController3D) -> void:
-	if tablet:
-		tablet.visible = false
-	if tablet_open_xr_composition_layer_quad:
-		tablet_open_xr_composition_layer_quad.visible = false
+func _resume_voice():
+	$AudioStreamPlayer.stream_paused = false
+		
+
+####################################################################################################
+# Pauses the voice audio.
+####################################################################################################
+func _pause_voice():
+	$AudioStreamPlayer.stream_paused = true
 
 
 ####################################################################################################
-# Shows the tablet.
+# Shows the tablet upon grip release
 ####################################################################################################
-func _show_tablet(_controller: XRController3D) -> void:
-	if tablet:
-		tablet.visible = true
-	if tablet_open_xr_composition_layer_quad:
-		tablet_open_xr_composition_layer_quad.visible = true
+func _model_gripped(gripped: bool):
+		if gripped:
+			if tablet:
+				tablet.visible = false
+			if tablet_open_xr_composition_layer_quad:
+				tablet_open_xr_composition_layer_quad.visible = false
+		else:
+			if tablet:
+				tablet.visible = true
+			if tablet_open_xr_composition_layer_quad:
+				tablet_open_xr_composition_layer_quad.visible = true
