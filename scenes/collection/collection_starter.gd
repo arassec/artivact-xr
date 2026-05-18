@@ -183,8 +183,8 @@ func _open_widget(widgetId):
 					widgetSceneData.primaryPanelScene = "uid://423w5nqiguav"
 					widgetSceneData.secondaryPanelScene = "uid://c4kqmp3ysj60r"
 				elif widget is ImageGalleryWidget:
-					widgetSceneData.primaryPanelScene = "uid://c2adlrcgfnenx"
-					widgetSceneData.secondaryPanelScene = "uid://bn16unntpl8nj"
+					widgetSceneData.primaryPanelScene = "uid://bn16unntpl8nj"
+					widgetSceneData.secondaryPanelScene = "uid://c2adlrcgfnenx"
 
 				var widgetAudioFile = PathUtil.get_file_path(ComponentType.WIDGET, widgetId, "content-audio")
 

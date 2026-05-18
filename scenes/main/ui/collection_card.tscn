@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccmhtwp6kpg8l"]
+[gd_scene format=3 uid="uid://ccmhtwp6kpg8l"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_05lk4"]
 [ext_resource type="Texture2D" uid="uid://c4nbm7sg8ugu4" path="res://assets/ui/icons/cloud_download_64dp_F5F5F5.svg" id="2_dgkuu"]
 [ext_resource type="Script" uid="uid://chebn6nmm5udh" path="res://scenes/main/ui/collection_card.gd" id="2_vw5af"]
 [ext_resource type="Texture2D" uid="uid://bp31ltdk55e77" path="res://assets/ui/icons/delete_64dp_F5F5F5.svg" id="4_v0hkc"]
 
-[node name="CollectionCard" type="Control"]
+[node name="CollectionCard" type="Control" unique_id=1186077391]
 custom_minimum_size = Vector2(480, 270)
 layout_mode = 3
 anchors_preset = 15
@@ -20,7 +20,7 @@ size_flags_vertical = 3
 theme = ExtResource("1_05lk4")
 script = ExtResource("2_vw5af")
 
-[node name="CardPanel" type="Panel" parent="."]
+[node name="CardPanel" type="Panel" parent="." unique_id=1276591098]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CardPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CardPanel" unique_id=1073922829]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,11 +40,11 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="CoverPictureTextureRect" type="TextureRect" parent="CardPanel/MarginContainer"]
+[node name="CoverPictureTextureRect" type="TextureRect" parent="CardPanel/MarginContainer" unique_id=195552931]
 layout_mode = 2
 expand_mode = 1
 
-[node name="ContentCoverColorRect" type="ColorRect" parent="CardPanel/MarginContainer/CoverPictureTextureRect"]
+[node name="ContentCoverColorRect" type="ColorRect" parent="CardPanel/MarginContainer/CoverPictureTextureRect" unique_id=1899555030]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.254902, 0.254902, 0.254902, 0.768627)
 
-[node name="MarginContainer" type="MarginContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect" unique_id=146761010]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,10 +65,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ContentContainer" type="VBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer"]
+[node name="ContentContainer" type="VBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer" unique_id=1864765772]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer"]
+[node name="TitleLabel" type="Label" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer" unique_id=740326774]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_vertical = 3
@@ -77,7 +77,7 @@ text = "Title"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer"]
+[node name="DescriptionLabel" type="Label" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer" unique_id=542103473]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 3
@@ -87,41 +87,41 @@ text = "Description"
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer" unique_id=769573146]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ActionBarsContainer" type="HBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer"]
+[node name="ActionBarsContainer" type="HBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer" unique_id=933626940]
 layout_mode = 2
 
-[node name="LeftActionBar" type="HBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer"]
+[node name="LeftActionBar" type="HBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer" unique_id=1639611769]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
 
-[node name="DetailsLabel" type="Label" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer/LeftActionBar"]
+[node name="DetailsLabel" type="Label" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer/LeftActionBar" unique_id=491699582]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Details"
 
-[node name="RightActionBar" type="HBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer"]
+[node name="RightActionBar" type="HBoxContainer" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer" unique_id=205564535]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
 alignment = 2
 
-[node name="DeleteButton" type="Button" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer/RightActionBar"]
+[node name="DeleteButton" type="Button" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer/RightActionBar" unique_id=1365298645]
 layout_mode = 2
 icon = ExtResource("4_v0hkc")
 
-[node name="DownloadTextureRect" type="TextureRect" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer/RightActionBar"]
+[node name="DownloadTextureRect" type="TextureRect" parent="CardPanel/MarginContainer/CoverPictureTextureRect/ContentCoverColorRect/MarginContainer/ContentContainer/MarginContainer/ActionBarsContainer/RightActionBar" unique_id=1307990295]
 layout_mode = 2
 texture = ExtResource("2_dgkuu")
 
-[node name="FallbackTitleLabel" type="Label" parent="CardPanel"]
+[node name="FallbackTitleLabel" type="Label" parent="CardPanel" unique_id=1174477819]
 visible = false
 layout_mode = 1
 anchors_preset = 15

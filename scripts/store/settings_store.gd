@@ -47,7 +47,7 @@ func _init():
 	if !userSettings.has(str(SettingType.MUSIC_ENABLED)):
 		userSettings[str(SettingType.MUSIC_ENABLED)] = true
 	if !userSettings.has(str(SettingType.MUSIC_VOLUME)):
-		userSettings[str(SettingType.MUSIC_VOLUME)] = 0.2
+		userSettings[str(SettingType.MUSIC_VOLUME)] = 0.1
 	if !userSettings.has(str(SettingType.FIRST_START)):
 		userSettings[str(SettingType.FIRST_START)] = true
 	if !userSettings.has(str(SettingType.LOCALE)):

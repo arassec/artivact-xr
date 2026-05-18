@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxi51ykm3xxbq"]
+[gd_scene format=3 uid="uid://cxi51ykm3xxbq"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_c1fvu"]
 [ext_resource type="Texture2D" uid="uid://5rm45lov2e7o" path="res://assets/ui/icons/navigate_before_64dp_F5F5F5.svg" id="2_d3fho"]
 [ext_resource type="Script" uid="uid://dr7pkrxbe6na8" path="res://scenes/common/ui/pagination_container.gd" id="2_n7vgj"]
 [ext_resource type="Texture2D" uid="uid://wapg2jl0dxga" path="res://assets/ui/icons/navigate_next_64dp_F5F5F5.svg" id="3_n7vgj"]
 
-[node name="PaginationContainer" type="Control"]
+[node name="PaginationContainer" type="Control" unique_id=1896244299]
 custom_minimum_size = Vector2(960, 540)
 layout_mode = 3
 anchors_preset = 15
@@ -18,7 +18,7 @@ size_flags_vertical = 3
 theme = ExtResource("1_c1fvu")
 script = ExtResource("2_n7vgj")
 
-[node name="ContentMargin" type="MarginContainer" parent="."]
+[node name="ContentMargin" type="MarginContainer" parent="." unique_id=1770226705]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,16 +30,16 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="ContentContainer" type="VBoxContainer" parent="ContentMargin"]
+[node name="ContentContainer" type="VBoxContainer" parent="ContentMargin" unique_id=1739253676]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="NoContentAvailablePanel" type="Panel" parent="ContentMargin/ContentContainer"]
+[node name="NoContentAvailablePanel" type="Panel" parent="ContentMargin/ContentContainer" unique_id=827899909]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel" unique_id=1718831866]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,57 +49,57 @@ grow_vertical = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer" unique_id=1160289811]
 layout_mode = 2
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer" unique_id=1388232535]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="NoContentAvailableLabel" type="Label" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="NoContentAvailableLabel" type="Label" parent="ContentMargin/ContentContainer/NoContentAvailablePanel/MarginContainer/VBoxContainer/MarginContainer" unique_id=1197577679]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "MAIN_ERROR_NO_CONTENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContentAnchor" type="GridContainer" parent="ContentMargin/ContentContainer"]
+[node name="ContentAnchor" type="GridContainer" parent="ContentMargin/ContentContainer" unique_id=947316704]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 25
 theme_override_constants/v_separation = 25
 columns = 2
 
-[node name="ActionBarContainer" type="HBoxContainer" parent="ContentMargin/ContentContainer"]
+[node name="ActionBarContainer" type="HBoxContainer" parent="ContentMargin/ContentContainer" unique_id=114048433]
 layout_mode = 2
 
-[node name="LeftActionsAnchor" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer"]
+[node name="LeftActionsAnchor" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer" unique_id=574367008]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
 
-[node name="Pager" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer"]
+[node name="Pager" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer" unique_id=1606639737]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="BeforeButton" type="Button" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager"]
+[node name="BeforeButton" type="Button" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager" unique_id=268297984]
 layout_mode = 2
 icon = ExtResource("2_d3fho")
 
-[node name="PageLabel" type="Label" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager"]
+[node name="PageLabel" type="Label" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager" unique_id=283079108]
 layout_mode = 2
 text = "0 / 0"
 
-[node name="NextButton" type="Button" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager"]
+[node name="NextButton" type="Button" parent="ContentMargin/ContentContainer/ActionBarContainer/Pager" unique_id=2086790819]
 layout_mode = 2
 icon = ExtResource("3_n7vgj")
 
-[node name="RightActionsAnchor" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer"]
+[node name="RightActionsAnchor" type="HBoxContainer" parent="ContentMargin/ContentContainer/ActionBarContainer" unique_id=338416505]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30

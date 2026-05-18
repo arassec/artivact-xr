@@ -47,6 +47,7 @@ func _update_widget_content(widgetSceneData: WidgetSceneData) -> void:
 
 func _remove_widget_content() -> void:
 	if secondarySceneInstance:
+		$FallbackPanel.visible = true
 		remove_child(secondarySceneInstance)
 		secondarySceneInstance.queue_free()
 		secondarySceneInstance = null
@@ -55,6 +56,7 @@ func _remove_widget_content() -> void:
 func _load_widget_scene(widgetSceneData: WidgetSceneData) -> void:
 	var secondaryScene: Resource = load(widgetSceneData.secondaryPanelScene)
 	if secondaryScene:
+		_remove_widget_content()
 		secondarySceneInstance = secondaryScene.instantiate()
 		secondarySceneInstance.initialize(widgetSceneData.widget)
 	sceneLoaded = true
