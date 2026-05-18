@@ -6,11 +6,11 @@
 
 [node name="WorkshopEnvironment" type="Node3D" unique_id=280878854]
 
-[node name="WorkshopModel" parent="." unique_id=1241899199 instance=ExtResource("1_nc6q1")]
+[node name="WorkshopModel" parent="." unique_id=1570635054 instance=ExtResource("1_nc6q1")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.0056729317, -0.0019518137, -1.0874462)
 
 [node name="GodotLogo" type="Sprite3D" parent="WorkshopModel" unique_id=1324479658]
-transform = Transform3D(-0.024287522, -0.0013008532, 0.0057813246, -0.00014282133, 0.024511607, 0.0049153487, -0.0059241494, 0.0047422377, -0.023820486, -1.2377543, 1.2020301, 1.3848251)
+transform = Transform3D(-0.020964924, 0.0024621917, -0.01339437, 1.9628827e-05, 0.02459347, 0.00449012, 0.01361878, 0.0037548835, -0.020625943, 1.3252535, 1.1733361, 1.3772515)
 double_sided = false
 texture = ExtResource("2_n1vf0")
 

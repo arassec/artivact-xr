@@ -1,24 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bn16unntpl8nj"]
+[gd_scene format=3 uid="uid://c2adlrcgfnenx"]
 
 [ext_resource type="Theme" uid="uid://dnh285uknn4tk" path="res://themes/default_ui.tres" id="1_w0c40"]
-[ext_resource type="PackedScene" uid="uid://cxi51ykm3xxbq" path="res://scenes/common/ui/pagination_container.tscn" id="2_bsa2w"]
-[ext_resource type="Script" uid="uid://vh6t4s7580dd" path="res://scenes/collection/widgets/image_gallery/image_gallery_secondary.gd" id="2_xm34u"]
-[ext_resource type="Shader" uid="uid://bobts0hp5x34i" path="res://shader/cursor.gdshader" id="3_xm34u"]
+[ext_resource type="Script" uid="uid://dosw831uyx2l6" path="res://scenes/collection/widgets/image_gallery/image_gallery_secondary.gd" id="2_xm34u"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nl771"]
-shader = ExtResource("3_xm34u")
-shader_parameter/color = Color(1, 1, 1, 1)
-
-[node name="ImageGallerySecondary" type="Control"]
+[node name="ImageGallerySecondary" type="Control" unique_id=875346887]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1280.0
-offset_bottom = 720.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_w0c40")
 script = ExtResource("2_xm34u")
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(700, 500)
+[node name="Panel" type="Panel" parent="." unique_id=321719190]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,14 +23,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PaginationContainer" parent="Panel" instance=ExtResource("2_bsa2w")]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=552863760]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 
-[node name="Cursor" type="ColorRect" parent="."]
-process_mode = 4
-material = SubResource("ShaderMaterial_nl771")
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer" unique_id=525489569]
+layout_mode = 2
 
-[editable path="Panel/PaginationContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/ScrollContainer" unique_id=1748988137]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="HeadingContainer" type="PanelContainer" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=932079946]
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+
+[node name="HeadingLabel" type="Label" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer/HeadingContainer" unique_id=1282736355]
+custom_minimum_size = Vector2(680, 62)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Text Widget Title"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContentContainer" type="PanelContainer" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=899632373]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="ContentLabel" type="Label" parent="Panel/MarginContainer/ScrollContainer/VBoxContainer/ContentContainer" unique_id=1937143142]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+autowrap_mode = 2

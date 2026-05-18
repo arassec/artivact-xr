@@ -1,7 +1,6 @@
 extends Node
 
 
-
 func initialize(widget: TextWidget):
 	if widget == null:
 		return
