@@ -31,7 +31,7 @@ jobs:
     steps:
       # Check out the default branch (not the tag) so we can push back
       - name: Checkout Default Branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.repository.default_branch }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -113,7 +113,7 @@ jobs:
     steps:
       # Check out the repository
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # If targeting android then install JDK
       - name: Set up JDK 17
