@@ -118,7 +118,7 @@ jobs:
       # If targeting android then install JDK
       - name: Set up JDK 17
         if: matrix.platform == 'android'
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           java-version: '17'
           distribution: 'temurin'
